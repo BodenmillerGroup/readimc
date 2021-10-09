@@ -108,9 +108,9 @@ class TXTFile:
                 f"TXT file '{self.path.name}' corrupted: "
                 "inconsistent acquisition image data size"
             )
-        img = np.reshape(data[:, 6:], (height, width, self.num_channels))
-        img = np.moveaxis(img, 2, 0)
-        return img
+        img = np.zeros((height, width, self.num_channels), dtype=np.float32)
+        img[data[:, 4].astype(int), data[:, 3].astype(int), :] = data[:, 6:]
+        return np.moveaxis(img, -1, 0)
 
     def _read_channels(self) -> Tuple[List[str], List[str]]:
         self._fh.seek(0)

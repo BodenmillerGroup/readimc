@@ -153,9 +153,9 @@ class MCDFile:
                 f"MCD file '{self.path.name}' corrupted: "
                 "inconsistent acquisition image data size"
             )
-        img = np.reshape(data[:, 3:], (height, width, num_channels))
-        img = np.moveaxis(img, 2, 0)
-        return img.copy()
+        img = np.zeros((height, width, num_channels), dtype=np.float32)
+        img[data[:, 1].astype(int), data[:, 0].astype(int), :] = data[:, 3:]
+        return np.moveaxis(img, -1, 0)
 
     def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
         """Reads and decodes a slide image as numpy array using the ``imageio``
