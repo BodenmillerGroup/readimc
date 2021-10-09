@@ -1,6 +1,6 @@
 # Welcome
 
-`readimc` is a Python package for reading Fluidigm&reg; Imaging Mass Cytometry&trade; (IMC&trade;) files
+`readimc` is a Python package for reading Fluidigm&reg; Imaging Mass Cytometry&trade; files
 
 ## Supported file types
 
