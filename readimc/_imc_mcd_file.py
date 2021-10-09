@@ -5,31 +5,27 @@ import xml.etree.ElementTree as ET
 
 from imageio import imread
 from os import PathLike
-from pathlib import Path
 from typing import BinaryIO, List, Optional, Sequence, Union
 
-from readimc._mcd_xml_parser import MCDXMLParser, MCDXMLParserError
+from readimc._imc_mcd_xml_parser import IMCMCDXMLParser, IMCMCDXMLParserError
 from readimc.data import Acquisition
 from readimc.data import Panorama
 from readimc.data import Slide
 
+import readimc
 
-class MCDFile:
+
+class IMCMCDFile(readimc.IMCFileBase):
     def __init__(self, path: Union[str, PathLike]) -> None:
-        """A class for reading Fluidigm(R) MCD(TM) files
+        """A class for reading Fluidigm(R) IMC(TM) MCD(TM) files
 
-        :param path: path to the Fluidigm(R) MCD(TM) file
+        :param path: path to the Fluidigm(R) IMC(TM) MCD(TM) file
         """
-        self._path = Path(path)
+        super(IMCMCDFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
         self._xml: Optional[ET.Element] = None
         self._xmlns: Optional[str] = None
         self._slides: Optional[List[Slide]] = None
-
-    @property
-    def path(self) -> Path:
-        """Path to the Fluidigm(R) MCD(TM) file"""
-        return self._path
 
     @property
     def xml(self) -> ET.Element:
@@ -48,12 +44,13 @@ class MCDFile:
 
     @property
     def slides(self) -> Sequence[Slide]:
-        """Metadata on slides contained in this Fluidigm(R) MCD(TM) file"""
+        """Metadata on slides contained in this Fluidigm(R) IMC(TM) MCD(TM)
+        file"""
         if self._slides is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         return self._slides
 
-    def __enter__(self) -> "MCDFile":
+    def __enter__(self) -> "IMCMCDFile":
         self.open()
         return self
 
@@ -61,13 +58,13 @@ class MCDFile:
         self.close()
 
     def open(self) -> None:
-        """Opens the Fluidigm(R) MCD(TM) file for reading.
+        """Opens the Fluidigm(R) IMC(TM) MCD(TM) file for reading.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with MCDFile("/path/to/file.mcd") as f:
+            with IMCMCDFile("/path/to/file.mcd") as f:
                 pass
 
         """
@@ -76,23 +73,23 @@ class MCDFile:
         self._fh = open(self._path, mode="rb")
         self._xml = self._read_xml()
         self._xmlns = self._get_xmlns(self.xml)
-        mcd_xml_parser = MCDXMLParser(self.xml, default_namespace=self.xmlns)
+        xml_parser = IMCMCDXMLParser(self.xml, default_namespace=self.xmlns)
         try:
-            self._slides = mcd_xml_parser.parse_slides()
-        except MCDXMLParserError as e:
+            self._slides = xml_parser.parse_slides()
+        except IMCMCDXMLParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
                 "error parsing slide information from MCD-XML"
             ) from e
 
     def close(self) -> None:
-        """Closes the Fluidigm(R) MCD(TM) file.
+        """Closes the Fluidigm(R) IMC(TM) MCD(TM) file.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with MCDFile("/path/to/file.mcd") as f:
+            with IMCMCDFile("/path/to/file.mcd") as f:
                 pass
 
         """
@@ -162,11 +159,10 @@ class MCDFile:
         package.
 
         .. note::
-            Slide images are stored as binary data segments within the
-            Fluidigm(R) MCD(TM) file in an arbitrary encoding. The ``imageio``
+            Slide images are stored as binary data within the Fluidigm(R)
+            IMC(TM) MCD(TM) file in an arbitrary encoding. The ``imageio``
             package can decode most commonly used image file formats, but may
-            fail for more obscure ones, in which case an ``IOException`` is
-            raised.
+            fail for more obscure, in which case an ``IOException`` is raised.
 
         :param slide: the slide to read
         :return: the slide image, or ``None`` if no image is available for the

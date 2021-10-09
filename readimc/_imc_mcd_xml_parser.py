@@ -1,14 +1,14 @@
 from typing import Dict, List, Optional
 from xml.etree import ElementTree as ET
 
-from readimc.data import Acquisition, Panorama, Slide
+import readimc.data
 
 
-class MCDXMLParserError(Exception):
+class IMCMCDXMLParserError(Exception):
     pass
 
 
-class MCDXMLParser:
+class IMCMCDXMLParser:
     def __init__(
         self,
         mcd_schema_elem: ET.Element,
@@ -17,7 +17,7 @@ class MCDXMLParser:
         self._mcd_schema_elem = mcd_schema_elem
         self._default_namespace = default_namespace
 
-    def parse_slides(self) -> List[Slide]:
+    def parse_slides(self) -> List[readimc.data.Slide]:
         slides = [
             self._parse_slide(slide_elem)
             for slide_elem in self._find_elements("Slide")
@@ -25,10 +25,10 @@ class MCDXMLParser:
         slides.sort(key=lambda slide: slide.id)
         return slides
 
-    def _parse_slide(self, slide_elem: ET.Element) -> Slide:
-        slide_panoramas: List[Panorama] = []
-        slide_acquisitions: List[Acquisition] = []
-        slide = Slide(
+    def _parse_slide(self, slide_elem: ET.Element) -> readimc.data.Slide:
+        slide_panoramas: List[readimc.data.Panorama] = []
+        slide_acquisitions: List[readimc.data.Acquisition] = []
+        slide = readimc.data.Slide(
             self._get_text_as_int(slide_elem, "ID"),
             self._get_metadata_dict(slide_elem),
             slide_panoramas,
@@ -61,20 +61,20 @@ class MCDXMLParser:
         return slide
 
     def _parse_panorama(
-        self, panorama_elem: ET.Element, slide: Slide
-    ) -> Panorama:
-        return Panorama(
+        self, panorama_elem: ET.Element, slide: readimc.data.Slide
+    ) -> readimc.data.Panorama:
+        return readimc.data.Panorama(
             slide,
             self._get_text_as_int(panorama_elem, "ID"),
             self._get_metadata_dict(panorama_elem),
         )
 
     def _parse_acquisition(
-        self, acquisition_elem: ET.Element, slide: Slide
-    ) -> Acquisition:
+        self, acquisition_elem: ET.Element, slide: readimc.data.Slide
+    ) -> readimc.data.Acquisition:
         acquisition_channel_names: List[str] = []
         acquisition_channel_labels: List[str] = []
-        acquisition = Acquisition(
+        acquisition = readimc.data.Acquisition(
             slide,
             self._get_text_as_int(acquisition_elem, "ID"),
             self._get_metadata_dict(acquisition_elem),
@@ -99,7 +99,7 @@ class MCDXMLParser:
             acquisition_channel_names.append(channel_name)
             acquisition_channel_labels.append(channel_label)
         if tuple(acquisition_channel_names[:3]) != ("X", "Y", "Z"):
-            raise MCDXMLParserError(
+            raise IMCMCDXMLParserError(
                 f"XYZ channels not found for acquisition {acquisition.id}"
             )
         del acquisition_channel_names[:3]
@@ -124,7 +124,7 @@ class MCDXMLParser:
     def _get_text(self, parent_elem: ET.Element, tag: str) -> str:
         text = self._get_text_or_none(parent_elem, tag)
         if text is None:
-            raise MCDXMLParserError(
+            raise IMCMCDXMLParserError(
                 f"XML tag '{tag}' not found "
                 f"for parent XML tag '{parent_elem.tag}'"
             )
@@ -135,7 +135,7 @@ class MCDXMLParser:
         try:
             return int(text)
         except ValueError as e:
-            raise MCDXMLParserError(
+            raise IMCMCDXMLParserError(
                 f"Text '{text}' of XML tag '{tag}' cannot be converted to int "
                 f"for parent XML tag '{parent_elem.tag}'"
             ) from e

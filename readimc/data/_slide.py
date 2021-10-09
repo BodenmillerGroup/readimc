@@ -1,11 +1,12 @@
-from typing import Dict, List, NamedTuple, Optional, TYPE_CHECKING
+from dataclasses import dataclass
+from typing import Dict, List, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from readimc.data import Acquisition
-    from readimc.data import Panorama
+    import readimc.data
 
 
-class Slide(NamedTuple):
+@dataclass(frozen=True)
+class Slide:
     """Slide metadata"""
 
     id: int
@@ -14,10 +15,10 @@ class Slide(NamedTuple):
     metadata: Dict[str, str]
     """Full slide metadata"""
 
-    panoramas: List["Panorama"]
+    panoramas: List["readimc.data.Panorama"]
     """List of panoramas associated with this slide"""
 
-    acquisitions: List["Acquisition"]
+    acquisitions: List["readimc.data.Acquisition"]
     """List of acquisitions associated with this slide"""
 
     @property

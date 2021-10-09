@@ -1,13 +1,15 @@
-from typing import Dict, NamedTuple, Optional, TYPE_CHECKING
+from dataclasses import dataclass
+from typing import Dict, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from readimc.data import Slide
+    import readimc.data
 
 
-class Panorama(NamedTuple):
+@dataclass(frozen=True)
+class Panorama:
     """Panorama metadata (only for panoramas with panorama image data)"""
 
-    slide: "Slide"
+    slide: "readimc.data.Slide"
     """Parent slide"""
 
     id: int

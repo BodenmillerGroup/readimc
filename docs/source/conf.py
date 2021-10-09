@@ -61,8 +61,9 @@ autoapi_python_class_content = "init"
 autoapi_options = [
     "show-module-summary",
     "imported-members",
-    "inherited-members",
     "members",
     "undoc-members",
+    "inherited-members",
+    "show-inheritance",
 ]
 autodoc_typehints = "description"

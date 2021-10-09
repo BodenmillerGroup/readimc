@@ -1,13 +1,36 @@
-from typing import Dict, List, NamedTuple, Optional, TYPE_CHECKING
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Dict, List, Optional, TYPE_CHECKING, Sequence
 
 if TYPE_CHECKING:
-    from readimc.data import Slide
+    import readimc.data
 
 
-class Acquisition(NamedTuple):
+class AcquisitionBase(ABC):
+    """Shared IMC(TM) acquisition metadata interface"""
+    @property
+    @abstractmethod
+    def channel_names(self) -> Sequence[str]:
+        """List of channel names (i.e., metal isotopes)"""
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def channel_labels(self) -> Sequence[str]:
+        """List of channel labels (i.e., user-provided target descriptions)"""
+        raise NotImplementedError()
+
+    @property
+    def num_channels(self) -> int:
+        """Number of channels"""
+        return len(self.channel_names)
+
+
+@dataclass(frozen=True)
+class Acquisition(AcquisitionBase):
     """IMC(TM) acquisition metadata"""
 
-    slide: "Slide"
+    slide: "readimc.data.Slide"
     """Parent slide"""
 
     id: int
@@ -16,11 +39,16 @@ class Acquisition(NamedTuple):
     metadata: Dict[str, str]
     """Full acquisition metadata"""
 
-    channel_names: List[str]
-    """List of channel names (i.e., metal isotopes)"""
+    _channel_names: List[str]
+    _channel_labels: List[str]
 
-    channel_labels: List[str]
-    """List of channel labels (i.e., user-provided target descriptions)"""
+    @property
+    def channel_names(self) -> Sequence[str]:
+        return self._channel_names
+
+    @property
+    def channel_labels(self) -> Sequence[str]:
+        return self._channel_labels
 
     @property
     def description(self) -> Optional[str]:
@@ -72,11 +100,6 @@ class Acquisition(NamedTuple):
         if None in (self.start_y_um, self.end_y_um):
             return None
         return abs(self.start_y_um - self.end_y_um)
-
-    @property
-    def num_channels(self) -> int:
-        """Number of channels"""
-        return len(self.channel_names)
 
     def __str__(self) -> str:
         return (

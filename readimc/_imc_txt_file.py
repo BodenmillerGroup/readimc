@@ -2,48 +2,36 @@ import numpy as np
 import re
 
 from os import PathLike
-from pathlib import Path
 from typing import BinaryIO, List, Optional, Sequence, Tuple, Union
 
+import readimc
+import readimc.data
 
-class TXTFile:
+
+class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
     def __init__(self, path: Union[str, PathLike]) -> None:
-        """A class for reading Fluidigm(R) TXT files
+        """A class for reading Fluidigm(R) IMC(TM) TXT files
 
-        :param path: path to the Fluidigm(R) TXT file
+        :param path: path to the Fluidigm(R) IMC(TM) TXT file
         """
-        self._path = Path(path)
+        super(IMCTXTFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
         self._channel_names: Optional[List[str]] = None
         self._channel_labels: Optional[List[str]] = None
 
     @property
-    def path(self) -> Path:
-        """Path to the Fluidigm(R) TXT file"""
-        return self._path
-
-    @property
     def channel_names(self) -> Sequence[str]:
-        """List of channel names (i.e., metal isotopes)"""
         if self._channel_names is None:
             raise IOError(f"TXT file '{self.path.name}' has not been opened")
         return self._channel_names
 
     @property
     def channel_labels(self) -> Sequence[str]:
-        """List of channel labels (i.e., user-provided target descriptions)"""
         if self._channel_labels is None:
             raise IOError(f"TXT file '{self.path.name}' has not been opened")
         return self._channel_labels
 
-    @property
-    def num_channels(self) -> int:
-        """Number of channels"""
-        if self._channel_names is None:
-            raise IOError(f"TXT file '{self.path.name}' has not been opened")
-        return len(self._channel_names)
-
-    def __enter__(self) -> "TXTFile":
+    def __enter__(self) -> "IMCTXTFile":
         self.open()
         return self
 
@@ -51,13 +39,13 @@ class TXTFile:
         self.close()
 
     def open(self) -> None:
-        """Opens the Fluidigm(R) TXT file for reading.
+        """Opens the Fluidigm(R) IMC(TM) TXT file for reading.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with TXTFile("/path/to/file.txt") as f:
+            with IMCTXTFile("/path/to/file.txt") as f:
                 pass
 
         """
@@ -67,13 +55,13 @@ class TXTFile:
         self._channel_names, self._channel_labels = self._read_channels()
 
     def close(self) -> None:
-        """Closes the Fluidigm(R) TXT file.
+        """Closes the Fluidigm(R) IMC(TM) TXT file.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with TXTFile("/path/to/file.txt") as f:
+            with IMCTXTFile("/path/to/file.txt") as f:
                 pass
 
         """
@@ -88,7 +76,7 @@ class TXTFile:
 
         .. note::
             This function takes a variable number of arguments for
-            compatibility with ``MCDFile``.
+            compatibility with ``IMCMCDFile``.
 
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)
