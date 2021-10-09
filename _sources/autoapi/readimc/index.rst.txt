@@ -26,23 +26,42 @@ Classes
 
 .. autoapisummary::
 
-   readimc.TXTFile
-   readimc.MCDFile
+   readimc.IMCFileBase
+   readimc.IMCTXTFile
+   readimc.IMCMCDFile
 
 
 
 
-.. py:class:: TXTFile(path)
+.. py:class:: IMCFileBase(path)
 
-   A class for reading Fluidigm(R) TXT files
+   Bases: :py:obj:`abc.ABC`
 
-   :param path: path to the Fluidigm(R) TXT file
+   Shared Fluidigm(R) IMC(TM) file interface
 
    .. py:method:: path(self)
       :property:
 
-      Path to the Fluidigm(R) TXT file
+      Path to the Fluidigm(R) IMC(TM) file
 
+
+   .. py:method:: read_acquisition(self, *kwargs)
+      :abstractmethod:
+
+      Reads IMC(TM) acquisition data as numpy array.
+
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+
+.. py:class:: IMCTXTFile(path)
+
+   Bases: :py:obj:`readimc.IMCFileBase`, :py:obj:`readimc.data.AcquisitionBase`
+
+   A class for reading Fluidigm(R) IMC(TM) TXT files
+
+   :param path: path to the Fluidigm(R) IMC(TM) TXT file
 
    .. py:method:: channel_names(self)
       :property:
@@ -56,34 +75,28 @@ Classes
       List of channel labels (i.e., user-provided target descriptions)
 
 
-   .. py:method:: num_channels(self)
-      :property:
-
-      Number of channels
-
-
    .. py:method:: open(self)
 
-      Opens the Fluidigm(R) TXT file for reading.
+      Opens the Fluidigm(R) IMC(TM) TXT file for reading.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with TXTFile("/path/to/file.txt") as f:
+          with IMCTXTFile("/path/to/file.txt") as f:
               pass
 
 
 
    .. py:method:: close(self)
 
-      Closes the Fluidigm(R) TXT file.
+      Closes the Fluidigm(R) IMC(TM) TXT file.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with TXTFile("/path/to/file.txt") as f:
+          with IMCTXTFile("/path/to/file.txt") as f:
               pass
 
 
@@ -94,24 +107,32 @@ Classes
 
       .. note::
           This function takes a variable number of arguments for
-          compatibility with ``MCDFile``.
+          compatibility with ``IMCMCDFile``.
 
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
 
 
-
-.. py:class:: MCDFile(path)
-
-   A class for reading Fluidigm(R) MCD(TM) files
-
-   :param path: path to the Fluidigm(R) MCD(TM) file
-
    .. py:method:: path(self)
       :property:
 
-      Path to the Fluidigm(R) MCD(TM) file
+      Path to the Fluidigm(R) IMC(TM) file
 
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
+
+
+
+.. py:class:: IMCMCDFile(path)
+
+   Bases: :py:obj:`readimc.IMCFileBase`
+
+   A class for reading Fluidigm(R) IMC(TM) MCD(TM) files
+
+   :param path: path to the Fluidigm(R) IMC(TM) MCD(TM) file
 
    .. py:method:: xml(self)
       :property:
@@ -129,31 +150,32 @@ Classes
    .. py:method:: slides(self)
       :property:
 
-      Metadata on slides contained in this Fluidigm(R) MCD(TM) file
+      Metadata on slides contained in this Fluidigm(R) IMC(TM) MCD(TM)
+      file
 
 
    .. py:method:: open(self)
 
-      Opens the Fluidigm(R) MCD(TM) file for reading.
+      Opens the Fluidigm(R) IMC(TM) MCD(TM) file for reading.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with MCDFile("/path/to/file.mcd") as f:
+          with IMCMCDFile("/path/to/file.mcd") as f:
               pass
 
 
 
    .. py:method:: close(self)
 
-      Closes the Fluidigm(R) MCD(TM) file.
+      Closes the Fluidigm(R) IMC(TM) MCD(TM) file.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with MCDFile("/path/to/file.mcd") as f:
+          with IMCMCDFile("/path/to/file.mcd") as f:
               pass
 
 
@@ -173,11 +195,10 @@ Classes
       package.
 
       .. note::
-          Slide images are stored as binary data segments within the
-          Fluidigm(R) MCD(TM) file in an arbitrary encoding. The ``imageio``
+          Slide images are stored as binary data within the Fluidigm(R)
+          IMC(TM) MCD(TM) file in an arbitrary encoding. The ``imageio``
           package can decode most commonly used image file formats, but may
-          fail for more obscure ones, in which case an ``IOException`` is
-          raised.
+          fail for more obscure, in which case an ``IOException`` is raised.
 
       :param slide: the slide to read
       :return: the slide image, or ``None`` if no image is available for the
@@ -213,6 +234,12 @@ Classes
           after-ablation image
       :return: the after-ablation image as numpy array, or ``None`` if no
           after-ablation image is available for the specified acquisition
+
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) IMC(TM) file
 
 
 

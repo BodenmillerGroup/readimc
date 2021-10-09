@@ -1,9 +1,9 @@
 :orphan:
 
-:py:mod:`readimc._mcd_xml_parser`
-=================================
+:py:mod:`readimc._imc_mcd_xml_parser`
+=====================================
 
-.. py:module:: readimc._mcd_xml_parser
+.. py:module:: readimc._imc_mcd_xml_parser
 
 
 Module Contents
@@ -14,14 +14,14 @@ Classes
 
 .. autoapisummary::
 
-   readimc._mcd_xml_parser.MCDXMLParser
+   readimc._imc_mcd_xml_parser.IMCMCDXMLParser
 
 
 
 
-.. py:exception:: MCDXMLParserError
+.. py:exception:: IMCMCDXMLParserError
 
-
+   Bases: :py:obj:`Exception`
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -35,7 +35,7 @@ Classes
 
 
 
-.. py:class:: MCDXMLParser(mcd_schema_elem, default_namespace = None)
+.. py:class:: IMCMCDXMLParser(mcd_schema_elem, default_namespace = None)
 
    .. py:method:: parse_slides(self)
 

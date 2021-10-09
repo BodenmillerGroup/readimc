@@ -21,8 +21,6 @@ Classes
 
 .. py:class:: Slide
 
-
-
    Slide metadata
 
    .. py:attribute:: id

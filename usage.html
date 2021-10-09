@@ -97,13 +97,13 @@
   <section class="tex2jax_ignore mathjax_ignore" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">readimc</span></code> package exports two classes for reading Fluidigm® MCD™ and TXT files:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">readimc</span> <span class="kn">import</span> <span class="n">MCDFile</span><span class="p">,</span> <span class="n">TXTFile</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">readimc</span> <span class="kn">import</span> <span class="n">IMCMCDFile</span><span class="p">,</span> <span class="n">IMCTXTFile</span>
 </pre></div>
 </div>
 <section id="loading-fluidigm-txt-files">
 <h2>Loading Fluidigm® TXT files<a class="headerlink" href="#loading-fluidigm-txt-files" title="Permalink to this headline"></a></h2>
 <p>Fluidigm® TXT files can be loaded as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">TXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCTXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">channel_names</span><span class="p">)</span>  <span class="c1"># metals</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">channel_labels</span><span class="p">)</span>  <span class="c1"># targets</span>
 </pre></div>
@@ -111,7 +111,7 @@
 <section id="reading-imc-acquisitions">
 <h3>Reading IMC™ acquisitions<a class="headerlink" href="#reading-imc-acquisitions" title="Permalink to this headline"></a></h3>
 <p>The acquisition contained in a Fluidigm® TXT file can be read as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">TXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCTXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">()</span>  <span class="c1"># numpy array, shape: (c, y, x), dtype: float32</span>
 </pre></div>
 </div>
@@ -124,7 +124,7 @@
 <section id="loading-fluidigm-mcd-files">
 <h2>Loading Fluidigm® MCD™ files<a class="headerlink" href="#loading-fluidigm-mcd-files" title="Permalink to this headline"></a></h2>
 <p>Fluidigm® MCD™ files can be loaded as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">num_slides</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -135,7 +135,7 @@
 <section id="extracting-metadata">
 <h3>Extracting metadata<a class="headerlink" href="#extracting-metadata" title="Permalink to this headline"></a></h3>
 <p>Basic metadata on slides, panoramas and acquisitions can be accessed through properties:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="c1"># first slide</span>
     <span class="n">slide</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span>
@@ -165,10 +165,10 @@
 </pre></div>
 </div>
 <p>For a full list of available properties, please consult the API documentation of the <code class="docutils literal notranslate"><span class="pre">Slide</span></code>, <code class="docutils literal notranslate"><span class="pre">Panorama</span></code> and <code class="docutils literal notranslate"><span class="pre">Acquisition</span></code> classes (additional metadata is available through their <code class="docutils literal notranslate"><span class="pre">metadata</span></code> properties).</p>
-<p>The complete metadata embedded in Fluidigm® MCD™ files is accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.xml</span></code> (in proprietary Fluidigm® XML format) and can be converted to a text representation as follows:</p>
+<p>The complete metadata embedded in Fluidigm® MCD™ files is accessible through <code class="docutils literal notranslate"><span class="pre">IMCMCDFile.xml</span></code> (in proprietary Fluidigm® XML format) and can be converted to a text representation as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">ElementTree</span> <span class="k">as</span> <span class="n">ET</span>
 
-<span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">xml_as_str</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span>
         <span class="n">f</span><span class="o">.</span><span class="n">xml</span><span class="p">,</span>  <span class="c1"># ET.Element</span>
         <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;unicode&quot;</span><span class="p">,</span>
@@ -181,7 +181,7 @@
 <section id="reading-slide-images">
 <h3>Reading slide images<a class="headerlink" href="#reading-slide-images" title="Permalink to this headline"></a></h3>
 <p>Fluidigm® MCD™ files can store slide images uploaded by the user (e.g., photographs) or acquired by the instrument. For <a class="reference external" href="https://imageio.readthedocs.io/en/stable/formats.html">supported image file formats</a>, these images can be read as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">slide</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first slide</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_slide</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span>  <span class="c1"># numpy array or None</span>
 </pre></div>
@@ -190,20 +190,20 @@
 <section id="reading-panorama-images">
 <h3>Reading panorama images<a class="headerlink" href="#reading-panorama-images" title="Permalink to this headline"></a></h3>
 <p>Fluidigm® MCD™ files can contain zero or more panorama images acquired by the instrument, which can be read as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">panorama</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">panoramas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first panorama of first slide</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_panorama</span><span class="p">(</span><span class="n">panorama</span><span class="p">)</span>  <span class="c1"># numpy array</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">Slide.panoramas</span></code> only exposes panoramas for which panorama images are available. The raw metadata accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.xml</span></code> may contain additional panorama entries of type <code class="docutils literal notranslate"><span class="pre">&quot;Default&quot;</span></code> that represent “virtual” panoramas and do not correspond to actual images.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Slide.panoramas</span></code> only exposes panoramas for which panorama images are available. The raw metadata accessible through <code class="docutils literal notranslate"><span class="pre">IMCMCDFile.xml</span></code> may contain additional panorama entries of type <code class="docutils literal notranslate"><span class="pre">&quot;Default&quot;</span></code> that represent “virtual” panoramas and do not correspond to actual images.</p>
 </div>
 </section>
 <section id="id1">
 <h3>Reading IMC™ acquisitions<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>Fluidigm® MCD™ files can contain zero or more IMC™ acquisitions, which can be read as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">(</span><span class="n">acquisition</span><span class="p">)</span>  <span class="c1"># numpy array, shape: (c, y, x), dtype: float32</span>
 </pre></div>
@@ -212,7 +212,7 @@
 <section id="reading-before-after-ablation-images">
 <h3>Reading before/after-ablation images<a class="headerlink" href="#reading-before-after-ablation-images" title="Permalink to this headline"></a></h3>
 <p>The IMC™ instrument may be configured to acquire an optical image before/after each IMC™ acquisition. If available, these before/after-ablation images can be read as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
     <span class="n">before_ablation_img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_before_ablation_image</span><span class="p">(</span><span class="n">acquisition</span><span class="p">)</span>  <span class="c1"># numpy array or None</span>
     <span class="n">after_ablation_img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_after_ablation_image</span><span class="p">(</span><span class="n">acquisition</span><span class="p">)</span>  <span class="c1"># numpy array or None</span>

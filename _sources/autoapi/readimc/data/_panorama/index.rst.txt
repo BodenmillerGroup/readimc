@@ -21,8 +21,6 @@ Classes
 
 .. py:class:: Panorama
 
-
-
    Panorama metadata (only for panoramas with panorama image data)
 
    .. py:attribute:: slide

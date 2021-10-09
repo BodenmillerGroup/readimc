@@ -1,9 +1,9 @@
 :orphan:
 
-:py:mod:`readimc._txt_file`
-===========================
+:py:mod:`readimc._imc_txt_file`
+===============================
 
-.. py:module:: readimc._txt_file
+.. py:module:: readimc._imc_txt_file
 
 
 Module Contents
@@ -14,22 +14,18 @@ Classes
 
 .. autoapisummary::
 
-   readimc._txt_file.TXTFile
+   readimc._imc_txt_file.IMCTXTFile
 
 
 
 
-.. py:class:: TXTFile(path)
+.. py:class:: IMCTXTFile(path)
 
-   A class for reading Fluidigm(R) TXT files
+   Bases: :py:obj:`readimc.IMCFileBase`, :py:obj:`readimc.data.AcquisitionBase`
 
-   :param path: path to the Fluidigm(R) TXT file
+   A class for reading Fluidigm(R) IMC(TM) TXT files
 
-   .. py:method:: path(self)
-      :property:
-
-      Path to the Fluidigm(R) TXT file
-
+   :param path: path to the Fluidigm(R) IMC(TM) TXT file
 
    .. py:method:: channel_names(self)
       :property:
@@ -43,34 +39,28 @@ Classes
       List of channel labels (i.e., user-provided target descriptions)
 
 
-   .. py:method:: num_channels(self)
-      :property:
-
-      Number of channels
-
-
    .. py:method:: open(self)
 
-      Opens the Fluidigm(R) TXT file for reading.
+      Opens the Fluidigm(R) IMC(TM) TXT file for reading.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with TXTFile("/path/to/file.txt") as f:
+          with IMCTXTFile("/path/to/file.txt") as f:
               pass
 
 
 
    .. py:method:: close(self)
 
-      Closes the Fluidigm(R) TXT file.
+      Closes the Fluidigm(R) IMC(TM) TXT file.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with TXTFile("/path/to/file.txt") as f:
+          with IMCTXTFile("/path/to/file.txt") as f:
               pass
 
 
@@ -81,10 +71,22 @@ Classes
 
       .. note::
           This function takes a variable number of arguments for
-          compatibility with ``MCDFile``.
+          compatibility with ``IMCMCDFile``.
 
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
+
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) IMC(TM) file
+
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
 
 
 

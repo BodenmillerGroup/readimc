@@ -1,0 +1,43 @@
+:orphan:
+
+:py:mod:`readimc._imc_file`
+===========================
+
+.. py:module:: readimc._imc_file
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc._imc_file.IMCFileBase
+
+
+
+
+.. py:class:: IMCFileBase(path)
+
+   Bases: :py:obj:`abc.ABC`
+
+   Shared Fluidigm(R) IMC(TM) file interface
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) IMC(TM) file
+
+
+   .. py:method:: read_acquisition(self, *kwargs)
+      :abstractmethod:
+
+      Reads IMC(TM) acquisition data as numpy array.
+
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+

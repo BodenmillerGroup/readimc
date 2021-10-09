@@ -1,9 +1,9 @@
 :orphan:
 
-:py:mod:`readimc._mcd_file`
-===========================
+:py:mod:`readimc._imc_mcd_file`
+===============================
 
-.. py:module:: readimc._mcd_file
+.. py:module:: readimc._imc_mcd_file
 
 
 Module Contents
@@ -14,22 +14,18 @@ Classes
 
 .. autoapisummary::
 
-   readimc._mcd_file.MCDFile
+   readimc._imc_mcd_file.IMCMCDFile
 
 
 
 
-.. py:class:: MCDFile(path)
+.. py:class:: IMCMCDFile(path)
 
-   A class for reading Fluidigm(R) MCD(TM) files
+   Bases: :py:obj:`readimc.IMCFileBase`
 
-   :param path: path to the Fluidigm(R) MCD(TM) file
+   A class for reading Fluidigm(R) IMC(TM) MCD(TM) files
 
-   .. py:method:: path(self)
-      :property:
-
-      Path to the Fluidigm(R) MCD(TM) file
-
+   :param path: path to the Fluidigm(R) IMC(TM) MCD(TM) file
 
    .. py:method:: xml(self)
       :property:
@@ -47,31 +43,32 @@ Classes
    .. py:method:: slides(self)
       :property:
 
-      Metadata on slides contained in this Fluidigm(R) MCD(TM) file
+      Metadata on slides contained in this Fluidigm(R) IMC(TM) MCD(TM)
+      file
 
 
    .. py:method:: open(self)
 
-      Opens the Fluidigm(R) MCD(TM) file for reading.
+      Opens the Fluidigm(R) IMC(TM) MCD(TM) file for reading.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with MCDFile("/path/to/file.mcd") as f:
+          with IMCMCDFile("/path/to/file.mcd") as f:
               pass
 
 
 
    .. py:method:: close(self)
 
-      Closes the Fluidigm(R) MCD(TM) file.
+      Closes the Fluidigm(R) IMC(TM) MCD(TM) file.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with MCDFile("/path/to/file.mcd") as f:
+          with IMCMCDFile("/path/to/file.mcd") as f:
               pass
 
 
@@ -91,11 +88,10 @@ Classes
       package.
 
       .. note::
-          Slide images are stored as binary data segments within the
-          Fluidigm(R) MCD(TM) file in an arbitrary encoding. The ``imageio``
+          Slide images are stored as binary data within the Fluidigm(R)
+          IMC(TM) MCD(TM) file in an arbitrary encoding. The ``imageio``
           package can decode most commonly used image file formats, but may
-          fail for more obscure ones, in which case an ``IOException`` is
-          raised.
+          fail for more obscure, in which case an ``IOException`` is raised.
 
       :param slide: the slide to read
       :return: the slide image, or ``None`` if no image is available for the
@@ -131,6 +127,12 @@ Classes
           after-ablation image
       :return: the after-ablation image as numpy array, or ``None`` if no
           after-ablation image is available for the specified acquisition
+
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) IMC(TM) file
 
 
 

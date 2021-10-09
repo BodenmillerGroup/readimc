@@ -20,13 +20,12 @@ Classes
    readimc.data.Slide
    readimc.data.Panorama
    readimc.data.Acquisition
+   readimc.data.AcquisitionBase
 
 
 
 
 .. py:class:: Slide
-
-
 
    Slide metadata
 
@@ -74,8 +73,6 @@ Classes
 
 
 .. py:class:: Panorama
-
-
 
    Panorama metadata (only for panoramas with panorama image data)
 
@@ -166,7 +163,7 @@ Classes
 
 .. py:class:: Acquisition
 
-
+   Bases: :py:obj:`AcquisitionBase`
 
    IMC(TM) acquisition metadata
 
@@ -188,14 +185,14 @@ Classes
       Full acquisition metadata
 
 
-   .. py:attribute:: channel_names
-      :annotation: :List[str]
+   .. py:method:: channel_names(self)
+      :property:
 
       List of channel names (i.e., metal isotopes)
 
 
-   .. py:attribute:: channel_labels
-      :annotation: :List[str]
+   .. py:method:: channel_labels(self)
+      :property:
 
       List of channel labels (i.e., user-provided target descriptions)
 
@@ -240,6 +237,31 @@ Classes
       :property:
 
       Acquisition height, in micrometers
+
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
+
+
+
+.. py:class:: AcquisitionBase
+
+   Bases: :py:obj:`abc.ABC`
+
+   Shared IMC(TM) acquisition metadata interface
+
+   .. py:method:: channel_names(self)
+      :property:
+
+      List of channel names (i.e., metal isotopes)
+
+
+   .. py:method:: channel_labels(self)
+      :property:
+
+      List of channel labels (i.e., user-provided target descriptions)
 
 
    .. py:method:: num_channels(self)

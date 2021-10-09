@@ -90,15 +90,59 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#readimc.data._acquisition.Acquisition" title="readimc.data._acquisition.Acquisition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Acquisition</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc.data._acquisition.AcquisitionBase" title="readimc.data._acquisition.AcquisitionBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AcquisitionBase</span></code></a></p></td>
+<td><p>Shared IMC(TM) acquisition metadata interface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#readimc.data._acquisition.Acquisition" title="readimc.data._acquisition.Acquisition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Acquisition</span></code></a></p></td>
 <td><p>IMC(TM) acquisition metadata</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
+<dt class="sig sig-object py" id="readimc.data._acquisition.AcquisitionBase">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc.data._acquisition.</span></span><span class="sig-name descname"><span class="pre">AcquisitionBase</span></span><a class="headerlink" href="#readimc.data._acquisition.AcquisitionBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Shared IMC(TM) acquisition metadata interface</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.AcquisitionBase.channel_names">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">channel_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.AcquisitionBase.channel_names" title="Permalink to this definition"></a></dt>
+<dd><p>List of channel names (i.e., metal isotopes)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequence[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.AcquisitionBase.channel_labels">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">channel_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.AcquisitionBase.channel_labels" title="Permalink to this definition"></a></dt>
+<dd><p>List of channel labels (i.e., user-provided target descriptions)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequence[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.AcquisitionBase.num_channels">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">num_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.AcquisitionBase.num_channels" title="Permalink to this definition"></a></dt>
+<dd><p>Number of channels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc.data._acquisition.</span></span><span class="sig-name descname"><span class="pre">Acquisition</span></span><a class="headerlink" href="#readimc.data._acquisition.Acquisition" title="Permalink to this definition"></a></dt>
-<dd><p>IMC(TM) acquisition metadata</p>
+<dd><p>Bases: <a class="reference internal" href="#readimc.data._acquisition.AcquisitionBase" title="readimc.data._acquisition.AcquisitionBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AcquisitionBase</span></code></a></p>
+<p>IMC(TM) acquisition metadata</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.slide">
 <span class="sig-name descname"><span class="pre">slide</span></span><em class="property"> <span class="pre">:readimc.data.Slide</span></em><a class="headerlink" href="#readimc.data._acquisition.Acquisition.slide" title="Permalink to this definition"></a></dt>
@@ -117,16 +161,26 @@
 <dd><p>Full acquisition metadata</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.channel_names">
-<span class="sig-name descname"><span class="pre">channel_names</span></span><em class="property"> <span class="pre">:List[str]</span></em><a class="headerlink" href="#readimc.data._acquisition.Acquisition.channel_names" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">channel_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.channel_names" title="Permalink to this definition"></a></dt>
 <dd><p>List of channel names (i.e., metal isotopes)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequence[str]</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.channel_labels">
-<span class="sig-name descname"><span class="pre">channel_labels</span></span><em class="property"> <span class="pre">:List[str]</span></em><a class="headerlink" href="#readimc.data._acquisition.Acquisition.channel_labels" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">channel_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.channel_labels" title="Permalink to this definition"></a></dt>
 <dd><p>List of channel labels (i.e., user-provided target descriptions)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequence[str]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

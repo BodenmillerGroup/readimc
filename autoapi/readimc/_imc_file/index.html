@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>readimc._mcd_xml_parser &mdash; readimc  documentation</title>
+  <title>readimc._imc_file &mdash; readimc  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -68,9 +68,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._mcd_xml_parser</span></code></li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._imc_file</span></code></li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/autoapi/readimc/_mcd_xml_parser/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/autoapi/readimc/_imc_file/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -78,8 +78,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-readimc._mcd_xml_parser">
-<span id="readimc-mcd-xml-parser"></span><h1><a class="reference internal" href="#module-readimc._mcd_xml_parser" title="readimc._mcd_xml_parser"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._mcd_xml_parser</span></code></a><a class="headerlink" href="#module-readimc._mcd_xml_parser" title="Permalink to this headline"></a></h1>
+  <section id="module-readimc._imc_file">
+<span id="readimc-imc-file"></span><h1><a class="reference internal" href="#module-readimc._imc_file" title="readimc._imc_file"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._imc_file</span></code></a><a class="headerlink" href="#module-readimc._imc_file" title="Permalink to this headline"></a></h1>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
 <section id="classes">
@@ -90,46 +90,43 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._mcd_xml_parser.MCDXMLParser" title="readimc._mcd_xml_parser.MCDXMLParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDXMLParser</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._imc_file.IMCFileBase" title="readimc._imc_file.IMCFileBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMCFileBase</span></code></a></p></td>
+<td><p>Shared Fluidigm(R) IMC(TM) file interface</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py exception">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParserError">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">MCDXMLParserError</span></span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParserError" title="Permalink to this definition"></a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParserError.args">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParserError.args" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParserError.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParserError.with_traceback" title="Permalink to this definition"></a></dt>
-<dd><p>Exception.with_traceback(tb) –
-set self.__traceback__ to tb and return self.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParser">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">MCDXMLParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mcd_schema_elem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParser" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="readimc._imc_file.IMCFileBase">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._imc_file.</span></span><span class="sig-name descname"><span class="pre">IMCFileBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_file.IMCFileBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Shared Fluidigm(R) IMC(TM) file interface</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mcd_schema_elem</strong> (<em>xml.etree.ElementTree.Element</em>) – </p></li>
-<li><p><strong>default_namespace</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>path</strong> (<em>pathlib.Path</em>) – </p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParser.parse_slides">
-<span class="sig-name descname"><span class="pre">parse_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParser.parse_slides" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="readimc._imc_file.IMCFileBase.path">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_file.IMCFileBase.path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to the Fluidigm(R) IMC(TM) file</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="../data/index.html#readimc.data.Slide" title="readimc.data.Slide">readimc.data.Slide</a>]</p>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc._imc_file.IMCFileBase.read_acquisition">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">read_acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_file.IMCFileBase.read_acquisition" title="Permalink to this definition"></a></dt>
+<dd><p>Reads IMC(TM) acquisition data as numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the acquisition data as 32-bit floating point array,
+shape: (c, y, x)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
