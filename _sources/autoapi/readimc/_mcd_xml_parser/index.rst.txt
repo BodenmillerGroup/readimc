@@ -1,0 +1,43 @@
+:orphan:
+
+:py:mod:`readimc._mcd_xml_parser`
+=================================
+
+.. py:module:: readimc._mcd_xml_parser
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc._mcd_xml_parser.MCDXMLParser
+
+
+
+
+.. py:exception:: MCDXMLParserError
+
+
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+   .. py:class:: args
+
+
+   .. py:method:: with_traceback()
+
+      Exception.with_traceback(tb) --
+      set self.__traceback__ to tb and return self.
+
+
+
+.. py:class:: MCDXMLParser(mcd_schema_elem, default_namespace = None)
+
+   .. py:method:: parse_slides(self)
+
+
+

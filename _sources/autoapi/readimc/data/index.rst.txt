@@ -1,0 +1,251 @@
+:py:mod:`readimc.data`
+======================
+
+.. py:module:: readimc.data
+
+.. autoapi-nested-parse::
+
+   Fluidigm(R) Imaging Mass Cytometry(TM) metadata classes
+
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc.data.Slide
+   readimc.data.Panorama
+   readimc.data.Acquisition
+
+
+
+
+.. py:class:: Slide
+
+
+
+   Slide metadata
+
+   .. py:attribute:: id
+      :annotation: :int
+
+      Slide ID
+
+
+   .. py:attribute:: metadata
+      :annotation: :Dict[str, str]
+
+      Full slide metadata
+
+
+   .. py:attribute:: panoramas
+      :annotation: :List[readimc.data.Panorama]
+
+      List of panoramas associated with this slide
+
+
+   .. py:attribute:: acquisitions
+      :annotation: :List[readimc.data.Acquisition]
+
+      List of acquisitions associated with this slide
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided slide description
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Slide width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Slide height, in micrometers
+
+
+
+.. py:class:: Panorama
+
+
+
+   Panorama metadata (only for panoramas with panorama image data)
+
+   .. py:attribute:: slide
+      :annotation: :readimc.data.Slide
+
+      Parent slide
+
+
+   .. py:attribute:: id
+      :annotation: :int
+
+      Panorama ID
+
+
+   .. py:attribute:: metadata
+      :annotation: :Dict[str, str]
+
+      Full panorama metadata
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided panorama description
+
+
+   .. py:method:: x1_um(self)
+      :property:
+
+      Panorama coordinate 1 (x-axis), in micrometers
+
+
+   .. py:method:: y1_um(self)
+      :property:
+
+      Panorama coordinate 1 (y-axis), in micrometers
+
+
+   .. py:method:: x2_um(self)
+      :property:
+
+      Panorama coordinate 2 (x-axis), in micrometers
+
+
+   .. py:method:: y2_um(self)
+      :property:
+
+      Panorama coordinate 2 (y-axis), in micrometers
+
+
+   .. py:method:: x3_um(self)
+      :property:
+
+      Panorama coordinate 3 (x-axis), in micrometers
+
+
+   .. py:method:: y3_um(self)
+      :property:
+
+      Panorama coordinate 3 (y-axis), in micrometers
+
+
+   .. py:method:: x4_um(self)
+      :property:
+
+      Panorama coordinate 4 (x-axis), in micrometers
+
+
+   .. py:method:: y4_um(self)
+      :property:
+
+      Panorama coordinate 4 (y-axis), in micrometers
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Panorama width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Panorama height, in micrometers
+
+
+
+.. py:class:: Acquisition
+
+
+
+   IMC(TM) acquisition metadata
+
+   .. py:attribute:: slide
+      :annotation: :readimc.data.Slide
+
+      Parent slide
+
+
+   .. py:attribute:: id
+      :annotation: :int
+
+      Acquisition ID
+
+
+   .. py:attribute:: metadata
+      :annotation: :Dict[str, str]
+
+      Full acquisition metadata
+
+
+   .. py:attribute:: channel_names
+      :annotation: :List[str]
+
+      List of channel names (i.e., metal isotopes)
+
+
+   .. py:attribute:: channel_labels
+      :annotation: :List[str]
+
+      List of channel labels (i.e., user-provided target descriptions)
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided acquisition description
+
+
+   .. py:method:: start_x_um(self)
+      :property:
+
+      Acquisition start coordinate (x-axis), in micrometers
+
+
+   .. py:method:: start_y_um(self)
+      :property:
+
+      Acquisition start coordinate (y-axis), in micrometers
+
+
+   .. py:method:: end_x_um(self)
+      :property:
+
+      Acquisition end coordinate (x-axis), in micrometers
+
+
+   .. py:method:: end_y_um(self)
+      :property:
+
+      Acquisition end coordinate (y-axis), in micrometers
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Acquisition width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Acquisition height, in micrometers
+
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
+
+
+

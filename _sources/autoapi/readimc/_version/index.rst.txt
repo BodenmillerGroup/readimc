@@ -1,0 +1,21 @@
+:orphan:
+
+:py:mod:`readimc._version`
+==========================
+
+.. py:module:: readimc._version
+
+
+Module Contents
+---------------
+
+.. py:data:: version
+   :annotation: = 0.1.dev1+g3b8c64b
+
+   
+
+.. py:data:: version_tuple
+   :annotation: = [0, 1, 'dev1', 'g3b8c64b']
+
+   
+

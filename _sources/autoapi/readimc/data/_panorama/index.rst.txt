@@ -1,0 +1,112 @@
+:orphan:
+
+:py:mod:`readimc.data._panorama`
+================================
+
+.. py:module:: readimc.data._panorama
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc.data._panorama.Panorama
+
+
+
+
+.. py:class:: Panorama
+
+
+
+   Panorama metadata (only for panoramas with panorama image data)
+
+   .. py:attribute:: slide
+      :annotation: :readimc.data.Slide
+
+      Parent slide
+
+
+   .. py:attribute:: id
+      :annotation: :int
+
+      Panorama ID
+
+
+   .. py:attribute:: metadata
+      :annotation: :Dict[str, str]
+
+      Full panorama metadata
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided panorama description
+
+
+   .. py:method:: x1_um(self)
+      :property:
+
+      Panorama coordinate 1 (x-axis), in micrometers
+
+
+   .. py:method:: y1_um(self)
+      :property:
+
+      Panorama coordinate 1 (y-axis), in micrometers
+
+
+   .. py:method:: x2_um(self)
+      :property:
+
+      Panorama coordinate 2 (x-axis), in micrometers
+
+
+   .. py:method:: y2_um(self)
+      :property:
+
+      Panorama coordinate 2 (y-axis), in micrometers
+
+
+   .. py:method:: x3_um(self)
+      :property:
+
+      Panorama coordinate 3 (x-axis), in micrometers
+
+
+   .. py:method:: y3_um(self)
+      :property:
+
+      Panorama coordinate 3 (y-axis), in micrometers
+
+
+   .. py:method:: x4_um(self)
+      :property:
+
+      Panorama coordinate 4 (x-axis), in micrometers
+
+
+   .. py:method:: y4_um(self)
+      :property:
+
+      Panorama coordinate 4 (y-axis), in micrometers
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Panorama width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Panorama height, in micrometers
+
+
+

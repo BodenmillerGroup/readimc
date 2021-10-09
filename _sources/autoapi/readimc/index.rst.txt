@@ -1,0 +1,218 @@
+:py:mod:`readimc`
+=================
+
+.. py:module:: readimc
+
+.. autoapi-nested-parse::
+
+   Python package for reading Fluidigm(R) Imaging Mass Cytometry(TM) files
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   data/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc.TXTFile
+   readimc.MCDFile
+
+
+
+
+.. py:class:: TXTFile(path)
+
+   A class for reading Fluidigm(R) TXT files
+
+   :param path: path to the Fluidigm(R) TXT file
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) TXT file
+
+
+   .. py:method:: channel_names(self)
+      :property:
+
+      List of channel names (i.e., metal isotopes)
+
+
+   .. py:method:: channel_labels(self)
+      :property:
+
+      List of channel labels (i.e., user-provided target descriptions)
+
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
+
+
+   .. py:method:: open(self)
+
+      Opens the Fluidigm(R) TXT file for reading.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with TXTFile("/path/to/file.txt") as f:
+              pass
+
+
+
+   .. py:method:: close(self)
+
+      Closes the Fluidigm(R) TXT file.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with TXTFile("/path/to/file.txt") as f:
+              pass
+
+
+
+   .. py:method:: read_acquisition(self, *args)
+
+      Reads IMC(TM) acquisition data as numpy array.
+
+      .. note::
+          This function takes a variable number of arguments for
+          compatibility with ``MCDFile``.
+
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+
+.. py:class:: MCDFile(path)
+
+   A class for reading Fluidigm(R) MCD(TM) files
+
+   :param path: path to the Fluidigm(R) MCD(TM) file
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) MCD(TM) file
+
+
+   .. py:method:: xml(self)
+      :property:
+
+      Full metadata in proprietary Fluidigm(R) XML format
+
+
+   .. py:method:: xmlns(self)
+      :property:
+
+      XML namespace of full metadata in proprietary Fluidigm(R) XML
+      format
+
+
+   .. py:method:: slides(self)
+      :property:
+
+      Metadata on slides contained in this Fluidigm(R) MCD(TM) file
+
+
+   .. py:method:: open(self)
+
+      Opens the Fluidigm(R) MCD(TM) file for reading.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with MCDFile("/path/to/file.mcd") as f:
+              pass
+
+
+
+   .. py:method:: close(self)
+
+      Closes the Fluidigm(R) MCD(TM) file.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with MCDFile("/path/to/file.mcd") as f:
+              pass
+
+
+
+   .. py:method:: read_acquisition(self, acquisition)
+
+      Reads IMC(TM) acquisition data as numpy array.
+
+      :param acquisition: the acquisition to read
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+   .. py:method:: read_slide(self, slide)
+
+      Reads and decodes a slide image as numpy array using the ``imageio``
+      package.
+
+      .. note::
+          Slide images are stored as binary data segments within the
+          Fluidigm(R) MCD(TM) file in an arbitrary encoding. The ``imageio``
+          package can decode most commonly used image file formats, but may
+          fail for more obscure ones, in which case an ``IOException`` is
+          raised.
+
+      :param slide: the slide to read
+      :return: the slide image, or ``None`` if no image is available for the
+          specified slide
+
+
+   .. py:method:: read_panorama(self, panorama)
+
+      Reads and decodes a panorama image as numpy array using the
+      ``imageio`` package.
+
+      :param panorama: the panorama to read
+      :return: the panorama image as numpy array
+
+
+   .. py:method:: read_before_ablation_image(self, acquisition)
+
+      Reads and decodes a before-ablation image as numpy array using the
+      ``imageio`` package.
+
+      :param acquisition: the acquisition for which to read the
+          before-ablation image
+      :return: the before-ablation image as numpy array, or ``None`` if no
+          before-ablation image is available for the specified acquisition
+
+
+   .. py:method:: read_after_ablation_image(self, acquisition)
+
+      Reads and decodes a after-ablation image as numpy array using the
+      ``imageio`` package.
+
+      :param acquisition: the acquisition for which to read the
+          after-ablation image
+      :return: the after-ablation image as numpy array, or ``None`` if no
+          after-ablation image is available for the specified acquisition
+
+
+

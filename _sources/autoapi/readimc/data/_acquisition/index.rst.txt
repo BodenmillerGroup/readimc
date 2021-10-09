@@ -1,0 +1,106 @@
+:orphan:
+
+:py:mod:`readimc.data._acquisition`
+===================================
+
+.. py:module:: readimc.data._acquisition
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc.data._acquisition.Acquisition
+
+
+
+
+.. py:class:: Acquisition
+
+
+
+   IMC(TM) acquisition metadata
+
+   .. py:attribute:: slide
+      :annotation: :readimc.data.Slide
+
+      Parent slide
+
+
+   .. py:attribute:: id
+      :annotation: :int
+
+      Acquisition ID
+
+
+   .. py:attribute:: metadata
+      :annotation: :Dict[str, str]
+
+      Full acquisition metadata
+
+
+   .. py:attribute:: channel_names
+      :annotation: :List[str]
+
+      List of channel names (i.e., metal isotopes)
+
+
+   .. py:attribute:: channel_labels
+      :annotation: :List[str]
+
+      List of channel labels (i.e., user-provided target descriptions)
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided acquisition description
+
+
+   .. py:method:: start_x_um(self)
+      :property:
+
+      Acquisition start coordinate (x-axis), in micrometers
+
+
+   .. py:method:: start_y_um(self)
+      :property:
+
+      Acquisition start coordinate (y-axis), in micrometers
+
+
+   .. py:method:: end_x_um(self)
+      :property:
+
+      Acquisition end coordinate (x-axis), in micrometers
+
+
+   .. py:method:: end_y_um(self)
+      :property:
+
+      Acquisition end coordinate (y-axis), in micrometers
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Acquisition width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Acquisition height, in micrometers
+
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
+
+
+

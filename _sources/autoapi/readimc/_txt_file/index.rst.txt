@@ -1,0 +1,90 @@
+:orphan:
+
+:py:mod:`readimc._txt_file`
+===========================
+
+.. py:module:: readimc._txt_file
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc._txt_file.TXTFile
+
+
+
+
+.. py:class:: TXTFile(path)
+
+   A class for reading Fluidigm(R) TXT files
+
+   :param path: path to the Fluidigm(R) TXT file
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) TXT file
+
+
+   .. py:method:: channel_names(self)
+      :property:
+
+      List of channel names (i.e., metal isotopes)
+
+
+   .. py:method:: channel_labels(self)
+      :property:
+
+      List of channel labels (i.e., user-provided target descriptions)
+
+
+   .. py:method:: num_channels(self)
+      :property:
+
+      Number of channels
+
+
+   .. py:method:: open(self)
+
+      Opens the Fluidigm(R) TXT file for reading.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with TXTFile("/path/to/file.txt") as f:
+              pass
+
+
+
+   .. py:method:: close(self)
+
+      Closes the Fluidigm(R) TXT file.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with TXTFile("/path/to/file.txt") as f:
+              pass
+
+
+
+   .. py:method:: read_acquisition(self, *args)
+
+      Reads IMC(TM) acquisition data as numpy array.
+
+      .. note::
+          This function takes a variable number of arguments for
+          compatibility with ``MCDFile``.
+
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+

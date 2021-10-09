@@ -1,0 +1,136 @@
+:orphan:
+
+:py:mod:`readimc._mcd_file`
+===========================
+
+.. py:module:: readimc._mcd_file
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc._mcd_file.MCDFile
+
+
+
+
+.. py:class:: MCDFile(path)
+
+   A class for reading Fluidigm(R) MCD(TM) files
+
+   :param path: path to the Fluidigm(R) MCD(TM) file
+
+   .. py:method:: path(self)
+      :property:
+
+      Path to the Fluidigm(R) MCD(TM) file
+
+
+   .. py:method:: xml(self)
+      :property:
+
+      Full metadata in proprietary Fluidigm(R) XML format
+
+
+   .. py:method:: xmlns(self)
+      :property:
+
+      XML namespace of full metadata in proprietary Fluidigm(R) XML
+      format
+
+
+   .. py:method:: slides(self)
+      :property:
+
+      Metadata on slides contained in this Fluidigm(R) MCD(TM) file
+
+
+   .. py:method:: open(self)
+
+      Opens the Fluidigm(R) MCD(TM) file for reading.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with MCDFile("/path/to/file.mcd") as f:
+              pass
+
+
+
+   .. py:method:: close(self)
+
+      Closes the Fluidigm(R) MCD(TM) file.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with MCDFile("/path/to/file.mcd") as f:
+              pass
+
+
+
+   .. py:method:: read_acquisition(self, acquisition)
+
+      Reads IMC(TM) acquisition data as numpy array.
+
+      :param acquisition: the acquisition to read
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+   .. py:method:: read_slide(self, slide)
+
+      Reads and decodes a slide image as numpy array using the ``imageio``
+      package.
+
+      .. note::
+          Slide images are stored as binary data segments within the
+          Fluidigm(R) MCD(TM) file in an arbitrary encoding. The ``imageio``
+          package can decode most commonly used image file formats, but may
+          fail for more obscure ones, in which case an ``IOException`` is
+          raised.
+
+      :param slide: the slide to read
+      :return: the slide image, or ``None`` if no image is available for the
+          specified slide
+
+
+   .. py:method:: read_panorama(self, panorama)
+
+      Reads and decodes a panorama image as numpy array using the
+      ``imageio`` package.
+
+      :param panorama: the panorama to read
+      :return: the panorama image as numpy array
+
+
+   .. py:method:: read_before_ablation_image(self, acquisition)
+
+      Reads and decodes a before-ablation image as numpy array using the
+      ``imageio`` package.
+
+      :param acquisition: the acquisition for which to read the
+          before-ablation image
+      :return: the before-ablation image as numpy array, or ``None`` if no
+          before-ablation image is available for the specified acquisition
+
+
+   .. py:method:: read_after_ablation_image(self, acquisition)
+
+      Reads and decodes a after-ablation image as numpy array using the
+      ``imageio`` package.
+
+      :param acquisition: the acquisition for which to read the
+          after-ablation image
+      :return: the after-ablation image as numpy array, or ``None`` if no
+          after-ablation image is available for the specified acquisition
+
+
+

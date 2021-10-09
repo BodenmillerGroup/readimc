@@ -1,0 +1,70 @@
+:orphan:
+
+:py:mod:`readimc.data._slide`
+=============================
+
+.. py:module:: readimc.data._slide
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc.data._slide.Slide
+
+
+
+
+.. py:class:: Slide
+
+
+
+   Slide metadata
+
+   .. py:attribute:: id
+      :annotation: :int
+
+      Slide ID
+
+
+   .. py:attribute:: metadata
+      :annotation: :Dict[str, str]
+
+      Full slide metadata
+
+
+   .. py:attribute:: panoramas
+      :annotation: :List[readimc.data.Panorama]
+
+      List of panoramas associated with this slide
+
+
+   .. py:attribute:: acquisitions
+      :annotation: :List[readimc.data.Acquisition]
+
+      List of acquisitions associated with this slide
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided slide description
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Slide width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Slide height, in micrometers
+
+
+
