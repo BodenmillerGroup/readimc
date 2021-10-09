@@ -14,5 +14,5 @@ Minor documentation changes
 Initial release
 
 
-[0.1.1]: https://github.com/BodenmillerGroup/steinbock/compare/v0.1.0...v0.1.1
+[0.1.1]: https://github.com/BodenmillerGroup/readimc/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/BodenmillerGroup/readimc/releases/tag/v0.1.0
