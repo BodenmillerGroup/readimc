@@ -26,22 +26,35 @@ Classes
 
    Shared IMC(TM) acquisition metadata interface
 
-   .. py:method:: channel_names(self)
+   .. py:method:: num_channels(self)
       :property:
 
-      List of channel names (i.e., metal isotopes)
+      Number of channels
+
+
+   .. py:method:: channel_metals(self)
+      :property:
+
+      Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
+
+
+   .. py:method:: channel_masses(self)
+      :property:
+
+      Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
    .. py:method:: channel_labels(self)
       :property:
 
-      List of channel labels (i.e., user-provided target descriptions)
+      Channel labels (user-provided)
 
 
-   .. py:method:: num_channels(self)
+   .. py:method:: channel_names(self)
       :property:
 
-      Number of channels
+      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+      ``["Ag107", "Ir191"]``)
 
 
 
@@ -69,16 +82,28 @@ Classes
       Full acquisition metadata
 
 
-   .. py:method:: channel_names(self)
+   .. py:method:: num_channels(self)
       :property:
 
-      List of channel names (i.e., metal isotopes)
+      Number of channels
+
+
+   .. py:method:: channel_metals(self)
+      :property:
+
+      Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
+
+
+   .. py:method:: channel_masses(self)
+      :property:
+
+      Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
    .. py:method:: channel_labels(self)
       :property:
 
-      List of channel labels (i.e., user-provided target descriptions)
+      Channel labels (user-provided)
 
 
    .. py:method:: description(self)
@@ -123,10 +148,11 @@ Classes
       Acquisition height, in micrometers
 
 
-   .. py:method:: num_channels(self)
+   .. py:method:: channel_names(self)
       :property:
 
-      Number of channels
+      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+      ``["Ag107", "Ir191"]``)
 
 
 
