@@ -90,24 +90,24 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._imc_mcd_xml_parser.IMCMCDXMLParser" title="readimc._imc_mcd_xml_parser.IMCMCDXMLParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMCMCDXMLParser</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._imc_mcd_xml_parser.IMCMcdXmlParser" title="readimc._imc_mcd_xml_parser.IMCMcdXmlParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMCMcdXmlParser</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py exception">
-<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMCDXMLParserError">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._imc_mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">IMCMCDXMLParserError</span></span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMCDXMLParserError" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMcdXmlParserError">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._imc_mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">IMCMcdXmlParserError</span></span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMcdXmlParserError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMCDXMLParserError.args">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMCDXMLParserError.args" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMcdXmlParserError.args">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMcdXmlParserError.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMCDXMLParserError.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMCDXMLParserError.with_traceback" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMcdXmlParserError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMcdXmlParserError.with_traceback" title="Permalink to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -115,8 +115,8 @@ set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMCDXMLParser">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._imc_mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">IMCMCDXMLParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mcd_schema_elem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMCDXMLParser" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMcdXmlParser">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._imc_mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">IMCMcdXmlParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mcd_schema_elem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMcdXmlParser" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -126,8 +126,8 @@ set self.__traceback__ to tb and return self.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMCDXMLParser.parse_slides">
-<span class="sig-name descname"><span class="pre">parse_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMCDXMLParser.parse_slides" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._imc_mcd_xml_parser.IMCMcdXmlParser.parse_slides">
+<span class="sig-name descname"><span class="pre">parse_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_xml_parser.IMCMcdXmlParser.parse_slides" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>List[<a class="reference internal" href="../data/index.html#readimc.data.Slide" title="readimc.data.Slide">readimc.data.Slide</a>]</p>

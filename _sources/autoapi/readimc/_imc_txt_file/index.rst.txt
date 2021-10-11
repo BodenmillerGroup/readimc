@@ -14,12 +14,12 @@ Classes
 
 .. autoapisummary::
 
-   readimc._imc_txt_file.IMCTXTFile
+   readimc._imc_txt_file.IMCTxtFile
 
 
 
 
-.. py:class:: IMCTXTFile(path)
+.. py:class:: IMCTxtFile(path)
 
    Bases: :py:obj:`readimc.IMCFileBase`, :py:obj:`readimc.data.AcquisitionBase`
 

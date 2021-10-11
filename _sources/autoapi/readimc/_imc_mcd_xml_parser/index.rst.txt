@@ -14,12 +14,12 @@ Classes
 
 .. autoapisummary::
 
-   readimc._imc_mcd_xml_parser.IMCMCDXMLParser
+   readimc._imc_mcd_xml_parser.IMCMcdXmlParser
 
 
 
 
-.. py:exception:: IMCMCDXMLParserError
+.. py:exception:: IMCMcdXmlParserError
 
    Bases: :py:obj:`Exception`
 
@@ -35,7 +35,7 @@ Classes
 
 
 
-.. py:class:: IMCMCDXMLParser(mcd_schema_elem, default_namespace = None)
+.. py:class:: IMCMcdXmlParser(mcd_schema_elem, default_namespace = None)
 
    .. py:method:: parse_slides(self)
 

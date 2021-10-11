@@ -27,8 +27,8 @@ Classes
 .. autoapisummary::
 
    readimc.IMCFileBase
-   readimc.IMCTXTFile
-   readimc.IMCMCDFile
+   readimc.IMCTxtFile
+   readimc.IMCMcdFile
 
 
 
@@ -55,7 +55,7 @@ Classes
 
 
 
-.. py:class:: IMCTXTFile(path)
+.. py:class:: IMCTxtFile(path)
 
    Bases: :py:obj:`readimc.IMCFileBase`, :py:obj:`readimc.data.AcquisitionBase`
 
@@ -139,7 +139,7 @@ Classes
 
 
 
-.. py:class:: IMCMCDFile(path)
+.. py:class:: IMCMcdFile(path)
 
    Bases: :py:obj:`readimc.IMCFileBase`
 
