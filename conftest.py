@@ -5,7 +5,7 @@ import shutil
 
 from pathlib import Path
 
-from readimc import IMCMCDFile, IMCTXTFile
+from readimc import IMCMcdFile, IMCTxtFile
 
 
 _imc_test_data_asset_url = (
@@ -39,16 +39,16 @@ def imc_test_data_raw_path(tmp_path_factory) -> Generator[Path, None, None]:
 @pytest.fixture
 def imc_test_data_mcd_file(
     imc_test_data_raw_path: Path,
-) -> Generator[IMCMCDFile, None, None]:
+) -> Generator[IMCMcdFile, None, None]:
     path = imc_test_data_raw_path / Path(_imc_test_data_mcd_file)
-    with IMCMCDFile(path) as f:
+    with IMCMcdFile(path) as f:
         yield f
 
 
 @pytest.fixture
 def imc_test_data_txt_file(
     imc_test_data_raw_path: Path,
-) -> Generator[IMCTXTFile, None, None]:
+) -> Generator[IMCTxtFile, None, None]:
     path = imc_test_data_raw_path / Path(_imc_test_data_txt_file)
-    with IMCTXTFile(path) as f:
+    with IMCTxtFile(path) as f:
         yield f

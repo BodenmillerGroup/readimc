@@ -1,13 +1,13 @@
 import numpy as np
 
-from readimc import IMCTXTFile
+from readimc import IMCTxtFile
 
 
 class TestIMCTXTFile:
-    def test_num_channels(self, imc_test_data_txt_file: IMCTXTFile):
+    def test_num_channels(self, imc_test_data_txt_file: IMCTxtFile):
         assert imc_test_data_txt_file.num_channels == 5
 
-    def test_channel_metals(self, imc_test_data_txt_file: IMCTXTFile):
+    def test_channel_metals(self, imc_test_data_txt_file: IMCTxtFile):
         assert tuple(imc_test_data_txt_file.channel_metals) == (
             "Ag",
             "Pr",
@@ -16,7 +16,7 @@ class TestIMCTXTFile:
             "Yb",
         )
 
-    def test_channel_masses(self, imc_test_data_txt_file: IMCTXTFile):
+    def test_channel_masses(self, imc_test_data_txt_file: IMCTxtFile):
         assert tuple(imc_test_data_txt_file.channel_masses) == (
             107,
             141,
@@ -25,7 +25,7 @@ class TestIMCTXTFile:
             172,
         )
 
-    def test_channel_labels(self, imc_test_data_txt_file: IMCTXTFile):
+    def test_channel_labels(self, imc_test_data_txt_file: IMCTxtFile):
         assert tuple(imc_test_data_txt_file.channel_labels) == (
             "107Ag",
             "Cytoker_651((3356))Pr141",
@@ -34,7 +34,7 @@ class TestIMCTXTFile:
             "H3K27Ac_1977((2242))Yb172",
         )
 
-    def test_channel_names(self, imc_test_data_txt_file: IMCTXTFile):
+    def test_channel_names(self, imc_test_data_txt_file: IMCTxtFile):
         assert tuple(imc_test_data_txt_file.channel_names) == (
             "Ag107",
             "Pr141",
@@ -43,7 +43,7 @@ class TestIMCTXTFile:
             "Yb172",
         )
 
-    def test_read_acquisition(self, imc_test_data_txt_file: IMCTXTFile):
+    def test_read_acquisition(self, imc_test_data_txt_file: IMCTxtFile):
         img = imc_test_data_txt_file.read_acquisition()
         assert img.dtype == np.float32
         assert img.shape == (5, 60, 60)

@@ -6,11 +6,11 @@ from xml.etree import ElementTree as ET
 import readimc.data
 
 
-class IMCMCDXMLParserError(Exception):
+class IMCMcdXmlParserError(Exception):
     pass
 
 
-class IMCMCDXMLParser:
+class IMCMcdXmlParser:
     _CHANNEL_REGEX = re.compile(r"^(?P<metal>[a-zA-Z]+)\((?P<mass>[0-9]+)\)$")
 
     def __init__(
@@ -104,22 +104,22 @@ class IMCMCDXMLParser:
                 acquisition_channel_elem, "ChannelName"
             )
             if i == 0 and channel_name != "X":
-                raise IMCMCDXMLParserError(
+                raise IMCMcdXmlParserError(
                     f"First channel '{channel_name}' should be named 'X'"
                 )
             if i == 1 and channel_name != "Y":
-                raise IMCMCDXMLParserError(
+                raise IMCMcdXmlParserError(
                     f"Second channel '{channel_name}' should be named 'Y'"
                 )
             if i == 2 and channel_name != "Z":
-                raise IMCMCDXMLParserError(
+                raise IMCMcdXmlParserError(
                     f"Third channel '{channel_name}' should be named 'Z'"
                 )
             if channel_name in ("X", "Y", "Z"):
                 continue
             m = re.match(self._CHANNEL_REGEX, channel_name)
             if m is None:
-                raise IMCMCDXMLParserError(
+                raise IMCMcdXmlParserError(
                     "Cannot extract channel information "
                     f"from channel name '{channel_name}' "
                     f"for acquisition {acquisition.id}"
@@ -150,7 +150,7 @@ class IMCMCDXMLParser:
     def _get_text(self, parent_elem: ET.Element, tag: str) -> str:
         text = self._get_text_or_none(parent_elem, tag)
         if text is None:
-            raise IMCMCDXMLParserError(
+            raise IMCMcdXmlParserError(
                 f"XML tag '{tag}' not found "
                 f"for parent XML tag '{parent_elem.tag}'"
             )
@@ -161,7 +161,7 @@ class IMCMCDXMLParser:
         try:
             return int(text)
         except ValueError as e:
-            raise IMCMCDXMLParserError(
+            raise IMCMcdXmlParserError(
                 f"Text '{text}' of XML tag '{tag}' cannot be converted to int "
                 f"for parent XML tag '{parent_elem.tag}'"
             ) from e

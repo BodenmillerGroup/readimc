@@ -7,7 +7,7 @@ from imageio import imread
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Union
 
-from readimc._imc_mcd_xml_parser import IMCMCDXMLParser, IMCMCDXMLParserError
+from readimc._imc_mcd_xml_parser import IMCMcdXmlParser, IMCMcdXmlParserError
 from readimc.data import Acquisition
 from readimc.data import Panorama
 from readimc.data import Slide
@@ -15,7 +15,7 @@ from readimc.data import Slide
 import readimc
 
 
-class IMCMCDFile(readimc.IMCFileBase):
+class IMCMcdFile(readimc.IMCFileBase):
     _XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
 
     def __init__(self, path: Union[str, PathLike]) -> None:
@@ -23,7 +23,7 @@ class IMCMCDFile(readimc.IMCFileBase):
 
         :param path: path to the Fluidigm(R) IMC(TM) MCD(TM) file
         """
-        super(IMCMCDFile, self).__init__(path)
+        super(IMCMcdFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
         self._xml: Optional[ET.Element] = None
         self._xmlns: Optional[str] = None
@@ -52,7 +52,7 @@ class IMCMCDFile(readimc.IMCFileBase):
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         return self._slides
 
-    def __enter__(self) -> "IMCMCDFile":
+    def __enter__(self) -> "IMCMcdFile":
         self.open()
         return self
 
@@ -75,10 +75,10 @@ class IMCMCDFile(readimc.IMCFileBase):
         self._fh = open(self._path, mode="rb")
         self._xml = self._read_xml()
         self._xmlns = self._get_xmlns(self.xml)
-        xml_parser = IMCMCDXMLParser(self.xml, default_namespace=self.xmlns)
+        xml_parser = IMCMcdXmlParser(self.xml, default_namespace=self.xmlns)
         try:
             self._slides = xml_parser.parse_slides()
-        except IMCMCDXMLParserError as e:
+        except IMCMcdXmlParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
                 "error parsing slide information from MCD-XML"
@@ -355,7 +355,7 @@ class IMCMCDFile(readimc.IMCFileBase):
 
     @staticmethod
     def _get_xmlns(elem: ET.Element) -> str:
-        m = re.match(IMCMCDFile._XMLNS_REGEX, elem.tag)
+        m = re.match(IMCMcdFile._XMLNS_REGEX, elem.tag)
         return m.group("xmlns") if m is not None else ""
 
     def __repr__(self) -> str:

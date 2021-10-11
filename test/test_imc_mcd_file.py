@@ -3,11 +3,11 @@ import numpy as np
 from hashlib import md5
 from xml.etree import ElementTree as ET
 
-from readimc import IMCMCDFile
+from readimc import IMCMcdFile
 
 
 class TestIMCMCDFile:
-    def test_xml(self, imc_test_data_mcd_file: IMCMCDFile):
+    def test_xml(self, imc_test_data_mcd_file: IMCMcdFile):
         mcd_xml = ET.tostring(
             imc_test_data_mcd_file.xml,
             encoding="us-ascii",
@@ -18,11 +18,11 @@ class TestIMCMCDFile:
         mcd_xml_digest = md5(mcd_xml).digest()
         assert mcd_xml_digest == b"D]\xfa\x15a\xb8\xe4\xb2z8od\x85c\xa9\xf9"
 
-    def test_xmlns(self, imc_test_data_mcd_file: IMCMCDFile):
+    def test_xmlns(self, imc_test_data_mcd_file: IMCMcdFile):
         mcd_xmlns = imc_test_data_mcd_file.xmlns
         assert mcd_xmlns == "http://www.fluidigm.com/IMC/MCDSchema_V2_0.xsd"
 
-    def test_slides(self, imc_test_data_mcd_file: IMCMCDFile):
+    def test_slides(self, imc_test_data_mcd_file: IMCMcdFile):
         assert len(imc_test_data_mcd_file.slides) == 1
 
         slide = imc_test_data_mcd_file.slides[0]
@@ -70,20 +70,20 @@ class TestIMCMCDFile:
             "Yb172",
         )
 
-    def test_read_acquisition(self, imc_test_data_mcd_file: IMCMCDFile):
+    def test_read_acquisition(self, imc_test_data_mcd_file: IMCMcdFile):
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
         img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
         assert img.dtype == np.float32
         assert img.shape == (5, 60, 60)
 
-    def test_read_slide(self, imc_test_data_mcd_file: IMCMCDFile):
+    def test_read_slide(self, imc_test_data_mcd_file: IMCMcdFile):
         slide = imc_test_data_mcd_file.slides[0]
         img = imc_test_data_mcd_file.read_slide(slide)
         assert img.dtype == np.uint8
         assert img.shape == (669, 2002, 4)
 
-    def test_read_panorama(self, imc_test_data_mcd_file: IMCMCDFile):
+    def test_read_panorama(self, imc_test_data_mcd_file: IMCMcdFile):
         slide = imc_test_data_mcd_file.slides[0]
         panorama = next(p for p in slide.panoramas if p.id == 1)
         img = imc_test_data_mcd_file.read_panorama(panorama)
@@ -91,7 +91,7 @@ class TestIMCMCDFile:
         assert img.shape == (162, 193, 4)
 
     def test_read_before_ablation_image(
-        self, imc_test_data_mcd_file: IMCMCDFile
+        self, imc_test_data_mcd_file: IMCMcdFile
     ):
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
@@ -99,7 +99,7 @@ class TestIMCMCDFile:
         assert img is None
 
     def test_read_after_ablation_image(
-        self, imc_test_data_mcd_file: IMCMCDFile
+        self, imc_test_data_mcd_file: IMCMcdFile
     ):
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)

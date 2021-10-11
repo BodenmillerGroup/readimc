@@ -8,7 +8,7 @@ import readimc
 import readimc.data
 
 
-class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
+class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
     _CHANNEL_REGEX = re.compile(
         r"^(?P<label>.*)\((?P<metal>[a-zA-Z]+)(?P<mass>[0-9]+)[^0-9]*\)$"
     )
@@ -18,7 +18,7 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
 
         :param path: path to the Fluidigm(R) IMC(TM) TXT file
         """
-        super(IMCTXTFile, self).__init__(path)
+        super(IMCTxtFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
         self._num_channels: Optional[int] = None
         self._channel_metals: Optional[List[str]] = None
@@ -49,7 +49,7 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
             raise IOError(f"TXT file '{self.path.name}' has not been opened")
         return self._channel_labels
 
-    def __enter__(self) -> "IMCTXTFile":
+    def __enter__(self) -> "IMCTxtFile":
         self.open()
         return self
 
