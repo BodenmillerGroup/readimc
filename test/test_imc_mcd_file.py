@@ -47,19 +47,27 @@ class TestIMCMCDFile:
         assert acquisition.width_um == 60.501000000000204
         assert acquisition.height_um == 58.719999999999345
         assert acquisition.num_channels == 5
-        assert tuple(acquisition._channel_names) == (
-            "Ag(107)",
-            "Pr(141)",
-            "Sm(147)",
-            "Eu(153)",
-            "Yb(172)",
+        assert tuple(acquisition.channel_metals) == (
+            "Ag",
+            "Pr",
+            "Sm",
+            "Eu",
+            "Yb",
         )
+        assert tuple(acquisition.channel_masses) == (107, 141, 147, 153, 172)
         assert tuple(acquisition._channel_labels) == (
             "107Ag",
             "Cytoker_651((3356))Pr141",
             "Laminin_681((851))Sm147",
             "YBX1_2987((3532))Eu153",
             "H3K27Ac_1977((2242))Yb172",
+        )
+        assert tuple(acquisition.channel_names) == (
+            "Ag107",
+            "Pr141",
+            "Sm147",
+            "Eu153",
+            "Yb172",
         )
 
     def test_read_acquisition(self, imc_test_data_mcd_file: IMCMCDFile):

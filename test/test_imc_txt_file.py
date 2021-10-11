@@ -4,13 +4,25 @@ from readimc import IMCTXTFile
 
 
 class TestIMCTXTFile:
-    def test_channel_names(self, imc_test_data_txt_file: IMCTXTFile):
-        assert tuple(imc_test_data_txt_file.channel_names) == (
-            "Ag(107)",
-            "Pr(141)",
-            "Sm(147)",
-            "Eu(153)",
-            "Yb(172)",
+    def test_num_channels(self, imc_test_data_txt_file: IMCTXTFile):
+        assert imc_test_data_txt_file.num_channels == 5
+
+    def test_channel_metals(self, imc_test_data_txt_file: IMCTXTFile):
+        assert tuple(imc_test_data_txt_file.channel_metals) == (
+            "Ag",
+            "Pr",
+            "Sm",
+            "Eu",
+            "Yb",
+        )
+
+    def test_channel_masses(self, imc_test_data_txt_file: IMCTXTFile):
+        assert tuple(imc_test_data_txt_file.channel_masses) == (
+            107,
+            141,
+            147,
+            153,
+            172,
         )
 
     def test_channel_labels(self, imc_test_data_txt_file: IMCTXTFile):
@@ -22,8 +34,14 @@ class TestIMCTXTFile:
             "H3K27Ac_1977((2242))Yb172",
         )
 
-    def test_num_channels(self, imc_test_data_txt_file: IMCTXTFile):
-        assert imc_test_data_txt_file.num_channels == 5
+    def test_channel_names(self, imc_test_data_txt_file: IMCTXTFile):
+        assert tuple(imc_test_data_txt_file.channel_names) == (
+            "Ag107",
+            "Pr141",
+            "Sm147",
+            "Eu153",
+            "Yb172",
+        )
 
     def test_read_acquisition(self, imc_test_data_txt_file: IMCTXTFile):
         img = imc_test_data_txt_file.read_acquisition()

@@ -1,3 +1,5 @@
+import re
+
 from typing import Dict, List, Optional
 from xml.etree import ElementTree as ET
 
@@ -9,6 +11,8 @@ class IMCMCDXMLParserError(Exception):
 
 
 class IMCMCDXMLParser:
+    _CHANNEL_REGEX = re.compile(r"^(?P<metal>[a-zA-Z]+)\((?P<mass>[0-9]+)\)$")
+
     def __init__(
         self,
         mcd_schema_elem: ET.Element,
@@ -72,38 +76,60 @@ class IMCMCDXMLParser:
     def _parse_acquisition(
         self, acquisition_elem: ET.Element, slide: readimc.data.Slide
     ) -> readimc.data.Acquisition:
-        acquisition_channel_names: List[str] = []
-        acquisition_channel_labels: List[str] = []
-        acquisition = readimc.data.Acquisition(
-            slide,
-            self._get_text_as_int(acquisition_elem, "ID"),
-            self._get_metadata_dict(acquisition_elem),
-            acquisition_channel_names,
-            acquisition_channel_labels,
-        )
+        acquisition_id = self._get_text_as_int(acquisition_elem, "ID")
         acquisition_channel_elems = self._find_elements(
-            f"AcquisitionChannel[AcquisitionID='{acquisition.id}']"
+            f"AcquisitionChannel[AcquisitionID='{acquisition_id}']"
         )
         acquisition_channel_elems.sort(
             key=lambda acquisition_channel_elem: self._get_text_as_int(
                 acquisition_channel_elem, "OrderNumber"
             )
         )
-        for acquisition_channel_elem in acquisition_channel_elems:
+        acquisition_channel_metals: List[str] = []
+        acquisition_channel_masses: List[int] = []
+        acquisition_channel_labels: List[str] = []
+        acquisition = readimc.data.Acquisition(
+            slide,
+            acquisition_id,
+            self._get_metadata_dict(acquisition_elem),
+            len(acquisition_channel_elems) - 3,
+            acquisition_channel_metals,
+            acquisition_channel_masses,
+            acquisition_channel_labels,
+        )
+        for i, acquisition_channel_elem in enumerate(
+            acquisition_channel_elems
+        ):
             channel_name = self._get_text(
                 acquisition_channel_elem, "ChannelName"
             )
+            if i == 0 and channel_name != "X":
+                raise IMCMCDXMLParserError(
+                    f"First channel '{channel_name}' should be named 'X'"
+                )
+            if i == 1 and channel_name != "Y":
+                raise IMCMCDXMLParserError(
+                    f"Second channel '{channel_name}' should be named 'Y'"
+                )
+            if i == 2 and channel_name != "Z":
+                raise IMCMCDXMLParserError(
+                    f"Third channel '{channel_name}' should be named 'Z'"
+                )
+            if channel_name in ("X", "Y", "Z"):
+                continue
+            m = re.match(self._CHANNEL_REGEX, channel_name)
+            if m is None:
+                raise IMCMCDXMLParserError(
+                    "Cannot extract channel information "
+                    f"from channel name '{channel_name}' "
+                    f"for acquisition {acquisition.id}"
+                )
             channel_label = self._get_text(
                 acquisition_channel_elem, "ChannelLabel"
             )
-            acquisition_channel_names.append(channel_name)
+            acquisition_channel_metals.append(m.group("metal"))
+            acquisition_channel_masses.append(int(m.group("mass")))
             acquisition_channel_labels.append(channel_label)
-        if tuple(acquisition_channel_names[:3]) != ("X", "Y", "Z"):
-            raise IMCMCDXMLParserError(
-                f"XYZ channels not found for acquisition {acquisition.id}"
-            )
-        del acquisition_channel_names[:3]
-        del acquisition_channel_labels[:3]
         return acquisition
 
     def _find_elements(self, path: str) -> List[ET.Element]:

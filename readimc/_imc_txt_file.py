@@ -9,6 +9,10 @@ import readimc.data
 
 
 class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
+    _CHANNEL_REGEX = re.compile(
+        r"^(?P<label>.*)\((?P<metal>[a-zA-Z]+)(?P<mass>[0-9]+)[^0-9]*\)$"
+    )
+
     def __init__(self, path: Union[str, PathLike]) -> None:
         """A class for reading Fluidigm(R) IMC(TM) TXT files
 
@@ -16,14 +20,28 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
         """
         super(IMCTXTFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
-        self._channel_names: Optional[List[str]] = None
+        self._num_channels: Optional[int] = None
+        self._channel_metals: Optional[List[str]] = None
+        self._channel_masses: Optional[List[int]] = None
         self._channel_labels: Optional[List[str]] = None
 
     @property
-    def channel_names(self) -> Sequence[str]:
-        if self._channel_names is None:
+    def num_channels(self) -> int:
+        if self._num_channels is None:
             raise IOError(f"TXT file '{self.path.name}' has not been opened")
-        return self._channel_names
+        return self._num_channels
+
+    @property
+    def channel_metals(self) -> Sequence[str]:
+        if self._channel_metals is None:
+            raise IOError(f"TXT file '{self.path.name}' has not been opened")
+        return self._channel_metals
+
+    @property
+    def channel_masses(self) -> Sequence[int]:
+        if self._channel_masses is None:
+            raise IOError(f"TXT file '{self.path.name}' has not been opened")
+        return self._channel_masses
 
     @property
     def channel_labels(self) -> Sequence[str]:
@@ -52,7 +70,12 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
         if self._fh is not None:
             self._fh.close()
         self._fh = open(self._path, mode="r")
-        self._channel_names, self._channel_labels = self._read_channels()
+        (
+            self._num_channels,
+            self._channel_metals,
+            self._channel_masses,
+            self._channel_labels,
+        ) = self._read_channels()
 
     def close(self) -> None:
         """Closes the Fluidigm(R) IMC(TM) TXT file.
@@ -68,8 +91,6 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
         if self._fh is not None:
             self._fh.close()
             self._fh = None
-        self._channel_names = None
-        self._channel_labels = None
 
     def read_acquisition(self, *args) -> np.ndarray:
         """Reads IMC(TM) acquisition data as numpy array.
@@ -100,7 +121,7 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
         img[data[:, 4].astype(int), data[:, 3].astype(int), :] = data[:, 6:]
         return np.moveaxis(img, -1, 0)
 
-    def _read_channels(self) -> Tuple[List[str], List[str]]:
+    def _read_channels(self) -> Tuple[int, List[str], List[int], List[str]]:
         self._fh.seek(0)
         columns = self._fh.readline().split("\t")
         if tuple(columns[:3]) != ("Start_push", "End_push", "Pushes_duration"):
@@ -113,27 +134,20 @@ class IMCTXTFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
                 f"TXT file '{self.path.name}' corrupted: "
                 "XYZ channels not found in tabular data"
             )
-        channel_names = []
-        channel_labels = []
+        channel_metals: List[str] = []
+        channel_masses: List[int] = []
+        channel_labels: List[str] = []
         for column in columns[6:]:
-            channel_name, channel_label = self._parse_channel(column)
-            channel_names.append(channel_name)
-            channel_labels.append(channel_label)
-        return channel_names, channel_labels
-
-    def _parse_channel(self, column: str) -> Tuple[str, str]:
-        m = re.match(
-            r"^(?P<label>.*)\((?P<metal>[a-zA-Z]*)(?P<mass>[0-9]*)[^0-9]*\)$",
-            column,
-        )
-        if m is None:
-            raise IOError(
-                f"TXT file '{self.path.name}' corrupted: "
-                f"cannot extract channel name and label from text '{column}'"
-            )
-        channel_name = f"{m.group('metal')}({m.group('mass')})"
-        channel_label = m.group("label")
-        return channel_name, channel_label
+            m = re.match(self._CHANNEL_REGEX, column)
+            if m is None:
+                raise IOError(
+                    f"TXT file '{self.path.name}' corrupted: "
+                    f"cannot extract channel information from text '{column}'"
+                )
+            channel_metals.append(m.group("metal"))
+            channel_masses.append(int(m.group("mass")))
+            channel_labels.append(m.group("label"))
+        return len(columns[6:]), channel_metals, channel_masses, channel_labels
 
     def __repr__(self) -> str:
         return str(self._path)

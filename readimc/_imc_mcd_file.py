@@ -16,6 +16,8 @@ import readimc
 
 
 class IMCMCDFile(readimc.IMCFileBase):
+    _XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
+
     def __init__(self, path: Union[str, PathLike]) -> None:
         """A class for reading Fluidigm(R) IMC(TM) MCD(TM) files
 
@@ -96,9 +98,6 @@ class IMCMCDFile(readimc.IMCFileBase):
         if self._fh is not None:
             self._fh.close()
             self._fh = None
-        self._xml = None
-        self._xmlns = None
-        self._slides = None
 
     def read_acquisition(self, acquisition: Acquisition) -> np.ndarray:
         """Reads IMC(TM) acquisition data as numpy array.
@@ -356,7 +355,7 @@ class IMCMCDFile(readimc.IMCFileBase):
 
     @staticmethod
     def _get_xmlns(elem: ET.Element) -> str:
-        m = re.match(r"{(?P<xmlns>.*)}", elem.tag)
+        m = re.match(IMCMCDFile._XMLNS_REGEX, elem.tag)
         return m.group("xmlns") if m is not None else ""
 
     def __repr__(self) -> str:

@@ -8,22 +8,39 @@ if TYPE_CHECKING:
 
 class AcquisitionBase(ABC):
     """Shared IMC(TM) acquisition metadata interface"""
+
     @property
     @abstractmethod
-    def channel_names(self) -> Sequence[str]:
-        """List of channel names (i.e., metal isotopes)"""
+    def num_channels(self) -> int:
+        """Number of channels"""
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def channel_metals(self) -> Sequence[str]:
+        """Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)"""
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def channel_masses(self) -> Sequence[int]:
+        """Atomic masses of metal isotopes (e.g. ``[107, 191]``)"""
         raise NotImplementedError()
 
     @property
     @abstractmethod
     def channel_labels(self) -> Sequence[str]:
-        """List of channel labels (i.e., user-provided target descriptions)"""
+        """Channel labels (user-provided)"""
         raise NotImplementedError()
 
     @property
-    def num_channels(self) -> int:
-        """Number of channels"""
-        return len(self.channel_names)
+    def channel_names(self) -> Sequence[str]:
+        """Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+        ``["Ag107", "Ir191"]``)"""
+        return [
+            f"{metal}{mass}"
+            for metal, mass in zip(self.channel_metals, self.channel_masses)
+        ]
 
 
 @dataclass(frozen=True)
@@ -39,12 +56,22 @@ class Acquisition(AcquisitionBase):
     metadata: Dict[str, str]
     """Full acquisition metadata"""
 
-    _channel_names: List[str]
+    _num_channels: int
+    _channel_metals: List[str]
+    _channel_masses: List[int]
     _channel_labels: List[str]
 
     @property
-    def channel_names(self) -> Sequence[str]:
-        return self._channel_names
+    def num_channels(self) -> int:
+        return self._num_channels
+
+    @property
+    def channel_metals(self) -> Sequence[str]:
+        return self._channel_metals
+
+    @property
+    def channel_masses(self) -> Sequence[int]:
+        return self._channel_masses
 
     @property
     def channel_labels(self) -> Sequence[str]:
