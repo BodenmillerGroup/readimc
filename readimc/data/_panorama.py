@@ -102,11 +102,11 @@ class Panorama:
         ):
             a = (self.x1_um - self.x2_um) ** 2 + (self.y1_um - self.y2_um) ** 2
             b = (self.x3_um - self.x4_um) ** 2 + (self.y3_um - self.y4_um) ** 2
-            if a != b:
+            if abs(a - b) > 0.001:
                 raise ValueError(
                     f"Panorama {self.id}: inconsistent image widths"
                 )
-            return a ** 0.5
+            return (a ** 0.5 + b ** 0.5) / 2.0
         return None
 
     @property
@@ -124,11 +124,11 @@ class Panorama:
         ):
             a = (self.x1_um - self.x4_um) ** 2 + (self.y1_um - self.y4_um) ** 2
             b = (self.x2_um - self.x3_um) ** 2 + (self.y2_um - self.y3_um) ** 2
-            if a != b:
+            if abs(a - b) > 0.001:
                 raise ValueError(
                     f"Panorama {self.id}: inconsistent image heights"
                 )
-            return a ** 0.5
+            return (a ** 0.5 + b ** 0.5) / 2.0
         return None
 
     def __str__(self) -> str:

@@ -1,4 +1,5 @@
 /.vscode/
+/data/
 /readimc/_version.py
 
 # Byte-compiled / optimized / DLL files

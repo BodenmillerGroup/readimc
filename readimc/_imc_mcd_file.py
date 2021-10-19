@@ -319,32 +319,24 @@ class IMCMcdFile(readimc.IMCFileBase):
         end_sub: str = "</MCDSchema>",
     ) -> ET.Element:
         with mmap.mmap(self._fh.fileno(), 0, access=mmap.ACCESS_READ) as mm:
-            start_sub = start_sub.encode(encoding=encoding)
-            start_index = mm.find(start_sub)
+            # V1 contains multiple MCDSchema entries
+            # As per imctools, the latest entry should be taken
+            start_sub_encoded = start_sub.encode(encoding=encoding)
+            start_index = mm.rfind(start_sub_encoded)
             if start_index == -1:
                 raise IOError(
                     f"MCD file '{self.path.name}' corrupted: "
                     f"start of XML document '{start_sub}' not found"
                 )
-            if start_index != mm.rfind(start_sub):
-                raise IOError(
-                    f"MCD file '{self.path.name}' corrupted: "
-                    f"ambiguous start of XML document '{start_sub}'"
-                )
-            mm.seek(start_index)
-            end_sub = end_sub.encode(encoding=encoding)
-            end_index = mm.find(end_sub)
+            end_sub_encoded = end_sub.encode(encoding=encoding)
+            end_index = mm.rfind(end_sub_encoded, start_index)
             if end_index == -1:
                 raise IOError(
                     f"MCD file '{self.path.name}' corrupted: "
                     f"end of XML document '{end_sub}' not found"
                 )
-            if end_index != mm.rfind(end_sub):
-                raise IOError(
-                    f"MCD file '{self.path.name}' corrupted: "
-                    f"ambiguous end of XML document '{end_sub}'"
-                )
-            data = mm.read(end_index + len(end_sub) - start_index)
+            mm.seek(start_index)
+            data = mm.read(end_index + len(end_sub_encoded) - start_index)
         text = data.decode(encoding=encoding)
         return ET.fromstring(text)
 

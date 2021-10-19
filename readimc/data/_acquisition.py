@@ -85,17 +85,71 @@ class Acquisition(AcquisitionBase):
     @property
     def start_x_um(self) -> Optional[float]:
         """Acquisition start coordinate (x-axis), in micrometers"""
-        val = self.metadata.get("ROIStartXPosUm")
-        if val is not None:
-            return float(val) / 1000
+        if None not in (
+            self.start_x_um_raw,
+            self.start_x_um_corrected,
+            self.width_um_raw,
+            self.width_um_corrected,
+        ):
+            if self.width_um_corrected < self.width_um_raw:
+                return self.start_x_um_corrected
+            return self.start_x_um_raw
+        if self.start_x_um_corrected is not None:
+            return self.start_x_um_corrected
+        if self.start_x_um_raw is not None:
+            return self.start_x_um_raw
         return None
 
     @property
     def start_y_um(self) -> Optional[float]:
-        """Acquisition start coordinate (y-axis), in micrometers"""
+        "Acquisition start coordinate (y-axis), in micrometers"
+        if None not in (
+            self.start_y_um_raw,
+            self.start_y_um_corrected,
+            self.height_um_raw,
+            self.height_um_corrected,
+        ):
+            if self.height_um_corrected < self.height_um_raw:
+                return self.start_y_um_corrected
+            return self.start_y_um_raw
+        if self.start_y_um_corrected is not None:
+            return self.start_y_um_corrected
+        if self.start_x_um_raw is not None:
+            return self.start_y_um_raw
+        return None
+
+    @property
+    def start_x_um_raw(self) -> Optional[float]:
+        """Acquisition start coordinate (x-axis) as in the raw metadata,
+        in micrometers"""
+        val = self.metadata.get("ROIStartXPosUm")
+        if val is not None:
+            return float(val)
+        return None
+
+    @property
+    def start_y_um_raw(self) -> Optional[float]:
+        """Acquisition start coordinate (y-axis) as in the raw metadata,
+        in micrometers"""
         val = self.metadata.get("ROIStartYPosUm")
         if val is not None:
-            return float(val) / 1000
+            return float(val)
+        return None
+
+    @property
+    def start_x_um_corrected(self) -> Optional[float]:
+        """Acquisition start coordinate (x-axis) corrected for a Fluidigm bug,
+        in micrometers"""
+        if self.start_x_um_raw is not None:
+            return self.start_x_um_raw / 1000
+        return None
+
+    @property
+    def start_y_um_corrected(self) -> Optional[float]:
+        """Acquisition start coordinate (y-axis) corrected for a Fluidigm bug,
+        in micrometers"""
+        if self.start_y_um_raw is not None:
+            return self.start_y_um_raw / 1000
         return None
 
     @property
@@ -116,17 +170,67 @@ class Acquisition(AcquisitionBase):
 
     @property
     def width_um(self) -> Optional[float]:
-        """Acquisition width, in micrometers"""
-        if None in (self.start_x_um, self.end_x_um):
-            return None
-        return abs(self.start_x_um - self.end_x_um)
+        if None not in (self.width_um_raw, self.width_um_corrected):
+            if self.width_um_corrected < self.width_um_raw:
+                return self.width_um_corrected
+            return self.width_um_raw
+        if self.width_um_corrected is not None:
+            return self.width_um_corrected
+        if self.width_um_raw is not None:
+            return self.width_um_raw
+        return None
 
     @property
     def height_um(self) -> Optional[float]:
-        """Acquisition height, in micrometers"""
-        if None in (self.start_y_um, self.end_y_um):
+        if None not in (self.height_um_raw, self.height_um_corrected):
+            if self.height_um_corrected < self.height_um_raw:
+                return self.height_um_corrected
+            return self.height_um_raw
+        if self.height_um_corrected is not None:
+            return self.height_um_corrected
+        if self.height_um_raw is not None:
+            return self.height_um_raw
+        return None
+
+    @property
+    def width_um_raw(self) -> Optional[float]:
+        """Acquisition width as in the raw metadata, in micrometers"""
+        if None in (self.start_x_um_raw, self.end_x_um):
             return None
-        return abs(self.start_y_um - self.end_y_um)
+        val = abs(self.start_x_um_raw - self.end_x_um)
+        if val == 0.0 and "MaxX" in self.metadata:
+            val = float(self.metadata["MaxX"])
+        return val
+
+    @property
+    def height_um_raw(self) -> Optional[float]:
+        """Acquisition height as in the raw metadata, in micrometers"""
+        if None in (self.start_y_um_raw, self.end_y_um):
+            return None
+        val = abs(self.start_y_um_raw - self.end_y_um)
+        if val == 0.0 and "MaxY" in self.metadata:
+            val = float(self.metadata["MaxY"])
+        return val
+
+    @property
+    def width_um_corrected(self) -> Optional[float]:
+        """Acquisition width corrected for a Fluidigm bug, in micrometers"""
+        if None in (self.start_x_um_corrected, self.end_x_um):
+            return None
+        val = abs(self.start_x_um_corrected - self.end_x_um)
+        if val == 0.0 and "MaxX" in self.metadata:
+            val = float(self.metadata["MaxX"])
+        return val
+
+    @property
+    def height_um_corrected(self) -> Optional[float]:
+        """Acquisition height corrected for a Fluidigm bug, in micrometers"""
+        if None in (self.start_y_um_corrected, self.end_y_um):
+            return None
+        val = abs(self.start_y_um_corrected - self.end_y_um)
+        if val == 0.0 and "MaxY" in self.metadata:
+            val = float(self.metadata["MaxY"])
+        return val
 
     def __str__(self) -> str:
         return (
