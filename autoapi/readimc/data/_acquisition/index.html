@@ -262,6 +262,54 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.start_x_um_raw">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">start_x_um_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.start_x_um_raw" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition start coordinate (x-axis) as in the raw metadata,
+in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.start_y_um_raw">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">start_y_um_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.start_y_um_raw" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition start coordinate (y-axis) as in the raw metadata,
+in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.start_x_um_corrected">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">start_x_um_corrected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.start_x_um_corrected" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition start coordinate (x-axis) corrected for a Fluidigm bug,
+in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.start_y_um_corrected">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">start_y_um_corrected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.start_y_um_corrected" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition start coordinate (y-axis) corrected for a Fluidigm bug,
+in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.end_x_um">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">end_x_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.end_x_um" title="Permalink to this definition"></a></dt>
 <dd><p>Acquisition end coordinate (x-axis), in micrometers</p>
@@ -286,8 +334,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.width_um">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.width_um" title="Permalink to this definition"></a></dt>
-<dd><p>Acquisition width, in micrometers</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Optional[float]</p>
 </dd>
@@ -297,7 +344,50 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.height_um">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">height_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.height_um" title="Permalink to this definition"></a></dt>
-<dd><p>Acquisition height, in micrometers</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.width_um_raw">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width_um_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.width_um_raw" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition width as in the raw metadata, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.height_um_raw">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">height_um_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.height_um_raw" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition height as in the raw metadata, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.width_um_corrected">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width_um_corrected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.width_um_corrected" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition width corrected for a Fluidigm bug, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._acquisition.Acquisition.height_um_corrected">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">height_um_corrected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._acquisition.Acquisition.height_um_corrected" title="Permalink to this definition"></a></dt>
+<dd><p>Acquisition height corrected for a Fluidigm bug, in micrometers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Optional[float]</p>

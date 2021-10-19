@@ -227,6 +227,34 @@ Classes
       Acquisition start coordinate (y-axis), in micrometers
 
 
+   .. py:method:: start_x_um_raw(self)
+      :property:
+
+      Acquisition start coordinate (x-axis) as in the raw metadata,
+      in micrometers
+
+
+   .. py:method:: start_y_um_raw(self)
+      :property:
+
+      Acquisition start coordinate (y-axis) as in the raw metadata,
+      in micrometers
+
+
+   .. py:method:: start_x_um_corrected(self)
+      :property:
+
+      Acquisition start coordinate (x-axis) corrected for a Fluidigm bug,
+      in micrometers
+
+
+   .. py:method:: start_y_um_corrected(self)
+      :property:
+
+      Acquisition start coordinate (y-axis) corrected for a Fluidigm bug,
+      in micrometers
+
+
    .. py:method:: end_x_um(self)
       :property:
 
@@ -242,13 +270,33 @@ Classes
    .. py:method:: width_um(self)
       :property:
 
-      Acquisition width, in micrometers
-
 
    .. py:method:: height_um(self)
       :property:
 
-      Acquisition height, in micrometers
+
+   .. py:method:: width_um_raw(self)
+      :property:
+
+      Acquisition width as in the raw metadata, in micrometers
+
+
+   .. py:method:: height_um_raw(self)
+      :property:
+
+      Acquisition height as in the raw metadata, in micrometers
+
+
+   .. py:method:: width_um_corrected(self)
+      :property:
+
+      Acquisition width corrected for a Fluidigm bug, in micrometers
+
+
+   .. py:method:: height_um_corrected(self)
+      :property:
+
+      Acquisition height corrected for a Fluidigm bug, in micrometers
 
 
    .. py:method:: channel_names(self)
