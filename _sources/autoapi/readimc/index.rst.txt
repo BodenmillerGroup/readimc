@@ -95,7 +95,7 @@ Classes
 
       .. code-block:: python
 
-          with IMCTXTFile("/path/to/file.txt") as f:
+          with IMCTxtFile("/path/to/file.txt") as f:
               pass
 
 
@@ -108,7 +108,7 @@ Classes
 
       .. code-block:: python
 
-          with IMCTXTFile("/path/to/file.txt") as f:
+          with IMCTxtFile("/path/to/file.txt") as f:
               pass
 
 
@@ -119,7 +119,7 @@ Classes
 
       .. note::
           This function takes a variable number of arguments for
-          compatibility with ``IMCMCDFile``.
+          compatibility with ``IMCMcdFile``.
 
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
@@ -175,7 +175,7 @@ Classes
 
       .. code-block:: python
 
-          with IMCMCDFile("/path/to/file.mcd") as f:
+          with IMCMcdFile("/path/to/file.mcd") as f:
               pass
 
 
@@ -188,7 +188,7 @@ Classes
 
       .. code-block:: python
 
-          with IMCMCDFile("/path/to/file.mcd") as f:
+          with IMCMcdFile("/path/to/file.mcd") as f:
               pass
 
 

@@ -55,7 +55,7 @@ Classes
 
       .. code-block:: python
 
-          with IMCMCDFile("/path/to/file.mcd") as f:
+          with IMCMcdFile("/path/to/file.mcd") as f:
               pass
 
 
@@ -68,7 +68,7 @@ Classes
 
       .. code-block:: python
 
-          with IMCMCDFile("/path/to/file.mcd") as f:
+          with IMCMcdFile("/path/to/file.mcd") as f:
               pass
 
 
