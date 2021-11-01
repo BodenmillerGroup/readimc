@@ -63,7 +63,7 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
 
         .. code-block:: python
 
-            with IMCTXTFile("/path/to/file.txt") as f:
+            with IMCTxtFile("/path/to/file.txt") as f:
                 pass
 
         """
@@ -84,7 +84,7 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
 
         .. code-block:: python
 
-            with IMCTXTFile("/path/to/file.txt") as f:
+            with IMCTxtFile("/path/to/file.txt") as f:
                 pass
 
         """
@@ -97,7 +97,7 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
 
         .. note::
             This function takes a variable number of arguments for
-            compatibility with ``IMCMCDFile``.
+            compatibility with ``IMCMcdFile``.
 
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)

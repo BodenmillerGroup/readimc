@@ -78,7 +78,7 @@ with IMCMcdFile("/path/to/file.mcd") as f:
 
 For a full list of available properties, please consult the API documentation of the `Slide`, `Panorama` and `Acquisition` classes (additional metadata is available through their `metadata` properties).
 
-The complete metadata embedded in Fluidigm&reg; MCD&trade; files is accessible through `IMCMCDFile.xml` (in proprietary Fluidigm&reg; XML format) and can be converted to a text representation as follows:
+The complete metadata embedded in Fluidigm&reg; MCD&trade; files is accessible through `IMCMcdFile.xml` (in proprietary Fluidigm&reg; XML format) and can be converted to a text representation as follows:
 
 ```python
 from xml.etree import ElementTree as ET
@@ -113,7 +113,7 @@ with IMCMcdFile("/path/to/file.mcd") as f:
 ```
 
 ```{note}
-`Slide.panoramas` only exposes panoramas for which panorama images are available. The raw metadata accessible through `IMCMCDFile.xml` may contain additional panorama entries of type `"Default"` that represent "virtual" panoramas and do not correspond to actual images.
+`Slide.panoramas` only exposes panoramas for which panorama images are available. The raw metadata accessible through `IMCMcdFile.xml` may contain additional panorama entries of type `"Default"` that represent "virtual" panoramas and do not correspond to actual images.
 ```
 
 ### Reading IMC&trade; acquisitions

@@ -3,7 +3,7 @@ import numpy as np
 from readimc import IMCTxtFile
 
 
-class TestIMCTXTFile:
+class TestIMCTxtFile:
     def test_num_channels(self, imc_test_data_txt_file: IMCTxtFile):
         assert imc_test_data_txt_file.num_channels == 5
 
