@@ -8,7 +8,7 @@ from xml.etree import ElementTree as ET
 from readimc import IMCMcdFile
 
 
-class TestIMCMCDFile:
+class TestIMCMcdFile:
     damond_mcd_file_path = Path("data/Damond2019/20170814_G_SE.mcd")
 
     @classmethod

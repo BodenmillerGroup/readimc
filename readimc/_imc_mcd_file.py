@@ -66,7 +66,7 @@ class IMCMcdFile(readimc.IMCFileBase):
 
         .. code-block:: python
 
-            with IMCMCDFile("/path/to/file.mcd") as f:
+            with IMCMcdFile("/path/to/file.mcd") as f:
                 pass
 
         """
@@ -91,7 +91,7 @@ class IMCMcdFile(readimc.IMCFileBase):
 
         .. code-block:: python
 
-            with IMCMCDFile("/path/to/file.mcd") as f:
+            with IMCMcdFile("/path/to/file.mcd") as f:
                 pass
 
         """
