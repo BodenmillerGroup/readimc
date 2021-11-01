@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import re
 
 from os import PathLike
@@ -103,22 +104,29 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
             shape: (c, y, x)
         """
         self._fh.seek(0)
-        data = np.loadtxt(
-            self._fh, dtype=np.float32, delimiter="\t", skiprows=1
-        )
-        if data.shape[1] <= 6:
+        df = pd.read_table(self._fh, dtype=np.float32)
+        if tuple(df.columns[:3]) != (
+            "Start_push",
+            "End_push",
+            "Pushes_duration",
+        ):
             raise IOError(
                 f"TXT file '{self.path.name}' corrupted: "
-                "invalid number of columns in tabular data"
+                "push columns not found in tabular data"
             )
-        width, height = np.amax(data[:, 3:5], axis=0).astype(int) + 1
-        if width * height != data.shape[0]:
+        if tuple(df.columns[3:6]) != ("X", "Y", "Z"):
+            raise IOError(
+                f"TXT file '{self.path.name}' corrupted: "
+                "XYZ channels not found in tabular data"
+            )
+        width, height = df[["X", "Y"]].add(1).max(axis=0).astype(int)
+        if width * height != len(df.index):
             raise IOError(
                 f"TXT file '{self.path.name}' corrupted: "
                 "inconsistent acquisition image data size"
             )
         img = np.zeros((height, width, self.num_channels), dtype=np.float32)
-        img[data[:, 4].astype(int), data[:, 3].astype(int), :] = data[:, 6:]
+        img[df["Y"].astype(int), df["X"].astype(int), :] = df.values[:, 6:]
         return np.moveaxis(img, -1, 0)
 
     def _read_channels(self) -> Tuple[int, List[str], List[int], List[str]]:
