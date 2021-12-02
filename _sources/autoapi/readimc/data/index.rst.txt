@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   Fluidigm(R) Imaging Mass Cytometry(TM) metadata classes
+   Imaging Mass Cytometry metadata classes
 
 
 
@@ -42,13 +42,13 @@ Classes
 
 
    .. py:attribute:: panoramas
-      :annotation: :List[readimc.data.Panorama]
+      :annotation: :List[readimc.data._panorama.Panorama]
 
       List of panoramas associated with this slide
 
 
    .. py:attribute:: acquisitions
-      :annotation: :List[readimc.data.Acquisition]
+      :annotation: :List[readimc.data._acquisition.Acquisition]
 
       List of acquisitions associated with this slide
 
@@ -77,7 +77,7 @@ Classes
    Panorama metadata (only for panoramas with panorama image data)
 
    .. py:attribute:: slide
-      :annotation: :readimc.data.Slide
+      :annotation: :readimc.data._slide.Slide
 
       Parent slide
 
@@ -94,58 +94,16 @@ Classes
       Full panorama metadata
 
 
+   .. py:attribute:: acquisitions
+      :annotation: :List[readimc.data._acquisition.Acquisition]
+
+      List of acquisitions associated with this panorama
+
+
    .. py:method:: description(self)
       :property:
 
       User-provided panorama description
-
-
-   .. py:method:: x1_um(self)
-      :property:
-
-      Panorama coordinate 1 (x-axis), in micrometers
-
-
-   .. py:method:: y1_um(self)
-      :property:
-
-      Panorama coordinate 1 (y-axis), in micrometers
-
-
-   .. py:method:: x2_um(self)
-      :property:
-
-      Panorama coordinate 2 (x-axis), in micrometers
-
-
-   .. py:method:: y2_um(self)
-      :property:
-
-      Panorama coordinate 2 (y-axis), in micrometers
-
-
-   .. py:method:: x3_um(self)
-      :property:
-
-      Panorama coordinate 3 (x-axis), in micrometers
-
-
-   .. py:method:: y3_um(self)
-      :property:
-
-      Panorama coordinate 3 (y-axis), in micrometers
-
-
-   .. py:method:: x4_um(self)
-      :property:
-
-      Panorama coordinate 4 (x-axis), in micrometers
-
-
-   .. py:method:: y4_um(self)
-      :property:
-
-      Panorama coordinate 4 (y-axis), in micrometers
 
 
    .. py:method:: width_um(self)
@@ -160,17 +118,31 @@ Classes
       Panorama height, in micrometers
 
 
+   .. py:method:: points_um(self)
+      :property:
+
+      User-provided ROI points, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
+
+
 
 .. py:class:: Acquisition
 
    Bases: :py:obj:`AcquisitionBase`
 
-   IMC(TM) acquisition metadata
+   IMC acquisition metadata
 
    .. py:attribute:: slide
-      :annotation: :readimc.data.Slide
+      :annotation: :readimc.data._slide.Slide
 
       Parent slide
+
+
+   .. py:attribute:: panorama
+      :annotation: :Optional[readimc.data._panorama.Panorama]
+
+      Associated panorama
 
 
    .. py:attribute:: id
@@ -179,10 +151,60 @@ Classes
       Acquisition ID
 
 
+   .. py:attribute:: roi_points_um
+      :annotation: :Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+
+      User-provided ROI points, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
+
+
    .. py:attribute:: metadata
       :annotation: :Dict[str, str]
 
       Full acquisition metadata
+
+
+   .. py:method:: description(self)
+      :property:
+
+      User-provided acquisition description
+
+
+   .. py:method:: width_px(self)
+      :property:
+
+      Acquisition width, in pixels
+
+
+   .. py:method:: height_px(self)
+      :property:
+
+      Acquisition height, in pixels
+
+
+   .. py:method:: pixel_size_x_um(self)
+      :property:
+
+      Width of a single pixel, in micrometers
+
+
+   .. py:method:: pixel_size_y_um(self)
+      :property:
+
+      Height of a single pixel, in micrometers
+
+
+   .. py:method:: width_um(self)
+      :property:
+
+      Acquisition width, in micrometers
+
+
+   .. py:method:: height_um(self)
+      :property:
+
+      Acquisition height, in micrometers
 
 
    .. py:method:: num_channels(self)
@@ -209,94 +231,12 @@ Classes
       Channel labels (user-provided)
 
 
-   .. py:method:: description(self)
+   .. py:method:: roi_coords_um(self)
       :property:
 
-      User-provided acquisition description
+      ROI stage coordinates, in micrometers
 
-
-   .. py:method:: start_x_um(self)
-      :property:
-
-      Acquisition start coordinate (x-axis), in micrometers
-
-
-   .. py:method:: start_y_um(self)
-      :property:
-
-      Acquisition start coordinate (y-axis), in micrometers
-
-
-   .. py:method:: start_x_um_raw(self)
-      :property:
-
-      Acquisition start coordinate (x-axis) as in the raw metadata,
-      in micrometers
-
-
-   .. py:method:: start_y_um_raw(self)
-      :property:
-
-      Acquisition start coordinate (y-axis) as in the raw metadata,
-      in micrometers
-
-
-   .. py:method:: start_x_um_corrected(self)
-      :property:
-
-      Acquisition start coordinate (x-axis) corrected for a Fluidigm bug,
-      in micrometers
-
-
-   .. py:method:: start_y_um_corrected(self)
-      :property:
-
-      Acquisition start coordinate (y-axis) corrected for a Fluidigm bug,
-      in micrometers
-
-
-   .. py:method:: end_x_um(self)
-      :property:
-
-      Acquisition end coordinate (x-axis), in micrometers
-
-
-   .. py:method:: end_y_um(self)
-      :property:
-
-      Acquisition end coordinate (y-axis), in micrometers
-
-
-   .. py:method:: width_um(self)
-      :property:
-
-
-   .. py:method:: height_um(self)
-      :property:
-
-
-   .. py:method:: width_um_raw(self)
-      :property:
-
-      Acquisition width as in the raw metadata, in micrometers
-
-
-   .. py:method:: height_um_raw(self)
-      :property:
-
-      Acquisition height as in the raw metadata, in micrometers
-
-
-   .. py:method:: width_um_corrected(self)
-      :property:
-
-      Acquisition width corrected for a Fluidigm bug, in micrometers
-
-
-   .. py:method:: height_um_corrected(self)
-      :property:
-
-      Acquisition height corrected for a Fluidigm bug, in micrometers
+      Order: (top left, top right, bottom right, bottom left)
 
 
    .. py:method:: channel_names(self)
@@ -311,7 +251,7 @@ Classes
 
    Bases: :py:obj:`abc.ABC`
 
-   Shared IMC(TM) acquisition metadata interface
+   Shared IMC acquisition metadata interface
 
    .. py:method:: num_channels(self)
       :property:

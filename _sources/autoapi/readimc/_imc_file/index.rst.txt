@@ -14,27 +14,27 @@ Classes
 
 .. autoapisummary::
 
-   readimc._imc_file.IMCFileBase
+   readimc._imc_file.IMCFile
 
 
 
 
-.. py:class:: IMCFileBase(path)
+.. py:class:: IMCFile(path)
 
    Bases: :py:obj:`abc.ABC`
 
-   Shared Fluidigm(R) IMC(TM) file interface
+   Shared IMC file interface
 
    .. py:method:: path(self)
       :property:
 
-      Path to the Fluidigm(R) IMC(TM) file
+      Path to the IMC file
 
 
    .. py:method:: read_acquisition(self, *kwargs)
       :abstractmethod:
 
-      Reads IMC(TM) acquisition data as numpy array.
+      Reads IMC acquisition data as numpy array.
 
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)

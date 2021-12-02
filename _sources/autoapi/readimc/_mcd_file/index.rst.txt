@@ -1,9 +1,9 @@
 :orphan:
 
-:py:mod:`readimc._imc_mcd_file`
-===============================
+:py:mod:`readimc._mcd_file`
+===========================
 
-.. py:module:: readimc._imc_mcd_file
+.. py:module:: readimc._mcd_file
 
 
 Module Contents
@@ -14,68 +14,70 @@ Classes
 
 .. autoapisummary::
 
-   readimc._imc_mcd_file.IMCMcdFile
+   readimc._mcd_file.MCDFile
 
 
 
 
-.. py:class:: IMCMcdFile(path)
+.. py:class:: MCDFile(path)
 
-   Bases: :py:obj:`readimc.IMCFileBase`
+   Bases: :py:obj:`readimc._imc_file.IMCFile`
 
-   A class for reading Fluidigm(R) IMC(TM) MCD(TM) files
+   A class for reading IMC .mcd files
 
-   :param path: path to the Fluidigm(R) IMC(TM) MCD(TM) file
+   :param path: path to the IMC .mcd file
 
-   .. py:method:: xml(self)
+   .. py:method:: metadata_xml(self)
       :property:
 
-      Full metadata in proprietary Fluidigm(R) XML format
+      Full metadata in proprietary XML format
 
 
-   .. py:method:: xmlns(self)
+   .. py:method:: metadata_xmlns(self)
       :property:
 
-      XML namespace of full metadata in proprietary Fluidigm(R) XML
-      format
+      XML namespace of full metadata in proprietary XML format
+
+
+   .. py:method:: metadata_xml_str(self)
+      :property:
 
 
    .. py:method:: slides(self)
       :property:
 
-      Metadata on slides contained in this Fluidigm(R) IMC(TM) MCD(TM)
-      file
+      Metadata on slides contained in this IMC .mcd file
 
 
    .. py:method:: open(self)
 
-      Opens the Fluidigm(R) IMC(TM) MCD(TM) file for reading.
+      Opens the IMC .mcd file for reading.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with IMCMcdFile("/path/to/file.mcd") as f:
+          with MCDFile("/path/to/file.mcd") as f:
               pass
 
 
 
    .. py:method:: close(self)
 
-      Closes the Fluidigm(R) IMC(TM) MCD(TM) file.
+      Closes the IMC .mcd file.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with IMCMcdFile("/path/to/file.mcd") as f:
+          with MCDFile("/path/to/file.mcd") as f:
               pass
 
 
 
    .. py:method:: read_acquisition(self, acquisition)
 
-      Reads IMC(TM) acquisition data as numpy array.
+      Reads IMC acquisition data as numpy array.
 
       :param acquisition: the acquisition to read
       :return: the acquisition data as 32-bit floating point array,
@@ -88,10 +90,10 @@ Classes
       package.
 
       .. note::
-          Slide images are stored as binary data within the Fluidigm(R)
-          IMC(TM) MCD(TM) file in an arbitrary encoding. The ``imageio``
-          package can decode most commonly used image file formats, but may
-          fail for more obscure, in which case an ``IOException`` is raised.
+          Slide images are stored as binary data within the IMC .mcd file in
+          an arbitrary encoding. The ``imageio`` package can decode most
+          commonly used image file formats, but may fail for more obscure,
+          in which case an ``IOException`` is raised.
 
       :param slide: the slide to read
       :return: the slide image, or ``None`` if no image is available for the
@@ -132,7 +134,7 @@ Classes
    .. py:method:: path(self)
       :property:
 
-      Path to the Fluidigm(R) IMC(TM) file
+      Path to the IMC file
 
 
 

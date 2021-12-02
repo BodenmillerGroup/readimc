@@ -97,29 +97,35 @@
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc.data._panorama.</span></span><span class="sig-name descname"><span class="pre">Panorama</span></span><a class="headerlink" href="#readimc.data._panorama.Panorama" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.data._panorama.</span></span><span class="sig-name descname"><span class="pre">Panorama</span></span><a class="headerlink" href="#readimc.data._panorama.Panorama" title="Permalink to this definition"></a></dt>
 <dd><p>Panorama metadata (only for panoramas with panorama image data)</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama.slide">
-<span class="sig-name descname"><span class="pre">slide</span></span><em class="property"> <span class="pre">:readimc.data.Slide</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.slide" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">slide</span></span><em class="property"><span class="w"> </span><span class="pre">:readimc.data._slide.Slide</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.slide" title="Permalink to this definition"></a></dt>
 <dd><p>Parent slide</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"> <span class="pre">:int</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="pre">:int</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.id" title="Permalink to this definition"></a></dt>
 <dd><p>Panorama ID</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama.metadata">
-<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"> <span class="pre">:Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.metadata" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="w"> </span><span class="pre">:Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.metadata" title="Permalink to this definition"></a></dt>
 <dd><p>Full panorama metadata</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.acquisitions">
+<span class="sig-name descname"><span class="pre">acquisitions</span></span><em class="property"><span class="w"> </span><span class="pre">:List[readimc.data._acquisition.Acquisition]</span></em><a class="headerlink" href="#readimc.data._panorama.Panorama.acquisitions" title="Permalink to this definition"></a></dt>
+<dd><p>List of acquisitions associated with this panorama</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama.description">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.description" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.description" title="Permalink to this definition"></a></dt>
 <dd><p>User-provided panorama description</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -129,96 +135,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.x1_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">x1_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.x1_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 1 (x-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.y1_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">y1_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.y1_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 1 (y-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.x2_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">x2_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.x2_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 2 (x-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.y2_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">y2_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.y2_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 2 (y-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.x3_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">x3_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.x3_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 3 (x-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.y3_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">y3_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.y3_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 3 (y-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.x4_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">x4_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.x4_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 4 (x-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.y4_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">y4_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.y4_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama coordinate 4 (y-axis), in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama.width_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.width_um" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.width_um" title="Permalink to this definition"></a></dt>
 <dd><p>Panorama width, in micrometers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -229,11 +147,23 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.data._panorama.Panorama.height_um">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">height_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.height_um" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.height_um" title="Permalink to this definition"></a></dt>
 <dd><p>Panorama height, in micrometers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc.data._panorama.Panorama.points_um">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">points_um</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.data._panorama.Panorama.points_um" title="Permalink to this definition"></a></dt>
+<dd><p>User-provided ROI points, in micrometers</p>
+<p>Order: (top left, top right, bottom right, bottom left)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]</p>
 </dd>
 </dl>
 </dd></dl>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>readimc._imc_mcd_file &mdash; readimc  documentation</title>
+  <title>readimc._mcd_file &mdash; readimc  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -68,9 +68,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._imc_mcd_file</span></code></li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._mcd_file</span></code></li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/autoapi/readimc/_imc_mcd_file/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/autoapi/readimc/_mcd_file/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -78,8 +78,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-readimc._imc_mcd_file">
-<span id="readimc-imc-mcd-file"></span><h1><a class="reference internal" href="#module-readimc._imc_mcd_file" title="readimc._imc_mcd_file"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._imc_mcd_file</span></code></a><a class="headerlink" href="#module-readimc._imc_mcd_file" title="Permalink to this headline"></a></h1>
+  <section id="module-readimc._mcd_file">
+<span id="readimc-mcd-file"></span><h1><a class="reference internal" href="#module-readimc._mcd_file" title="readimc._mcd_file"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc._mcd_file</span></code></a><a class="headerlink" href="#module-readimc._mcd_file" title="Permalink to this headline"></a></h1>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
 <section id="classes">
@@ -90,25 +90,25 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._imc_mcd_file.IMCMcdFile" title="readimc._imc_mcd_file.IMCMcdFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMCMcdFile</span></code></a></p></td>
-<td><p>A class for reading Fluidigm(R) IMC(TM) MCD(TM) files</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._mcd_file.MCDFile" title="readimc._mcd_file.MCDFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDFile</span></code></a></p></td>
+<td><p>A class for reading IMC .mcd files</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">readimc._imc_mcd_file.</span></span><span class="sig-name descname"><span class="pre">IMCMcdFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../index.html#readimc.IMCFileBase" title="readimc.IMCFileBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readimc.IMCFileBase</span></code></a></p>
-<p>A class for reading Fluidigm(R) IMC(TM) MCD(TM) files</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_file.</span></span><span class="sig-name descname"><span class="pre">MCDFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../_imc_file/index.html#readimc._imc_file.IMCFile" title="readimc._imc_file.IMCFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readimc._imc_file.IMCFile</span></code></a></p>
+<p>A class for reading IMC .mcd files</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>os.PathLike</em><em>]</em>) – path to the Fluidigm(R) IMC(TM) MCD(TM) file</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>os.PathLike</em><em>]</em>) – path to the IMC .mcd file</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.xml">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.xml" title="Permalink to this definition"></a></dt>
-<dd><p>Full metadata in proprietary Fluidigm(R) XML format</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.metadata_xml">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.metadata_xml" title="Permalink to this definition"></a></dt>
+<dd><p>Full metadata in proprietary XML format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>xml.etree.ElementTree.Element</p>
@@ -117,10 +117,9 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.xmlns">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">xmlns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.xmlns" title="Permalink to this definition"></a></dt>
-<dd><p>XML namespace of full metadata in proprietary Fluidigm(R) XML
-format</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.metadata_xmlns">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_xmlns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.metadata_xmlns" title="Permalink to this definition"></a></dt>
+<dd><p>XML namespace of full metadata in proprietary XML format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
@@ -129,10 +128,19 @@ format</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.slides">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.slides" title="Permalink to this definition"></a></dt>
-<dd><p>Metadata on slides contained in this Fluidigm(R) IMC(TM) MCD(TM)
-file</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.metadata_xml_str">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_xml_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.metadata_xml_str" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.slides">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.slides" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata on slides contained in this IMC .mcd file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Sequence[<a class="reference internal" href="../data/index.html#readimc.data.Slide" title="readimc.data.Slide">readimc.data.Slide</a>]</p>
@@ -141,11 +149,11 @@ file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.open">
-<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.open" title="Permalink to this definition"></a></dt>
-<dd><p>Opens the Fluidigm(R) IMC(TM) MCD(TM) file for reading.</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.open" title="Permalink to this definition"></a></dt>
+<dd><p>Opens the IMC .mcd file for reading.</p>
 <p>It is good practice to use context managers whenever possible:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMcdFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
@@ -157,11 +165,11 @@ file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.close" title="Permalink to this definition"></a></dt>
-<dd><p>Closes the Fluidigm(R) IMC(TM) MCD(TM) file.</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.close" title="Permalink to this definition"></a></dt>
+<dd><p>Closes the IMC .mcd file.</p>
 <p>It is good practice to use context managers whenever possible:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">IMCMcdFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
@@ -173,9 +181,9 @@ file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.read_acquisition">
-<span class="sig-name descname"><span class="pre">read_acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.read_acquisition" title="Permalink to this definition"></a></dt>
-<dd><p>Reads IMC(TM) acquisition data as numpy array.</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.read_acquisition">
+<span class="sig-name descname"><span class="pre">read_acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.read_acquisition" title="Permalink to this definition"></a></dt>
+<dd><p>Reads IMC acquisition data as numpy array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>acquisition</strong> (<a class="reference internal" href="../data/index.html#readimc.data.Acquisition" title="readimc.data.Acquisition"><em>readimc.data.Acquisition</em></a>) – the acquisition to read</p>
@@ -191,16 +199,16 @@ shape: (c, y, x)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.read_slide">
-<span class="sig-name descname"><span class="pre">read_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slide</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.read_slide" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.read_slide">
+<span class="sig-name descname"><span class="pre">read_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slide</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.read_slide" title="Permalink to this definition"></a></dt>
 <dd><p>Reads and decodes a slide image as numpy array using the <code class="docutils literal notranslate"><span class="pre">imageio</span></code>
 package.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Slide images are stored as binary data within the Fluidigm(R)
-IMC(TM) MCD(TM) file in an arbitrary encoding. The <code class="docutils literal notranslate"><span class="pre">imageio</span></code>
-package can decode most commonly used image file formats, but may
-fail for more obscure, in which case an <code class="docutils literal notranslate"><span class="pre">IOException</span></code> is raised.</p>
+<p>Slide images are stored as binary data within the IMC .mcd file in
+an arbitrary encoding. The <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package can decode most
+commonly used image file formats, but may fail for more obscure,
+in which case an <code class="docutils literal notranslate"><span class="pre">IOException</span></code> is raised.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -217,8 +225,8 @@ specified slide</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.read_panorama">
-<span class="sig-name descname"><span class="pre">read_panorama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panorama</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.read_panorama" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.read_panorama">
+<span class="sig-name descname"><span class="pre">read_panorama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panorama</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.read_panorama" title="Permalink to this definition"></a></dt>
 <dd><p>Reads and decodes a panorama image as numpy array using the
 <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package.</p>
 <dl class="field-list simple">
@@ -235,8 +243,8 @@ specified slide</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.read_before_ablation_image">
-<span class="sig-name descname"><span class="pre">read_before_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.read_before_ablation_image" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.read_before_ablation_image">
+<span class="sig-name descname"><span class="pre">read_before_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.read_before_ablation_image" title="Permalink to this definition"></a></dt>
 <dd><p>Reads and decodes a before-ablation image as numpy array using the
 <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package.</p>
 <dl class="field-list simple">
@@ -255,8 +263,8 @@ before-ablation image is available for the specified acquisition</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.read_after_ablation_image">
-<span class="sig-name descname"><span class="pre">read_after_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.read_after_ablation_image" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.read_after_ablation_image">
+<span class="sig-name descname"><span class="pre">read_after_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.read_after_ablation_image" title="Permalink to this definition"></a></dt>
 <dd><p>Reads and decodes a after-ablation image as numpy array using the
 <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package.</p>
 <dl class="field-list simple">
@@ -275,9 +283,9 @@ after-ablation image is available for the specified acquisition</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._imc_mcd_file.IMCMcdFile.path">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._imc_mcd_file.IMCMcdFile.path" title="Permalink to this definition"></a></dt>
-<dd><p>Path to the Fluidigm(R) IMC(TM) file</p>
+<dt class="sig sig-object py" id="readimc._mcd_file.MCDFile.path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_file.MCDFile.path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to the IMC file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pathlib.Path</p>

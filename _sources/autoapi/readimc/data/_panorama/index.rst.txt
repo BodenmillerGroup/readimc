@@ -24,7 +24,7 @@ Classes
    Panorama metadata (only for panoramas with panorama image data)
 
    .. py:attribute:: slide
-      :annotation: :readimc.data.Slide
+      :annotation: :readimc.data._slide.Slide
 
       Parent slide
 
@@ -41,58 +41,16 @@ Classes
       Full panorama metadata
 
 
+   .. py:attribute:: acquisitions
+      :annotation: :List[readimc.data._acquisition.Acquisition]
+
+      List of acquisitions associated with this panorama
+
+
    .. py:method:: description(self)
       :property:
 
       User-provided panorama description
-
-
-   .. py:method:: x1_um(self)
-      :property:
-
-      Panorama coordinate 1 (x-axis), in micrometers
-
-
-   .. py:method:: y1_um(self)
-      :property:
-
-      Panorama coordinate 1 (y-axis), in micrometers
-
-
-   .. py:method:: x2_um(self)
-      :property:
-
-      Panorama coordinate 2 (x-axis), in micrometers
-
-
-   .. py:method:: y2_um(self)
-      :property:
-
-      Panorama coordinate 2 (y-axis), in micrometers
-
-
-   .. py:method:: x3_um(self)
-      :property:
-
-      Panorama coordinate 3 (x-axis), in micrometers
-
-
-   .. py:method:: y3_um(self)
-      :property:
-
-      Panorama coordinate 3 (y-axis), in micrometers
-
-
-   .. py:method:: x4_um(self)
-      :property:
-
-      Panorama coordinate 4 (x-axis), in micrometers
-
-
-   .. py:method:: y4_um(self)
-      :property:
-
-      Panorama coordinate 4 (y-axis), in micrometers
 
 
    .. py:method:: width_um(self)
@@ -105,6 +63,14 @@ Classes
       :property:
 
       Panorama height, in micrometers
+
+
+   .. py:method:: points_um(self)
+      :property:
+
+      User-provided ROI points, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
 
 
 

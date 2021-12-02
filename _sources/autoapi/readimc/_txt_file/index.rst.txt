@@ -1,9 +1,9 @@
 :orphan:
 
-:py:mod:`readimc._imc_txt_file`
-===============================
+:py:mod:`readimc._txt_file`
+===========================
 
-.. py:module:: readimc._imc_txt_file
+.. py:module:: readimc._txt_file
 
 
 Module Contents
@@ -14,18 +14,18 @@ Classes
 
 .. autoapisummary::
 
-   readimc._imc_txt_file.IMCTxtFile
+   readimc._txt_file.TXTFile
 
 
 
 
-.. py:class:: IMCTxtFile(path)
+.. py:class:: TXTFile(path)
 
-   Bases: :py:obj:`readimc.IMCFileBase`, :py:obj:`readimc.data.AcquisitionBase`
+   Bases: :py:obj:`readimc._imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
 
-   A class for reading Fluidigm(R) IMC(TM) TXT files
+   A class for reading IMC .txt files
 
-   :param path: path to the Fluidigm(R) IMC(TM) TXT file
+   :param path: path to the IMC .txt file
 
    .. py:method:: num_channels(self)
       :property:
@@ -53,37 +53,37 @@ Classes
 
    .. py:method:: open(self)
 
-      Opens the Fluidigm(R) IMC(TM) TXT file for reading.
+      Opens the IMC .txt file for reading.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with IMCTxtFile("/path/to/file.txt") as f:
+          with TXTFile("/path/to/file.txt") as f:
               pass
 
 
 
    .. py:method:: close(self)
 
-      Closes the Fluidigm(R) IMC(TM) TXT file.
+      Closes the IMC .txt file.
 
       It is good practice to use context managers whenever possible:
 
       .. code-block:: python
 
-          with IMCTxtFile("/path/to/file.txt") as f:
+          with TXTFile("/path/to/file.txt") as f:
               pass
 
 
 
    .. py:method:: read_acquisition(self, *args)
 
-      Reads IMC(TM) acquisition data as numpy array.
+      Reads IMC acquisition data as numpy array.
 
       .. note::
           This function takes a variable number of arguments for
-          compatibility with ``IMCMcdFile``.
+          compatibility with ``MCDFile``.
 
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
@@ -92,7 +92,7 @@ Classes
    .. py:method:: path(self)
       :property:
 
-      Path to the Fluidigm(R) IMC(TM) file
+      Path to the IMC file
 
 
    .. py:method:: channel_names(self)

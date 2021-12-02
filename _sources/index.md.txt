@@ -1,17 +1,17 @@
 # Welcome
 
-`readimc` is a Python package for reading Fluidigm&reg; Imaging Mass Cytometry&trade; files
+`readimc` is a Python package for reading Imaging Mass Cytometry files
 
 ## Supported file types
 
-  - Fluidigm&reg; MCD&trade;
-  - Fluidigm&reg; TXT
+  - IMC .mcd files
+  - IMC .txt files
 
 ## Extractable image data
 
   - Slide images (user-uploaded)
   - Panorama images (single-channel, color)
-  - IMC&trade; acquisitions (multi-channel, grayscale)
+  - IMC acquisitions (multi-channel, grayscale)
   - Before/after-ablation images (single-channel, color)
 
 ```{toctree}
