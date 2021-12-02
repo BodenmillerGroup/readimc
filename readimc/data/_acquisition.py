@@ -2,8 +2,7 @@ import math
 import numpy as np
 
 from abc import ABC, abstractmethod
-from pydantic import Field
-from pydantic.dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, TYPE_CHECKING, Sequence
 
 if TYPE_CHECKING:
@@ -78,10 +77,10 @@ class Acquisition(AcquisitionBase):
     metadata: Dict[str, str]
     """Full acquisition metadata"""
 
-    num_channels_: int
-    channel_metals_: List[str] = Field(default_factory=list)
-    channel_masses_: List[int] = Field(default_factory=list)
-    channel_labels_: List[str] = Field(default_factory=list)
+    _num_channels: int
+    _channel_metals: List[str] = field(default_factory=list)
+    _channel_masses: List[int] = field(default_factory=list)
+    _channel_labels: List[str] = field(default_factory=list)
 
     @property
     def description(self) -> Optional[str]:
@@ -136,19 +135,19 @@ class Acquisition(AcquisitionBase):
 
     @property
     def num_channels(self) -> int:
-        return self.num_channels_
+        return self._num_channels
 
     @property
     def channel_metals(self) -> Sequence[str]:
-        return self.channel_metals_
+        return self._channel_metals
 
     @property
     def channel_masses(self) -> Sequence[int]:
-        return self.channel_masses_
+        return self._channel_masses
 
     @property
     def channel_labels(self) -> Sequence[str]:
-        return self.channel_labels_
+        return self._channel_labels
 
     @property
     def roi_coords_um(

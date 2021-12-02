@@ -1,5 +1,4 @@
-from pydantic import Field
-from pydantic.dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 
 from readimc.data._acquisition import Acquisition
@@ -21,7 +20,7 @@ class Panorama:
     metadata: Dict[str, str]
     """Full panorama metadata"""
 
-    acquisitions: List[Acquisition] = Field(default_factory=list)
+    acquisitions: List[Acquisition] = field(default_factory=list)
     """List of acquisitions associated with this panorama"""
 
     @property

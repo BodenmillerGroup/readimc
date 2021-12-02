@@ -31,8 +31,8 @@ class MCDXmlParser:
 
     def _parse_slide(self, slide_elem: ET.Element) -> Slide:
         slide = Slide(
-            id=self._get_text_as_int(slide_elem, "ID"),
-            metadata=self._get_metadata_dict(slide_elem),
+            self._get_text_as_int(slide_elem, "ID"),
+            self._get_metadata_dict(slide_elem),
         )
         panorama_elems = self._find_elements(f"Panorama[SlideID='{slide.id}']")
         for panorama_elem in panorama_elems:
@@ -54,7 +54,7 @@ class MCDXmlParser:
                 )
                 roi_points_um = None
                 if len(roi_point_elems) == 4:
-                    roi_points_um = tuple([
+                    roi_points_um = tuple(
                         (
                             self._get_text_as_float(
                                 roi_point_elem, "SlideXPosUm"
@@ -69,7 +69,7 @@ class MCDXmlParser:
                                 roi_point_elem, "OrderNumber"
                             ),
                         )
-                    ])
+                    )
                 acquisition_elems = self._find_elements(
                     f"Acquisition[AcquisitionROIID='{acquisition_roi_id}']"
                 )
@@ -88,9 +88,9 @@ class MCDXmlParser:
         self, panorama_elem: ET.Element, slide: Slide
     ) -> Panorama:
         return Panorama(
-            slide=slide,
-            id=self._get_text_as_int(panorama_elem, "ID"),
-            metadata=self._get_metadata_dict(panorama_elem),
+            slide,
+            self._get_text_as_int(panorama_elem, "ID"),
+            self._get_metadata_dict(panorama_elem),
         )
 
     def _parse_acquisition(
@@ -117,12 +117,12 @@ class MCDXmlParser:
             )
         )
         acquisition = Acquisition(
-            slide=slide,
-            panorama=panorama,
-            id=acquisition_id,
-            roi_points_um=roi_points_um,
-            metadata=self._get_metadata_dict(acquisition_elem),
-            num_channels_=len(acquisition_channel_elems) - 3,
+            slide,
+            panorama,
+            acquisition_id,
+            roi_points_um,
+            self._get_metadata_dict(acquisition_elem),
+            len(acquisition_channel_elems) - 3,
         )
         for i, acquisition_channel_elem in enumerate(
             acquisition_channel_elems

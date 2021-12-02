@@ -1,5 +1,4 @@
-from pydantic import Field
-from pydantic.dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
 from readimc.data._acquisition import Acquisition
@@ -16,10 +15,10 @@ class Slide:
     metadata: Dict[str, str]
     """Full slide metadata"""
 
-    panoramas: List[Panorama] = Field(default_factory=list)
+    panoramas: List[Panorama] = field(default_factory=list)
     """List of panoramas associated with this slide"""
 
-    acquisitions: List[Acquisition] = Field(default_factory=list)
+    acquisitions: List[Acquisition] = field(default_factory=list)
     """List of acquisitions associated with this slide"""
 
     @property

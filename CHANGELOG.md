@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Refactored metadata accessors
 
-Switched to pydantic dataclasses
-
 Refactored accessors for ROI points/coordinates
 
 Added link between acquisitions and associated panoramas
