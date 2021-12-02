@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2021-12-02
+
+Refactored metadata accessors
+
+Switched to pydantic dataclasses
+
+Refactored accessors for ROI points/coordinates
+
+Added link between acquisitions and associated panoramas
+
+Renamed `IMCMcdFile` and `IMCTxtFile` to `MCDFile` and `TXTFile`
+
 ## [0.4.2] - 2021-11-01
 
 Use pandas for reading TXT files (better performance)
@@ -57,6 +69,7 @@ Minor documentation changes
 
 Initial release
 
+[0.5.0]: https://github.com/BodenmillerGroup/readimc/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/BodenmillerGroup/readimc/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/BodenmillerGroup/readimc/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/BodenmillerGroup/readimc/compare/v0.3.1...v0.4.0
