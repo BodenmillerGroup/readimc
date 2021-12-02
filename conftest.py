@@ -1,11 +1,11 @@
-from typing import Generator
 import pytest
 import requests
 import shutil
 
 from pathlib import Path
+from typing import Generator
 
-from readimc import IMCMcdFile, IMCTxtFile
+from readimc import MCDFile, TXTFile
 
 
 _imc_test_data_asset_url = (
@@ -39,16 +39,16 @@ def imc_test_data_raw_path(tmp_path_factory) -> Generator[Path, None, None]:
 @pytest.fixture
 def imc_test_data_mcd_file(
     imc_test_data_raw_path: Path,
-) -> Generator[IMCMcdFile, None, None]:
+) -> Generator[MCDFile, None, None]:
     path = imc_test_data_raw_path / Path(_imc_test_data_mcd_file)
-    with IMCMcdFile(path) as f:
+    with MCDFile(path) as f:
         yield f
 
 
 @pytest.fixture
 def imc_test_data_txt_file(
     imc_test_data_raw_path: Path,
-) -> Generator[IMCTxtFile, None, None]:
+) -> Generator[TXTFile, None, None]:
     path = imc_test_data_raw_path / Path(_imc_test_data_txt_file)
-    with IMCTxtFile(path) as f:
+    with TXTFile(path) as f:
         yield f

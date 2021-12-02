@@ -1,13 +1,18 @@
+import math
+import numpy as np
+
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import Dict, List, Optional, TYPE_CHECKING, Sequence
+from pydantic import Field
+from pydantic.dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple, TYPE_CHECKING, Sequence
 
 if TYPE_CHECKING:
-    import readimc.data
+    from readimc.data._slide import Slide
+    from readimc.data._panorama import Panorama
 
 
 class AcquisitionBase(ABC):
-    """Shared IMC(TM) acquisition metadata interface"""
+    """Shared IMC acquisition metadata interface"""
 
     @property
     @abstractmethod
@@ -38,44 +43,45 @@ class AcquisitionBase(ABC):
         """Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
         ``["Ag107", "Ir191"]``)"""
         return [
-            f"{metal}{mass}"
-            for metal, mass in zip(self.channel_metals, self.channel_masses)
+            f"{channel_metal}{channel_mass}"
+            for channel_metal, channel_mass in zip(
+                self.channel_metals, self.channel_masses
+            )
         ]
 
 
-@dataclass(frozen=True)
+@dataclass
 class Acquisition(AcquisitionBase):
-    """IMC(TM) acquisition metadata"""
+    """IMC acquisition metadata"""
 
-    slide: "readimc.data.Slide"
+    slide: "Slide"
     """Parent slide"""
+
+    panorama: Optional["Panorama"]
+    """Associated panorama"""
 
     id: int
     """Acquisition ID"""
 
+    roi_points_um: Optional[
+        Tuple[
+            Tuple[float, float],
+            Tuple[float, float],
+            Tuple[float, float],
+            Tuple[float, float],
+        ]
+    ]
+    """User-provided ROI points, in micrometers
+
+    Order: (top left, top right, bottom right, bottom left)"""
+
     metadata: Dict[str, str]
     """Full acquisition metadata"""
 
-    _num_channels: int
-    _channel_metals: List[str]
-    _channel_masses: List[int]
-    _channel_labels: List[str]
-
-    @property
-    def num_channels(self) -> int:
-        return self._num_channels
-
-    @property
-    def channel_metals(self) -> Sequence[str]:
-        return self._channel_metals
-
-    @property
-    def channel_masses(self) -> Sequence[int]:
-        return self._channel_masses
-
-    @property
-    def channel_labels(self) -> Sequence[str]:
-        return self._channel_labels
+    num_channels_: int
+    channel_metals_: List[str] = Field(default_factory=list)
+    channel_masses_: List[int] = Field(default_factory=list)
+    channel_labels_: List[str] = Field(default_factory=list)
 
     @property
     def description(self) -> Optional[str]:
@@ -83,161 +89,111 @@ class Acquisition(AcquisitionBase):
         return self.metadata.get("Description")
 
     @property
-    def start_x_um(self) -> Optional[float]:
-        """Acquisition start coordinate (x-axis), in micrometers"""
-        if None not in (
-            self.start_x_um_raw,
-            self.start_x_um_corrected,
-            self.width_um_raw,
-            self.width_um_corrected,
-        ):
-            if self.width_um_corrected < self.width_um_raw:
-                return self.start_x_um_corrected
-            return self.start_x_um_raw
-        if self.start_x_um_corrected is not None:
-            return self.start_x_um_corrected
-        if self.start_x_um_raw is not None:
-            return self.start_x_um_raw
+    def width_px(self) -> Optional[int]:
+        """Acquisition width, in pixels"""
+        value = self.metadata.get("MaxX")
+        if value is not None:
+            return int(value)
         return None
 
     @property
-    def start_y_um(self) -> Optional[float]:
-        "Acquisition start coordinate (y-axis), in micrometers"
-        if None not in (
-            self.start_y_um_raw,
-            self.start_y_um_corrected,
-            self.height_um_raw,
-            self.height_um_corrected,
-        ):
-            if self.height_um_corrected < self.height_um_raw:
-                return self.start_y_um_corrected
-            return self.start_y_um_raw
-        if self.start_y_um_corrected is not None:
-            return self.start_y_um_corrected
-        if self.start_x_um_raw is not None:
-            return self.start_y_um_raw
+    def height_px(self) -> Optional[int]:
+        """Acquisition height, in pixels"""
+        value = self.metadata.get("MaxY")
+        if value is not None:
+            return int(value)
         return None
 
     @property
-    def start_x_um_raw(self) -> Optional[float]:
-        """Acquisition start coordinate (x-axis) as in the raw metadata,
-        in micrometers"""
-        val = self.metadata.get("ROIStartXPosUm")
-        if val is not None:
-            return float(val)
+    def pixel_size_x_um(self) -> Optional[float]:
+        """Width of a single pixel, in micrometers"""
+        value = self.metadata.get("AblationDistanceBetweenShotsX")
+        if value is not None:
+            return float(value)
         return None
 
     @property
-    def start_y_um_raw(self) -> Optional[float]:
-        """Acquisition start coordinate (y-axis) as in the raw metadata,
-        in micrometers"""
-        val = self.metadata.get("ROIStartYPosUm")
-        if val is not None:
-            return float(val)
-        return None
-
-    @property
-    def start_x_um_corrected(self) -> Optional[float]:
-        """Acquisition start coordinate (x-axis) corrected for a Fluidigm bug,
-        in micrometers"""
-        if self.start_x_um_raw is not None:
-            return self.start_x_um_raw / 1000
-        return None
-
-    @property
-    def start_y_um_corrected(self) -> Optional[float]:
-        """Acquisition start coordinate (y-axis) corrected for a Fluidigm bug,
-        in micrometers"""
-        if self.start_y_um_raw is not None:
-            return self.start_y_um_raw / 1000
-        return None
-
-    @property
-    def end_x_um(self) -> Optional[float]:
-        """Acquisition end coordinate (x-axis), in micrometers"""
-        val = self.metadata.get("ROIEndXPosUm")
-        if val is not None:
-            return float(val)
-        return None
-
-    @property
-    def end_y_um(self) -> Optional[float]:
-        """Acquisition end coordinate (y-axis), in micrometers"""
-        val = self.metadata.get("ROIEndYPosUm")
-        if val is not None:
-            return float(val)
+    def pixel_size_y_um(self) -> Optional[float]:
+        """Height of a single pixel, in micrometers"""
+        value = self.metadata.get("AblationDistanceBetweenShotsY")
+        if value is not None:
+            return float(value)
         return None
 
     @property
     def width_um(self) -> Optional[float]:
-        if None not in (self.width_um_raw, self.width_um_corrected):
-            if self.width_um_corrected < self.width_um_raw:
-                return self.width_um_corrected
-            return self.width_um_raw
-        if self.width_um_corrected is not None:
-            return self.width_um_corrected
-        if self.width_um_raw is not None:
-            return self.width_um_raw
+        """Acquisition width, in micrometers"""
+        if self.width_px is not None and self.pixel_size_x_um is not None:
+            return self.width_px * self.pixel_size_x_um
         return None
 
     @property
     def height_um(self) -> Optional[float]:
-        if None not in (self.height_um_raw, self.height_um_corrected):
-            if self.height_um_corrected < self.height_um_raw:
-                return self.height_um_corrected
-            return self.height_um_raw
-        if self.height_um_corrected is not None:
-            return self.height_um_corrected
-        if self.height_um_raw is not None:
-            return self.height_um_raw
+        """Acquisition height, in micrometers"""
+        if self.height_px is not None and self.pixel_size_y_um is not None:
+            return self.height_px * self.pixel_size_y_um
         return None
 
     @property
-    def width_um_raw(self) -> Optional[float]:
-        """Acquisition width as in the raw metadata, in micrometers"""
-        if None in (self.start_x_um_raw, self.end_x_um):
-            return None
-        val = abs(self.start_x_um_raw - self.end_x_um)
-        if val == 0.0 and "MaxX" in self.metadata:
-            val = float(self.metadata["MaxX"])
-        return val
+    def num_channels(self) -> int:
+        return self.num_channels_
 
     @property
-    def height_um_raw(self) -> Optional[float]:
-        """Acquisition height as in the raw metadata, in micrometers"""
-        if None in (self.start_y_um_raw, self.end_y_um):
-            return None
-        val = abs(self.start_y_um_raw - self.end_y_um)
-        if val == 0.0 and "MaxY" in self.metadata:
-            val = float(self.metadata["MaxY"])
-        return val
+    def channel_metals(self) -> Sequence[str]:
+        return self.channel_metals_
 
     @property
-    def width_um_corrected(self) -> Optional[float]:
-        """Acquisition width corrected for a Fluidigm bug, in micrometers"""
-        if None in (self.start_x_um_corrected, self.end_x_um):
-            return None
-        val = abs(self.start_x_um_corrected - self.end_x_um)
-        if val == 0.0 and "MaxX" in self.metadata:
-            val = float(self.metadata["MaxX"])
-        return val
+    def channel_masses(self) -> Sequence[int]:
+        return self.channel_masses_
 
     @property
-    def height_um_corrected(self) -> Optional[float]:
-        """Acquisition height corrected for a Fluidigm bug, in micrometers"""
-        if None in (self.start_y_um_corrected, self.end_y_um):
-            return None
-        val = abs(self.start_y_um_corrected - self.end_y_um)
-        if val == 0.0 and "MaxY" in self.metadata:
-            val = float(self.metadata["MaxY"])
-        return val
+    def channel_labels(self) -> Sequence[str]:
+        return self.channel_labels_
 
-    def __str__(self) -> str:
-        return (
-            f"Acquisition {self.id}: {self.description or 'unnamed'} ("
-            f"x = {self.start_x_um or '?'}um, "
-            f"y = {self.start_y_um or '?'}um, "
-            f"width = {self.width_um or '?'}um, "
-            f"height = {self.height_um or '?'}um, "
-            f"{self.num_channels} channels)"
-        )
+    @property
+    def roi_coords_um(
+        self,
+    ) -> Optional[
+        Tuple[
+            Tuple[float, float],
+            Tuple[float, float],
+            Tuple[float, float],
+            Tuple[float, float],
+        ]
+    ]:
+        """ROI stage coordinates, in micrometers
+
+        Order: (top left, top right, bottom right, bottom left)"""
+        x1 = self.metadata.get("ROIStartXPosUm")
+        y1 = self.metadata.get("ROIStartYPosUm")
+        x3 = self.metadata.get("ROIEndXPosUm")
+        y3 = self.metadata.get("ROIEndYPosUm")
+        if (
+            x1 != x3
+            and y1 != y3
+            and None not in (x1, y1, x3, y3, self.width_um, self.height_um)
+        ):
+            x1, y1 = float(x1), float(y1)
+            x3, y3 = float(x3), float(y3)
+            # fix Fluidigm bug, where start positions are multiplied by 1000
+            if abs(x1 / 1000.0 - x3) < abs(x1 - x3):
+                x1 /= 1000.0
+            if abs(y1 / 1000.0 - y3) < abs(y1 - y3):
+                y1 /= 1000.0
+            # calculate counter-clockwise rotation angle, in radians
+            rotated_main_diag_angle = np.arctan2(y1 - y3, x1 - x3)
+            main_diag_angle = np.arctan2(self.height_um, -self.width_um)
+            angle = rotated_main_diag_angle - main_diag_angle
+            # calculate missing points (generative approach)
+            x2, y2 = self.width_um / 2.0, self.height_um / 2.0
+            x4, y4 = -self.width_um / 2.0, -self.height_um / 2.0
+            x2, y2 = (
+                math.cos(angle) * x2 - math.sin(angle) * y2 + (x1 + x3) / 2.0,
+                math.sin(angle) * x2 + math.cos(angle) * y2 + (y1 + y3) / 2.0,
+            )
+            x4, y4 = (
+                math.cos(angle) * x4 - math.sin(angle) * y4 + (x1 + x3) / 2.0,
+                math.sin(angle) * x4 + math.cos(angle) * y4 + (y1 + y3) / 2.0,
+            )
+            return ((x1, y1), (x2, y2), (x3, y3), (x4, y4))
+        return None

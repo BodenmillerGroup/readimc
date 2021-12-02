@@ -7,52 +7,58 @@ from imageio import imread
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Union
 
-from readimc._imc_mcd_xml_parser import IMCMcdXmlParser, IMCMcdXmlParserError
-from readimc.data import Acquisition
-from readimc.data import Panorama
-from readimc.data import Slide
-
-import readimc
+from readimc._imc_file import IMCFile
+from readimc._mcd_xml_parser import MCDXmlParser, MCDXmlParserError
+from readimc.data import Slide, Panorama, Acquisition
 
 
-class IMCMcdFile(readimc.IMCFileBase):
-    _XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
+class MCDFile(IMCFile):
+    _METADATA_XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
 
     def __init__(self, path: Union[str, PathLike]) -> None:
-        """A class for reading Fluidigm(R) IMC(TM) MCD(TM) files
+        """A class for reading IMC .mcd files
 
-        :param path: path to the Fluidigm(R) IMC(TM) MCD(TM) file
+        :param path: path to the IMC .mcd file
         """
-        super(IMCMcdFile, self).__init__(path)
+        super(MCDFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
-        self._xml: Optional[ET.Element] = None
-        self._xmlns: Optional[str] = None
+        self._metadata_xml: Optional[ET.Element] = None
+        self._metadata_xmlns: Optional[str] = None
         self._slides: Optional[List[Slide]] = None
 
     @property
-    def xml(self) -> ET.Element:
-        """Full metadata in proprietary Fluidigm(R) XML format"""
-        if self._xml is None:
+    def metadata_xml(self) -> ET.Element:
+        """Full metadata in proprietary XML format"""
+        if self._metadata_xml is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return self._xml
+        return self._metadata_xml
 
     @property
-    def xmlns(self) -> str:
-        """XML namespace of full metadata in proprietary Fluidigm(R) XML
-        format"""
-        if self._xmlns is None:
+    def metadata_xmlns(self) -> str:
+        """XML namespace of full metadata in proprietary XML format"""
+        if self._metadata_xmlns is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return self._xmlns
+        return self._metadata_xmlns
+
+    @property
+    def metadata_xml_str(self) -> str:
+        if self._metadata_xml is None or self._metadata_xmlns is None:
+            raise IOError(f"MCD file '{self.path.name}' has not been opened")
+        return ET.tostring(
+            self._metadata_xml,
+            encoding="unicode",
+            xml_declaration=True,
+            default_namespace=self._metadata_xmlns,
+        )
 
     @property
     def slides(self) -> Sequence[Slide]:
-        """Metadata on slides contained in this Fluidigm(R) IMC(TM) MCD(TM)
-        file"""
+        """Metadata on slides contained in this IMC .mcd file"""
         if self._slides is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         return self._slides
 
-    def __enter__(self) -> "IMCMcdFile":
+    def __enter__(self) -> "MCDFile":
         self.open()
         return self
 
@@ -60,38 +66,39 @@ class IMCMcdFile(readimc.IMCFileBase):
         self.close()
 
     def open(self) -> None:
-        """Opens the Fluidigm(R) IMC(TM) MCD(TM) file for reading.
+        """Opens the IMC .mcd file for reading.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with IMCMcdFile("/path/to/file.mcd") as f:
+            with MCDFile("/path/to/file.mcd") as f:
                 pass
 
         """
         if self._fh is not None:
             self._fh.close()
         self._fh = open(self._path, mode="rb")
-        self._xml = self._read_xml()
-        self._xmlns = self._get_xmlns(self.xml)
-        xml_parser = IMCMcdXmlParser(self.xml, default_namespace=self.xmlns)
+        self._metadata_xml = self._read_metadata_xml()
+        self._metadata_xmlns = self._get_metadata_xmlns(self.metadata_xml)
         try:
-            self._slides = xml_parser.parse_slides()
-        except IMCMcdXmlParserError as e:
+            self._slides = MCDXmlParser(
+                self.metadata_xml, default_namespace=self.metadata_xmlns
+            ).parse_slides()
+        except MCDXmlParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
                 "error parsing slide information from MCD-XML"
             ) from e
 
     def close(self) -> None:
-        """Closes the Fluidigm(R) IMC(TM) MCD(TM) file.
+        """Closes the IMC .mcd file.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with IMCMcdFile("/path/to/file.mcd") as f:
+            with MCDFile("/path/to/file.mcd") as f:
                 pass
 
         """
@@ -100,7 +107,7 @@ class IMCMcdFile(readimc.IMCFileBase):
             self._fh = None
 
     def read_acquisition(self, acquisition: Acquisition) -> np.ndarray:
-        """Reads IMC(TM) acquisition data as numpy array.
+        """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read
         :return: the acquisition data as 32-bit floating point array,
@@ -158,10 +165,10 @@ class IMCMcdFile(readimc.IMCFileBase):
         package.
 
         .. note::
-            Slide images are stored as binary data within the Fluidigm(R)
-            IMC(TM) MCD(TM) file in an arbitrary encoding. The ``imageio``
-            package can decode most commonly used image file formats, but may
-            fail for more obscure, in which case an ``IOException`` is raised.
+            Slide images are stored as binary data within the IMC .mcd file in
+            an arbitrary encoding. The ``imageio`` package can decode most
+            commonly used image file formats, but may fail for more obscure,
+            in which case an ``IOException`` is raised.
 
         :param slide: the slide to read
         :return: the slide image, or ``None`` if no image is available for the
@@ -312,7 +319,7 @@ class IMCMcdFile(readimc.IMCFileBase):
                 f"for acquisition {acquisition.id}"
             ) from e
 
-    def _read_xml(
+    def _read_metadata_xml(
         self,
         encoding: str = "utf-16-le",
         start_sub: str = "<MCDSchema",
@@ -346,8 +353,8 @@ class IMCMcdFile(readimc.IMCFileBase):
         return imread(data)
 
     @staticmethod
-    def _get_xmlns(elem: ET.Element) -> str:
-        m = re.match(IMCMcdFile._XMLNS_REGEX, elem.tag)
+    def _get_metadata_xmlns(elem: ET.Element) -> str:
+        m = re.match(MCDFile._METADATA_XMLNS_REGEX, elem.tag)
         return m.group("xmlns") if m is not None else ""
 
     def __repr__(self) -> str:

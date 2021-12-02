@@ -1,11 +1,12 @@
-from dataclasses import dataclass
-from typing import Dict, List, Optional, TYPE_CHECKING
+from pydantic import Field
+from pydantic.dataclasses import dataclass
+from typing import Dict, List, Optional
 
-if TYPE_CHECKING:
-    import readimc.data
+from readimc.data._acquisition import Acquisition
+from readimc.data._panorama import Panorama
 
 
-@dataclass(frozen=True)
+@dataclass
 class Slide:
     """Slide metadata"""
 
@@ -15,10 +16,10 @@ class Slide:
     metadata: Dict[str, str]
     """Full slide metadata"""
 
-    panoramas: List["readimc.data.Panorama"]
+    panoramas: List[Panorama] = Field(default_factory=list)
     """List of panoramas associated with this slide"""
 
-    acquisitions: List["readimc.data.Acquisition"]
+    acquisitions: List[Acquisition] = Field(default_factory=list)
     """List of acquisitions associated with this slide"""
 
     @property
@@ -29,24 +30,15 @@ class Slide:
     @property
     def width_um(self) -> Optional[float]:
         """Slide width, in micrometers"""
-        val = self.metadata.get("WidthUm")
-        if val is not None:
-            return float(val)
+        value = self.metadata.get("WidthUm")
+        if value is not None:
+            return float(value)
         return None
 
     @property
     def height_um(self) -> Optional[float]:
         """Slide height, in micrometers"""
-        val = self.metadata.get("HeightUm")
-        if val is not None:
-            return float(val)
+        value = self.metadata.get("HeightUm")
+        if value is not None:
+            return float(value)
         return None
-
-    def __str__(self) -> str:
-        return (
-            f"Slide {self.id}: {self.description or 'unnamed'} ("
-            f"width = {self.width_um or '?'}um, "
-            f"height = {self.height_um or '?'}um, "
-            f"{len(self.panoramas)} panoramas, "
-            f"{len(self.acquisitions)} acquisitions)"
-        )

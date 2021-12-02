@@ -1,27 +1,27 @@
 import re
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from xml.etree import ElementTree as ET
 
-import readimc.data
+from readimc.data import Slide, Panorama, Acquisition
 
 
-class IMCMcdXmlParserError(Exception):
+class MCDXmlParserError(Exception):
     pass
 
 
-class IMCMcdXmlParser:
+class MCDXmlParser:
     _CHANNEL_REGEX = re.compile(r"^(?P<metal>[a-zA-Z]+)\((?P<mass>[0-9]+)\)$")
 
     def __init__(
         self,
-        mcd_schema_elem: ET.Element,
+        metadata_xml: ET.Element,
         default_namespace: Optional[str] = None,
     ) -> None:
-        self._mcd_schema_elem = mcd_schema_elem
+        self._metadata_xml = metadata_xml
         self._default_namespace = default_namespace
 
-    def parse_slides(self) -> List[readimc.data.Slide]:
+    def parse_slides(self) -> List[Slide]:
         slides = [
             self._parse_slide(slide_elem)
             for slide_elem in self._find_elements("Slide")
@@ -29,22 +29,19 @@ class IMCMcdXmlParser:
         slides.sort(key=lambda slide: slide.id)
         return slides
 
-    def _parse_slide(self, slide_elem: ET.Element) -> readimc.data.Slide:
-        slide_panoramas: List[readimc.data.Panorama] = []
-        slide_acquisitions: List[readimc.data.Acquisition] = []
-        slide = readimc.data.Slide(
-            self._get_text_as_int(slide_elem, "ID"),
-            self._get_metadata_dict(slide_elem),
-            slide_panoramas,
-            slide_acquisitions,
+    def _parse_slide(self, slide_elem: ET.Element) -> Slide:
+        slide = Slide(
+            id=self._get_text_as_int(slide_elem, "ID"),
+            metadata=self._get_metadata_dict(slide_elem),
         )
         panorama_elems = self._find_elements(f"Panorama[SlideID='{slide.id}']")
         for panorama_elem in panorama_elems:
+            panorama = None
             panorama_id = self._get_text_as_int(panorama_elem, "ID")
             panorama_type = self._get_text_or_none(panorama_elem, "Type")
             if panorama_type != "Default":  # ignore "virtual" Panoramas
                 panorama = self._parse_panorama(panorama_elem, slide)
-                slide_panoramas.append(panorama)
+                slide.panoramas.append(panorama)
             acquisition_roi_elems = self._find_elements(
                 f"AcquisitionROI[PanoramaID='{panorama_id}']"
             )
@@ -52,30 +49,64 @@ class IMCMcdXmlParser:
                 acquisition_roi_id = self._get_text_as_int(
                     acquisition_roi_elem, "ID"
                 )
+                roi_point_elems = self._find_elements(
+                    f"ROIPoint[AcquisitionROIID='{acquisition_roi_id}']"
+                )
+                roi_points_um = None
+                if len(roi_point_elems) == 4:
+                    roi_points_um = tuple([
+                        (
+                            self._get_text_as_float(
+                                roi_point_elem, "SlideXPosUm"
+                            ),
+                            self._get_text_as_float(
+                                roi_point_elem, "SlideYPosUm"
+                            ),
+                        )
+                        for roi_point_elem in sorted(
+                            roi_point_elems,
+                            key=lambda roi_point_elem: self._get_text_as_int(
+                                roi_point_elem, "OrderNumber"
+                            ),
+                        )
+                    ])
                 acquisition_elems = self._find_elements(
                     f"Acquisition[AcquisitionROIID='{acquisition_roi_id}']"
                 )
                 for acquisition_elem in acquisition_elems:
                     acquisition = self._parse_acquisition(
-                        acquisition_elem, slide
+                        acquisition_elem, slide, panorama, roi_points_um
                     )
-                    slide_acquisitions.append(acquisition)
-        slide_panoramas.sort(key=lambda panorama: panorama.id)
-        slide_acquisitions.sort(key=lambda acquisition: acquisition.id)
+                    slide.acquisitions.append(acquisition)
+                    if panorama is not None:
+                        panorama.acquisitions.append(acquisition)
+        slide.panoramas.sort(key=lambda panorama: panorama.id)
+        slide.acquisitions.sort(key=lambda acquisition: acquisition.id)
         return slide
 
     def _parse_panorama(
-        self, panorama_elem: ET.Element, slide: readimc.data.Slide
-    ) -> readimc.data.Panorama:
-        return readimc.data.Panorama(
-            slide,
-            self._get_text_as_int(panorama_elem, "ID"),
-            self._get_metadata_dict(panorama_elem),
+        self, panorama_elem: ET.Element, slide: Slide
+    ) -> Panorama:
+        return Panorama(
+            slide=slide,
+            id=self._get_text_as_int(panorama_elem, "ID"),
+            metadata=self._get_metadata_dict(panorama_elem),
         )
 
     def _parse_acquisition(
-        self, acquisition_elem: ET.Element, slide: readimc.data.Slide
-    ) -> readimc.data.Acquisition:
+        self,
+        acquisition_elem: ET.Element,
+        slide: Slide,
+        panorama: Optional[Panorama],
+        roi_points_um: Optional[
+            Tuple[
+                Tuple[float, float],
+                Tuple[float, float],
+                Tuple[float, float],
+                Tuple[float, float],
+            ]
+        ],
+    ) -> Acquisition:
         acquisition_id = self._get_text_as_int(acquisition_elem, "ID")
         acquisition_channel_elems = self._find_elements(
             f"AcquisitionChannel[AcquisitionID='{acquisition_id}']"
@@ -85,17 +116,13 @@ class IMCMcdXmlParser:
                 acquisition_channel_elem, "OrderNumber"
             )
         )
-        acquisition_channel_metals: List[str] = []
-        acquisition_channel_masses: List[int] = []
-        acquisition_channel_labels: List[str] = []
-        acquisition = readimc.data.Acquisition(
-            slide,
-            acquisition_id,
-            self._get_metadata_dict(acquisition_elem),
-            len(acquisition_channel_elems) - 3,
-            acquisition_channel_metals,
-            acquisition_channel_masses,
-            acquisition_channel_labels,
+        acquisition = Acquisition(
+            slide=slide,
+            panorama=panorama,
+            id=acquisition_id,
+            roi_points_um=roi_points_um,
+            metadata=self._get_metadata_dict(acquisition_elem),
+            num_channels_=len(acquisition_channel_elems) - 3,
         )
         for i, acquisition_channel_elem in enumerate(
             acquisition_channel_elems
@@ -104,22 +131,22 @@ class IMCMcdXmlParser:
                 acquisition_channel_elem, "ChannelName"
             )
             if i == 0 and channel_name != "X":
-                raise IMCMcdXmlParserError(
+                raise MCDXmlParserError(
                     f"First channel '{channel_name}' should be named 'X'"
                 )
             if i == 1 and channel_name != "Y":
-                raise IMCMcdXmlParserError(
+                raise MCDXmlParserError(
                     f"Second channel '{channel_name}' should be named 'Y'"
                 )
             if i == 2 and channel_name != "Z":
-                raise IMCMcdXmlParserError(
+                raise MCDXmlParserError(
                     f"Third channel '{channel_name}' should be named 'Z'"
                 )
             if channel_name in ("X", "Y", "Z"):
                 continue
             m = re.match(self._CHANNEL_REGEX, channel_name)
             if m is None:
-                raise IMCMcdXmlParserError(
+                raise MCDXmlParserError(
                     "Cannot extract channel information "
                     f"from channel name '{channel_name}' "
                     f"for acquisition {acquisition.id}"
@@ -127,16 +154,16 @@ class IMCMcdXmlParser:
             channel_label = self._get_text(
                 acquisition_channel_elem, "ChannelLabel"
             )
-            acquisition_channel_metals.append(m.group("metal"))
-            acquisition_channel_masses.append(int(m.group("mass")))
-            acquisition_channel_labels.append(channel_label)
+            acquisition.channel_metals.append(m.group("metal"))
+            acquisition.channel_masses.append(int(m.group("mass")))
+            acquisition.channel_labels.append(channel_label)
         return acquisition
 
     def _find_elements(self, path: str) -> List[ET.Element]:
         namespaces = None
         if self._default_namespace is not None:
             namespaces = {"": self._default_namespace}
-        return self._mcd_schema_elem.findall(path, namespaces=namespaces)
+        return self._metadata_xml.findall(path, namespaces=namespaces)
 
     def _get_text_or_none(
         self, parent_elem: ET.Element, tag: str
@@ -150,7 +177,7 @@ class IMCMcdXmlParser:
     def _get_text(self, parent_elem: ET.Element, tag: str) -> str:
         text = self._get_text_or_none(parent_elem, tag)
         if text is None:
-            raise IMCMcdXmlParserError(
+            raise MCDXmlParserError(
                 f"XML tag '{tag}' not found "
                 f"for parent XML tag '{parent_elem.tag}'"
             )
@@ -161,9 +188,19 @@ class IMCMcdXmlParser:
         try:
             return int(text)
         except ValueError as e:
-            raise IMCMcdXmlParserError(
+            raise MCDXmlParserError(
                 f"Text '{text}' of XML tag '{tag}' cannot be converted to int "
                 f"for parent XML tag '{parent_elem.tag}'"
+            ) from e
+
+    def _get_text_as_float(self, parent_elem: ET.Element, tag: str) -> float:
+        text = self._get_text(parent_elem, tag)
+        try:
+            return float(text)
+        except ValueError as e:
+            raise MCDXmlParserError(
+                f"Text '{text}' of XML tag '{tag}' cannot be converted to "
+                f"float for parent XML tag '{parent_elem.tag}'"
             ) from e
 
     def _get_metadata_dict(self, parent_elem: ET.Element) -> Dict[str, str]:

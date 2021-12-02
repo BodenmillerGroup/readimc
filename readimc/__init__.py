@@ -1,11 +1,11 @@
-"""Python package for reading Fluidigm(R) Imaging Mass Cytometry(TM) files"""
+"""Python package for reading Imaging Mass Cytometry files"""
 
-from readimc._imc_file import IMCFileBase
-from readimc._imc_txt_file import IMCTxtFile
-from readimc._imc_mcd_file import IMCMcdFile
+from readimc._imc_file import IMCFile
+from readimc._txt_file import TXTFile
+from readimc._mcd_file import MCDFile
 
 __all__ = [
-    "IMCFileBase",
-    "IMCTxtFile",
-    "IMCMcdFile",
+    "IMCFile",
+    "TXTFile",
+    "MCDFile",
 ]

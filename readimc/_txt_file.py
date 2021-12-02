@@ -5,21 +5,21 @@ import re
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Tuple, Union
 
-import readimc
-import readimc.data
+from readimc._imc_file import IMCFile
+from readimc.data import AcquisitionBase
 
 
-class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
+class TXTFile(IMCFile, AcquisitionBase):
     _CHANNEL_REGEX = re.compile(
         r"^(?P<label>.*)\((?P<metal>[a-zA-Z]+)(?P<mass>[0-9]+)[^0-9]*\)$"
     )
 
     def __init__(self, path: Union[str, PathLike]) -> None:
-        """A class for reading Fluidigm(R) IMC(TM) TXT files
+        """A class for reading IMC .txt files
 
-        :param path: path to the Fluidigm(R) IMC(TM) TXT file
+        :param path: path to the IMC .txt file
         """
-        super(IMCTxtFile, self).__init__(path)
+        super(TXTFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
         self._num_channels: Optional[int] = None
         self._channel_metals: Optional[List[str]] = None
@@ -50,7 +50,7 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
             raise IOError(f"TXT file '{self.path.name}' has not been opened")
         return self._channel_labels
 
-    def __enter__(self) -> "IMCTxtFile":
+    def __enter__(self) -> "TXTFile":
         self.open()
         return self
 
@@ -58,13 +58,13 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
         self.close()
 
     def open(self) -> None:
-        """Opens the Fluidigm(R) IMC(TM) TXT file for reading.
+        """Opens the IMC .txt file for reading.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with IMCTxtFile("/path/to/file.txt") as f:
+            with TXTFile("/path/to/file.txt") as f:
                 pass
 
         """
@@ -79,13 +79,13 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
         ) = self._read_channels()
 
     def close(self) -> None:
-        """Closes the Fluidigm(R) IMC(TM) TXT file.
+        """Closes the IMC .txt file.
 
         It is good practice to use context managers whenever possible:
 
         .. code-block:: python
 
-            with IMCTxtFile("/path/to/file.txt") as f:
+            with TXTFile("/path/to/file.txt") as f:
                 pass
 
         """
@@ -94,11 +94,11 @@ class IMCTxtFile(readimc.IMCFileBase, readimc.data.AcquisitionBase):
             self._fh = None
 
     def read_acquisition(self, *args) -> np.ndarray:
-        """Reads IMC(TM) acquisition data as numpy array.
+        """Reads IMC acquisition data as numpy array.
 
         .. note::
             This function takes a variable number of arguments for
-            compatibility with ``IMCMcdFile``.
+            compatibility with ``MCDFile``.
 
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)
