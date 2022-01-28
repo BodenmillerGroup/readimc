@@ -3,10 +3,8 @@ import pytest
 
 from hashlib import md5
 from pathlib import Path
-from xml.etree import ElementTree as ET
 
 from readimc import MCDFile
-from readimc.utils import get_xmlns
 
 
 class TestMCDFile:
@@ -26,22 +24,9 @@ class TestMCDFile:
             cls.damond_mcd_file.close()
             cls.damond_mcd_file = None
 
-    def test_metadata_xml(self, imc_test_data_mcd_file: MCDFile):
-        metadata_xml = ET.tostring(
-            imc_test_data_mcd_file.metadata_xml,
-            encoding="us-ascii",
-            method="xml",
-            xml_declaration=False,
-            default_namespace=get_xmlns(imc_test_data_mcd_file.metadata_xml),
-        )
-        mcd_xml_digest = md5(metadata_xml).digest()
-        assert mcd_xml_digest == b"D]\xfa\x15a\xb8\xe4\xb2z8od\x85c\xa9\xf9"
-
-    def test_metadata_xmlns(self, imc_test_data_mcd_file: MCDFile):
-        metadata_xmlns = get_xmlns(imc_test_data_mcd_file.metadata_xml)
-        assert (
-            metadata_xmlns == "http://www.fluidigm.com/IMC/MCDSchema_V2_0.xsd"
-        )
+    def test_metadata(self, imc_test_data_mcd_file: MCDFile):
+        digest = md5(imc_test_data_mcd_file.metadata.encode("utf-8")).digest()
+        assert digest == b"\xac\xd8@\x0f\x0b\xf4p\x89\xdd!\xe7o\x19\xa6\x8d\x97"
 
     def test_slides(self, imc_test_data_mcd_file: MCDFile):
         assert len(imc_test_data_mcd_file.slides) == 1
@@ -147,30 +132,12 @@ class TestMCDFile:
         img = imc_test_data_mcd_file.read_after_ablation_image(acquisition)
         assert img is None
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
-    def test_xml_damond(self, imc_test_data_mcd_file: MCDFile):
-        mcd_xml = ET.tostring(
-            imc_test_data_mcd_file.metadata_xml,
-            encoding="us-ascii",
-            method="xml",
-            xml_declaration=False,
-            default_namespace=get_xmlns(imc_test_data_mcd_file.metadata_xml),
-        )
-        mcd_xml_digest = md5(mcd_xml).digest()
-        assert mcd_xml_digest == b"D]\xfa\x15a\xb8\xe4\xb2z8od\x85c\xa9\xf9"
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
+    def test_metadata_damond(self, imc_test_data_mcd_file: MCDFile):
+        digest = md5(imc_test_data_mcd_file.metadata.encode("utf-8")).digest()
+        assert digest == b"\xac\xd8@\x0f\x0b\xf4p\x89\xdd!\xe7o\x19\xa6\x8d\x97"
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
-    def test_xmlns_damond(self):
-        mcd_xmlns = get_xmlns(self.damond_mcd_file.metadata_xml)
-        assert mcd_xmlns == "http://www.fluidigm.com/IMC/MCDSchema.xsd"
-
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_slides_damond(self):
         assert len(self.damond_mcd_file.slides) == 1
 
@@ -220,9 +187,7 @@ class TestMCDFile:
         )
         assert acquisition.roi_coords_um is None
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_read_acquisition_damond(self):
         slide = self.damond_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
@@ -230,18 +195,14 @@ class TestMCDFile:
         assert img.dtype == np.float32
         assert img.shape == (3, 50, 51)
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_read_slide_damond(self):
         slide = self.damond_mcd_file.slides[0]
         img = self.damond_mcd_file.read_slide(slide)
         assert img.dtype == np.uint8
         assert img.shape == (930, 2734, 3)
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_read_panorama_damond(self):
         slide = self.damond_mcd_file.slides[0]
         panorama = next(p for p in slide.panoramas if p.id == 1)
@@ -249,18 +210,14 @@ class TestMCDFile:
         assert img.dtype == np.uint8
         assert img.shape == (4096, 3951, 4)
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_read_before_ablation_image_damond(self):
         slide = self.damond_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
         img = self.damond_mcd_file.read_before_ablation_image(acquisition)
         assert img is None
 
-    @pytest.mark.skipif(
-        not damond_mcd_file_path.exists(), reason="data not available"
-    )
+    @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_read_after_ablation_image_damond(self):
         slide = self.damond_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
