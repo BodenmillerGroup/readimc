@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.1] - 2022-01-28
 
-Simplify `MCDXMLParser` usage
+Rename `MCDXMLParser` to `MCDParser`
+
+Refactor and simplify `MCDParser` usage
+
+BREAKING CHANGES in `MCDFile`:
+- Renamed `MCDFile.metadata_xml_str` to `MCDFile.metadata`
+- Removed `MCDFile.metadata_xml` and `MCDFile.metadata_xmlns` (use `MCDParser` instead)
 
 ## [0.6.0] - 2022-01-28
 
