@@ -29,6 +29,7 @@ Classes
    readimc.IMCFile
    readimc.TXTFile
    readimc.MCDFile
+   readimc.MCDXMLParser
 
 
 
@@ -255,6 +256,35 @@ Classes
       :property:
 
       Path to the IMC file
+
+
+
+.. py:class:: MCDXMLParser(metadata_xml, metadata_xmlns = None)
+
+   A class for parsing XML metadata contained in .mcd files
+
+   :param metadata_xml: metadata from .mcd files in XML format
+   :param metadata_xmlns: metadata XML namespace
+
+   .. py:method:: parse_slides(self)
+
+      Extract slide information from the current metadata XML
+
+
+
+.. py:exception:: MCDXMLParserError(*args)
+
+   Bases: :py:obj:`Exception`
+
+   Error occurring when parsing well-formed but invalid .mcd metadata XML
+
+   .. py:class:: args
+
+
+   .. py:method:: with_traceback()
+
+      Exception.with_traceback(tb) --
+      set self.__traceback__ to tb and return self.
 
 
 

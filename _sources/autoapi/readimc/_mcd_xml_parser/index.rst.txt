@@ -14,16 +14,16 @@ Classes
 
 .. autoapisummary::
 
-   readimc._mcd_xml_parser.MCDXmlParser
+   readimc._mcd_xml_parser.MCDXMLParser
 
 
 
 
-.. py:exception:: MCDXmlParserError
+.. py:exception:: MCDXMLParserError(*args)
 
    Bases: :py:obj:`Exception`
 
-   Initialize self.  See help(type(self)) for accurate signature.
+   Error occurring when parsing well-formed but invalid .mcd metadata XML
 
    .. py:class:: args
 
@@ -35,9 +35,16 @@ Classes
 
 
 
-.. py:class:: MCDXmlParser(metadata_xml, default_namespace = None)
+.. py:class:: MCDXMLParser(metadata_xml, metadata_xmlns = None)
+
+   A class for parsing XML metadata contained in .mcd files
+
+   :param metadata_xml: metadata from .mcd files in XML format
+   :param metadata_xmlns: metadata XML namespace
 
    .. py:method:: parse_slides(self)
+
+      Extract slide information from the current metadata XML
 
 
 

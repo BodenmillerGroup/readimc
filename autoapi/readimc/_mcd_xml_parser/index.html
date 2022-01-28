@@ -90,24 +90,24 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._mcd_xml_parser.MCDXmlParser" title="readimc._mcd_xml_parser.MCDXmlParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDXmlParser</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc._mcd_xml_parser.MCDXMLParser" title="readimc._mcd_xml_parser.MCDXMLParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDXMLParser</span></code></a></p></td>
+<td><p>A class for parsing XML metadata contained in .mcd files</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py exception">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXmlParserError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">MCDXmlParserError</span></span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXmlParserError" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParserError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">MCDXMLParserError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParserError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<p>Error occurring when parsing well-formed but invalid .mcd metadata XML</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXmlParserError.args">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXmlParserError.args" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParserError.args">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParserError.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXmlParserError.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXmlParserError.with_traceback" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParserError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParserError.with_traceback" title="Permalink to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -115,20 +115,22 @@ set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXmlParser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">MCDXmlParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata_xml</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXmlParser" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc._mcd_xml_parser.</span></span><span class="sig-name descname"><span class="pre">MCDXMLParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata_xml</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_xmlns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParser" title="Permalink to this definition"></a></dt>
+<dd><p>A class for parsing XML metadata contained in .mcd files</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metadata_xml</strong> (<em>xml.etree.ElementTree.Element</em>) – </p></li>
-<li><p><strong>default_namespace</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>metadata_xml</strong> (<em>xml.etree.ElementTree.Element</em>) – metadata from .mcd files in XML format</p></li>
+<li><p><strong>metadata_xmlns</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – metadata XML namespace</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXmlParser.parse_slides">
-<span class="sig-name descname"><span class="pre">parse_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXmlParser.parse_slides" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="readimc._mcd_xml_parser.MCDXMLParser.parse_slides">
+<span class="sig-name descname"><span class="pre">parse_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc._mcd_xml_parser.MCDXMLParser.parse_slides" title="Permalink to this definition"></a></dt>
+<dd><p>Extract slide information from the current metadata XML</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>List[<a class="reference internal" href="../data/index.html#readimc.data.Slide" title="readimc.data.Slide">readimc.data.Slide</a>]</p>
 </dd>
