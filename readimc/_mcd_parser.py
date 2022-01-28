@@ -28,14 +28,17 @@ class MCDParser:
 
     @property
     def metadata(self) -> str:
+        """Full IMC .mcd file metadata in proprietary XML format"""
         return self._metadata
 
     @property
     def metadata_elem(self) -> ET.Element:
+        """Full IMC .mcd file metadata as Python ElementTree element"""
         return self._metadata_elem
 
     @property
-    def metadata_xmlns(self) -> str:
+    def metadata_xmlns(self) -> Optional[str]:
+        """Value of the metadata `xmlns` XML namespace attribute"""
         self._metadata_xmlns
 
     def parse_slides(self) -> List[Slide]:
