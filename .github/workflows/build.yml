@@ -37,6 +37,9 @@ jobs:
           python -m pip install --upgrade -r tests/requirements.txt
           pytest --cov=readimc --cov-report=xml tests
       - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: tests/coverage.xml
   deploy:
     needs:
       - test
