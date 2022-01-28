@@ -6,7 +6,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from readimc import MCDFile
-from readimc._utils import get_xmlns
+from readimc.utils import get_xmlns
 
 
 class TestMCDFile:

@@ -8,8 +8,8 @@ from typing import BinaryIO, List, Optional, Sequence, Union
 
 from ._imc_file import IMCFile
 from ._mcd_xml_parser import MCDXMLParser, MCDXMLParserError
-from ._utils import get_xmlns
 from .data import Slide, Panorama, Acquisition
+from .utils import get_xmlns
 
 
 class MCDFile(IMCFile):

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Tuple
 from xml.etree import ElementTree as ET
 
 from .data import Slide, Panorama, Acquisition
-from ._utils import get_xmlns
+from .utils import get_xmlns
 
 
 class MCDXMLParserError(Exception):
