@@ -6,28 +6,43 @@ from xml.etree import ElementTree as ET
 from .data import Slide, Panorama, Acquisition
 
 
-class MCDXMLParserError(Exception):
+class MCDParserError(Exception):
     def __init__(self, *args) -> None:
-        """Error occurring when parsing well-formed but invalid .mcd metadata XML"""
-        super(MCDXMLParserError, self).__init__(*args)
+        """Error occurring when parsing invalid IMC .mcd file metadata"""
+        super(MCDParserError, self).__init__(*args)
 
 
-class MCDXMLParser:
+class MCDParser:
+    _XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
     _CHANNEL_REGEX = re.compile(r"^(?P<metal>[a-zA-Z]+)\((?P<mass>[0-9]+)\)$")
 
-    def __init__(
-        self, metadata_xml: ET.Element, metadata_xmlns: Optional[str] = None
-    ) -> None:
-        """A class for parsing XML metadata contained in .mcd files
+    def __init__(self, metadata: str) -> None:
+        """A class for parsing IMC .mcd file metadata
 
-        :param metadata_xml: metadata from .mcd files in XML format
-        :param metadata_xmlns: metadata XML namespace
+        :param metadata: IMC .mcd file metadata in proprietary XML format
         """
-        self._metadata_xml = metadata_xml
-        self._metadata_xmlns = metadata_xmlns
+        self._metadata = metadata
+        self._metadata_elem = ET.fromstring(self._metadata)
+        m = self._XMLNS_REGEX.match(self._metadata_elem.tag)
+        self._metadata_xmlns = m.group("xmlns") if m is not None else None
+
+    @property
+    def metadata(self) -> str:
+        """Full IMC .mcd file metadata in proprietary XML format"""
+        return self._metadata
+
+    @property
+    def metadata_elem(self) -> ET.Element:
+        """Full IMC .mcd file metadata as Python ElementTree element"""
+        return self._metadata_elem
+
+    @property
+    def metadata_xmlns(self) -> Optional[str]:
+        """Value of the metadata `xmlns` XML namespace attribute"""
+        self._metadata_xmlns
 
     def parse_slides(self) -> List[Slide]:
-        """Extract slide information from the current metadata XML"""
+        """Extract slide metadata"""
         slides = [
             self._parse_slide(slide_elem) for slide_elem in self._find_elements("Slide")
         ]
@@ -124,22 +139,22 @@ class MCDXMLParser:
         for i, acquisition_channel_elem in enumerate(acquisition_channel_elems):
             channel_name = self._get_text(acquisition_channel_elem, "ChannelName")
             if i == 0 and channel_name != "X":
-                raise MCDXMLParserError(
+                raise MCDParserError(
                     f"First channel '{channel_name}' should be named 'X'"
                 )
             if i == 1 and channel_name != "Y":
-                raise MCDXMLParserError(
+                raise MCDParserError(
                     f"Second channel '{channel_name}' should be named 'Y'"
                 )
             if i == 2 and channel_name != "Z":
-                raise MCDXMLParserError(
+                raise MCDParserError(
                     f"Third channel '{channel_name}' should be named 'Z'"
                 )
             if channel_name in ("X", "Y", "Z"):
                 continue
-            m = re.match(self._CHANNEL_REGEX, channel_name)
+            m = self._CHANNEL_REGEX.match(channel_name)
             if m is None:
-                raise MCDXMLParserError(
+                raise MCDParserError(
                     "Cannot extract channel information "
                     f"from channel name '{channel_name}' "
                     f"for acquisition {acquisition.id}"
@@ -154,7 +169,7 @@ class MCDXMLParser:
         namespaces = None
         if self._metadata_xmlns is not None:
             namespaces = {"": self._metadata_xmlns}
-        return self._metadata_xml.findall(path, namespaces=namespaces)
+        return self._metadata_elem.findall(path, namespaces=namespaces)
 
     def _get_text_or_none(self, parent_elem: ET.Element, tag: str) -> Optional[str]:
         namespaces = None
@@ -166,7 +181,7 @@ class MCDXMLParser:
     def _get_text(self, parent_elem: ET.Element, tag: str) -> str:
         text = self._get_text_or_none(parent_elem, tag)
         if text is None:
-            raise MCDXMLParserError(
+            raise MCDParserError(
                 f"XML tag '{tag}' not found for parent XML tag '{parent_elem.tag}'"
             )
         return text
@@ -176,7 +191,7 @@ class MCDXMLParser:
         try:
             return int(text)
         except ValueError as e:
-            raise MCDXMLParserError(
+            raise MCDParserError(
                 f"Text '{text}' of XML tag '{tag}' cannot be converted to int "
                 f"for parent XML tag '{parent_elem.tag}'"
             ) from e
@@ -186,7 +201,7 @@ class MCDXMLParser:
         try:
             return float(text)
         except ValueError as e:
-            raise MCDXMLParserError(
+            raise MCDParserError(
                 f"Text '{text}' of XML tag '{tag}' cannot be converted to "
                 f"float for parent XML tag '{parent_elem.tag}'"
             ) from e

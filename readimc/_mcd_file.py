@@ -1,20 +1,16 @@
 import mmap
 import numpy as np
-import re
-import xml.etree.ElementTree as ET
 
 from imageio import imread
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Union
 
 from ._imc_file import IMCFile
-from ._mcd_xml_parser import MCDXMLParser, MCDXMLParserError
+from ._mcd_parser import MCDParser, MCDParserError
 from .data import Slide, Panorama, Acquisition
 
 
 class MCDFile(IMCFile):
-    _METADATA_XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
-
     def __init__(self, path: Union[str, PathLike]) -> None:
         """A class for reading IMC .mcd files
 
@@ -22,34 +18,15 @@ class MCDFile(IMCFile):
         """
         super(MCDFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
-        self._metadata_xml: Optional[ET.Element] = None
-        self._metadata_xmlns: Optional[str] = None
+        self._metadata: Optional[str] = None
         self._slides: Optional[List[Slide]] = None
 
     @property
-    def metadata_xml(self) -> ET.Element:
+    def metadata(self) -> str:
         """Full metadata in proprietary XML format"""
-        if self._metadata_xml is None:
+        if self._metadata is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return self._metadata_xml
-
-    @property
-    def metadata_xmlns(self) -> str:
-        """XML namespace of full metadata in proprietary XML format"""
-        if self._metadata_xmlns is None:
-            raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return self._metadata_xmlns
-
-    @property
-    def metadata_xml_str(self) -> str:
-        if self._metadata_xml is None or self._metadata_xmlns is None:
-            raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return ET.tostring(
-            self._metadata_xml,
-            encoding="unicode",
-            xml_declaration=True,
-            default_namespace=self._metadata_xmlns,
-        )
+        return self._metadata
 
     @property
     def slides(self) -> Sequence[Slide]:
@@ -79,13 +56,10 @@ class MCDFile(IMCFile):
         if self._fh is not None:
             self._fh.close()
         self._fh = open(self._path, mode="rb")
-        self._metadata_xml = self._read_metadata_xml()
-        self._metadata_xmlns = self._get_metadata_xmlns(self.metadata_xml)
+        self._metadata = self._read_metadata()
         try:
-            self._slides = MCDXMLParser(
-                self.metadata_xml, metadata_xmlns=self.metadata_xmlns
-            ).parse_slides()
-        except MCDXMLParserError as e:
+            self._slides = MCDParser(self.metadata).parse_slides()
+        except MCDParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
                 "error parsing slide information from MCD-XML"
@@ -315,12 +289,12 @@ class MCDFile(IMCFile):
                 f"for acquisition {acquisition.id}"
             ) from e
 
-    def _read_metadata_xml(
+    def _read_metadata(
         self,
         encoding: str = "utf-16-le",
         start_sub: str = "<MCDSchema",
         end_sub: str = "</MCDSchema>",
-    ) -> ET.Element:
+    ) -> str:
         with mmap.mmap(self._fh.fileno(), 0, access=mmap.ACCESS_READ) as mm:
             # V1 contains multiple MCDSchema entries
             # As per imctools, the latest entry should be taken
@@ -340,18 +314,12 @@ class MCDFile(IMCFile):
                 )
             mm.seek(start_index)
             data = mm.read(end_index + len(end_sub_encoded) - start_index)
-        text = data.decode(encoding=encoding)
-        return ET.fromstring(text)
+        return data.decode(encoding=encoding)
 
     def _read_image(self, data_offset: int, data_size: int) -> np.ndarray:
         self._fh.seek(data_offset)
         data = self._fh.read(data_size)
         return imread(data)
-
-    @staticmethod
-    def _get_metadata_xmlns(elem: ET.Element) -> str:
-        m = re.match(MCDFile._METADATA_XMLNS_REGEX, elem.tag)
-        return m.group("xmlns") if m is not None else ""
 
     def __repr__(self) -> str:
         return str(self._path)

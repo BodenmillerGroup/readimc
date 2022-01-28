@@ -39,7 +39,8 @@ with MCDFile("/path/to/file.mcd") as f:
 ```
 
 ```{note}
-Although uncommon, a single IMC .mcd file can contain multiple slides. Each slide can have zero or more panorama images and zero or more IMC acquisitions.
+Although uncommon, a single IMC .mcd file can contain multiple slides. Each slide can
+have zero or more panorama images and zero or more IMC acquisitions.
 ```
 
 ### Extracting metadata
@@ -76,25 +77,17 @@ with MCDFile("/path/to/file.mcd") as f:
     )
 ```
 
-For a full list of available properties, please consult the API documentation of the `Slide`, `Panorama` and `Acquisition` classes (additional metadata is available through their `metadata` properties).
-
-The complete metadata embedded in IMC .mcd files is accessible through `MCDFile.metadata_xml` (in proprietary XML format) and can be converted to a text representation as follows:
-
-```python
-from xml.etree import ElementTree as ET
-
-with MCDFile("/path/to/file.mcd") as f:
-    xml_as_str = ET.tostring(
-        f.metadata_xml,  # ET.Element
-        encoding="unicode",
-        xml_declaration=True,
-        default_namespace=f.metadata_xmlns,
-    )
-```
+For a full list of available properties, please consult the API documentation of the
+`Slide`, `Panorama` and `Acquisition` classes (additional metadata is available through
+their `metadata` properties). The complete metadata embedded in IMC .mcd files is
+accessible through `MCDFile.metadata` (in proprietary XML format).
 
 ### Reading slide images
 
-IMC .mcd files can store slide images uploaded by the user (e.g., photographs) or acquired by the instrument. For [supported image file formats](https://imageio.readthedocs.io/en/stable/formats.html), these images can be read as follows:
+IMC .mcd files can store slide images uploaded by the user (e.g., photographs) or
+acquired by the instrument. For
+[supported image file formats](https://imageio.readthedocs.io/en/stable/formats.html),
+these images can be read as follows:
 
 ```python
 with MCDFile("/path/to/file.mcd") as f:
@@ -104,7 +97,8 @@ with MCDFile("/path/to/file.mcd") as f:
 
 ### Reading panorama images
 
-IMC .mcd files can contain zero or more panorama images acquired by the instrument, which can be read as follows:
+IMC .mcd files can contain zero or more panorama images acquired by the instrument,
+which can be read as follows:
 
 ```python
 with MCDFile("/path/to/file.mcd") as f:
@@ -113,7 +107,10 @@ with MCDFile("/path/to/file.mcd") as f:
 ```
 
 ```{note}
-`Slide.panoramas` only exposes panoramas for which panorama images are available. The raw metadata accessible through `MCDFile.metadata_xml` may contain additional panorama entries of type `"Default"` that represent "virtual" panoramas and do not correspond to actual images.
+`Slide.panoramas` only exposes panoramas for which panorama images are available. The
+raw metadata accessible through `MCDFile.metadata` may contain additional panorama
+entries of type `"Default"` that represent "virtual" panoramas and do not correspond
+to actual images.
 ```
 
 ### Reading IMC acquisitions
@@ -123,16 +120,17 @@ IMC .mcd files can contain zero or more IMC acquisitions, which can be read as f
 ```python
 with MCDFile("/path/to/file.mcd") as f:
     acquisition = f.slides[0].acquisitions[0]  # first acquisition of first slide
-    img = f.read_acquisition(acquisition)  # numpy array, shape: (c, y, x), dtype: float32
+    img = f.read_acquisition(acquisition)  # array, shape: (c, y, x), dtype: float32
 ```
 
 ### Reading before/after-ablation images
 
-The IMC instrument may be configured to acquire an optical image before/after each IMC acquisition. If available, these before/after-ablation images can be read as follows:
+The IMC instrument may be configured to acquire an optical image before/after each IMC
+acquisition. If available, these before/after-ablation images can be read as follows:
 
 ```python
 with MCDFile("/path/to/file.mcd") as f:
     acquisition = f.slides[0].acquisitions[0]  # first acquisition of first slide
-    before_ablation_img = f.read_before_ablation_image(acquisition)  # numpy array or None
-    after_ablation_img = f.read_after_ablation_image(acquisition)  # numpy array or None
+    before_ablation_img = f.read_before_ablation_image(acquisition)  # array or None
+    after_ablation_img = f.read_after_ablation_image(acquisition)  # array or None
 ```
