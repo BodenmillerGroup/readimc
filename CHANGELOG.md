@@ -51,7 +51,8 @@ Retain meta-information after closing a file
 
 Pre-compile regular expressions for faster parsing
 
-Separately store and expose channel metals & masses; change channel name format from `f"{metal}({mass})"` to `f"{metal}{mass}"` for backwards compatibility with imctools
+Separately store and expose channel metals & masses; change channel name format from
+`f"{metal}({mass})"` to `f"{metal}{mass}"` for backwards compatibility with imctools
 
 ## [0.2.0] - 2021-10-09
 
