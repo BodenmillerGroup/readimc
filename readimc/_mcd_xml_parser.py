@@ -7,7 +7,9 @@ from .data import Slide, Panorama, Acquisition
 
 
 class MCDXMLParserError(Exception):
-    pass
+    def __init__(self, *args) -> None:
+        """Error occurring when parsing well-formed but invalid .mcd metadata XML"""
+        super(MCDXMLParserError, self).__init__(*args)
 
 
 class MCDXMLParser:
@@ -16,10 +18,10 @@ class MCDXMLParser:
     def __init__(
         self, metadata_xml: ET.Element, metadata_xmlns: Optional[str] = None
     ) -> None:
-        """A class for parsing MCD XML metadata
+        """A class for parsing XML metadata contained in .mcd files
 
-        :param metadata_xml: MCD metadata in XML format
-        :param default_namespace: MCD metadata XML namespace
+        :param metadata_xml: metadata from .mcd files in XML format
+        :param metadata_xmlns: metadata XML namespace
         """
         self._metadata_xml = metadata_xml
         self._metadata_xmlns = metadata_xmlns
