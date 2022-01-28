@@ -5,8 +5,8 @@ import re
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Tuple, Union
 
-from readimc._imc_file import IMCFile
-from readimc.data import AcquisitionBase
+from ._imc_file import IMCFile
+from .data import AcquisitionBase
 
 
 class TXTFile(IMCFile, AcquisitionBase):

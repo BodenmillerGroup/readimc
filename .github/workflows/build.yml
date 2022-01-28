@@ -33,9 +33,13 @@ jobs:
       - name: Run pytest with coverage
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt -r tests/requirements.txt
-          pytest --cov=readimc --cov-report=xml tests
+          python -m pip install .
+          python -m pip install --upgrade -r tests/requirements.txt
+          pytest tests
       - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: tests/coverage.xml
   deploy:
     needs:
       - test
@@ -47,11 +51,10 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.8'
       - name: Build package
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install build
+          python -m pip install --upgrade pip build
           python -m build
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:

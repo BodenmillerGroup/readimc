@@ -7,9 +7,9 @@ from imageio import imread
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Union
 
-from readimc._imc_file import IMCFile
-from readimc._mcd_xml_parser import MCDXmlParser, MCDXmlParserError
-from readimc.data import Slide, Panorama, Acquisition
+from ._imc_file import IMCFile
+from ._mcd_xml_parser import MCDXMLParser, MCDXMLParserError
+from .data import Slide, Panorama, Acquisition
 
 
 class MCDFile(IMCFile):
@@ -82,10 +82,10 @@ class MCDFile(IMCFile):
         self._metadata_xml = self._read_metadata_xml()
         self._metadata_xmlns = self._get_metadata_xmlns(self.metadata_xml)
         try:
-            self._slides = MCDXmlParser(
-                self.metadata_xml, default_namespace=self.metadata_xmlns
+            self._slides = MCDXMLParser(
+                self.metadata_xml, metadata_xmlns=self.metadata_xmlns
             ).parse_slides()
-        except MCDXmlParserError as e:
+        except MCDXMLParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
                 "error parsing slide information from MCD-XML"
@@ -246,9 +246,7 @@ class MCDFile(IMCFile):
             data_start_offset = int(
                 acquisition.metadata["BeforeAblationImageStartOffset"]
             )
-            data_end_offset = int(
-                acquisition.metadata["BeforeAblationImageEndOffset"]
-            )
+            data_end_offset = int(acquisition.metadata["BeforeAblationImageEndOffset"])
         except (KeyError, ValueError) as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -290,9 +288,7 @@ class MCDFile(IMCFile):
             data_start_offset = int(
                 acquisition.metadata["AfterAblationImageStartOffset"]
             )
-            data_end_offset = int(
-                acquisition.metadata["AfterAblationImageEndOffset"]
-            )
+            data_end_offset = int(acquisition.metadata["AfterAblationImageEndOffset"])
         except (KeyError, ValueError) as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
