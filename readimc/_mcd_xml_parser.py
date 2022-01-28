@@ -4,6 +4,7 @@ from typing import Dict, List, Optional, Tuple
 from xml.etree import ElementTree as ET
 
 from .data import Slide, Panorama, Acquisition
+from ._utils import get_xmlns
 
 
 class MCDXMLParserError(Exception):
@@ -15,16 +16,13 @@ class MCDXMLParserError(Exception):
 class MCDXMLParser:
     _CHANNEL_REGEX = re.compile(r"^(?P<metal>[a-zA-Z]+)\((?P<mass>[0-9]+)\)$")
 
-    def __init__(
-        self, metadata_xml: ET.Element, metadata_xmlns: Optional[str] = None
-    ) -> None:
+    def __init__(self, metadata_xml: ET.Element) -> None:
         """A class for parsing XML metadata contained in .mcd files
 
         :param metadata_xml: metadata from .mcd files in XML format
-        :param metadata_xmlns: metadata XML namespace
         """
         self._metadata_xml = metadata_xml
-        self._metadata_xmlns = metadata_xmlns
+        self._metadata_xmlns = get_xmlns(metadata_xml)
 
     def parse_slides(self) -> List[Slide]:
         """Extract slide information from the current metadata XML"""

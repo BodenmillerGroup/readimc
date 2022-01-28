@@ -1,6 +1,5 @@
 import mmap
 import numpy as np
-import re
 import xml.etree.ElementTree as ET
 
 from imageio import imread
@@ -9,12 +8,11 @@ from typing import BinaryIO, List, Optional, Sequence, Union
 
 from ._imc_file import IMCFile
 from ._mcd_xml_parser import MCDXMLParser, MCDXMLParserError
+from ._utils import get_xmlns
 from .data import Slide, Panorama, Acquisition
 
 
 class MCDFile(IMCFile):
-    _METADATA_XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
-
     def __init__(self, path: Union[str, PathLike]) -> None:
         """A class for reading IMC .mcd files
 
@@ -23,7 +21,6 @@ class MCDFile(IMCFile):
         super(MCDFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
         self._metadata_xml: Optional[ET.Element] = None
-        self._metadata_xmlns: Optional[str] = None
         self._slides: Optional[List[Slide]] = None
 
     @property
@@ -34,21 +31,14 @@ class MCDFile(IMCFile):
         return self._metadata_xml
 
     @property
-    def metadata_xmlns(self) -> str:
-        """XML namespace of full metadata in proprietary XML format"""
-        if self._metadata_xmlns is None:
-            raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return self._metadata_xmlns
-
-    @property
     def metadata_xml_str(self) -> str:
-        if self._metadata_xml is None or self._metadata_xmlns is None:
+        if self._metadata_xml is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         return ET.tostring(
             self._metadata_xml,
             encoding="unicode",
             xml_declaration=True,
-            default_namespace=self._metadata_xmlns,
+            default_namespace=get_xmlns(self._metadata_xml),
         )
 
     @property
@@ -80,11 +70,8 @@ class MCDFile(IMCFile):
             self._fh.close()
         self._fh = open(self._path, mode="rb")
         self._metadata_xml = self._read_metadata_xml()
-        self._metadata_xmlns = self._get_metadata_xmlns(self.metadata_xml)
         try:
-            self._slides = MCDXMLParser(
-                self.metadata_xml, metadata_xmlns=self.metadata_xmlns
-            ).parse_slides()
+            self._slides = MCDXMLParser(self.metadata_xml).parse_slides()
         except MCDXMLParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -347,11 +334,6 @@ class MCDFile(IMCFile):
         self._fh.seek(data_offset)
         data = self._fh.read(data_size)
         return imread(data)
-
-    @staticmethod
-    def _get_metadata_xmlns(elem: ET.Element) -> str:
-        m = re.match(MCDFile._METADATA_XMLNS_REGEX, elem.tag)
-        return m.group("xmlns") if m is not None else ""
 
     def __repr__(self) -> str:
         return str(self._path)
