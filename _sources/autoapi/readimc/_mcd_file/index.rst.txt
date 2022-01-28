@@ -27,20 +27,10 @@ Classes
 
    :param path: path to the IMC .mcd file
 
-   .. py:method:: metadata_xml(self)
+   .. py:method:: metadata(self)
       :property:
 
       Full metadata in proprietary XML format
-
-
-   .. py:method:: metadata_xmlns(self)
-      :property:
-
-      XML namespace of full metadata in proprietary XML format
-
-
-   .. py:method:: metadata_xml_str(self)
-      :property:
 
 
    .. py:method:: slides(self)

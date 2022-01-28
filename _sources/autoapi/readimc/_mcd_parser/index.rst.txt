@@ -1,0 +1,67 @@
+:orphan:
+
+:py:mod:`readimc._mcd_parser`
+=============================
+
+.. py:module:: readimc._mcd_parser
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   readimc._mcd_parser.MCDParser
+
+
+
+
+.. py:exception:: MCDParserError(*args)
+
+   Bases: :py:obj:`Exception`
+
+   Error occurring when parsing invalid IMC .mcd file metadata
+
+   .. py:class:: args
+
+
+   .. py:method:: with_traceback()
+
+      Exception.with_traceback(tb) --
+      set self.__traceback__ to tb and return self.
+
+
+
+.. py:class:: MCDParser(metadata)
+
+   A class for parsing IMC .mcd file metadata
+
+   :param metadata: IMC .mcd file metadata in proprietary XML format
+
+   .. py:method:: metadata(self)
+      :property:
+
+      Full IMC .mcd file metadata in proprietary XML format
+
+
+   .. py:method:: metadata_elem(self)
+      :property:
+
+      Full IMC .mcd file metadata as Python ElementTree element
+
+
+   .. py:method:: metadata_xmlns(self)
+      :property:
+
+      Value of the metadata `xmlns` XML namespace attribute
+
+
+   .. py:method:: parse_slides(self)
+
+      Extract slide metadata
+
+
+
