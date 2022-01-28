@@ -6,6 +6,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from readimc import MCDFile
+from readimc._utils import get_xmlns
 
 
 class TestMCDFile:
@@ -31,13 +32,13 @@ class TestMCDFile:
             encoding="us-ascii",
             method="xml",
             xml_declaration=False,
-            default_namespace=imc_test_data_mcd_file.metadata_xmlns,
+            default_namespace=get_xmlns(imc_test_data_mcd_file.metadata_xml),
         )
         mcd_xml_digest = md5(metadata_xml).digest()
         assert mcd_xml_digest == b"D]\xfa\x15a\xb8\xe4\xb2z8od\x85c\xa9\xf9"
 
     def test_metadata_xmlns(self, imc_test_data_mcd_file: MCDFile):
-        metadata_xmlns = imc_test_data_mcd_file.metadata_xmlns
+        metadata_xmlns = get_xmlns(imc_test_data_mcd_file.metadata_xml)
         assert (
             metadata_xmlns == "http://www.fluidigm.com/IMC/MCDSchema_V2_0.xsd"
         )
@@ -155,7 +156,7 @@ class TestMCDFile:
             encoding="us-ascii",
             method="xml",
             xml_declaration=False,
-            default_namespace=imc_test_data_mcd_file.metadata_xmlns,
+            default_namespace=get_xmlns(imc_test_data_mcd_file.metadata_xml),
         )
         mcd_xml_digest = md5(mcd_xml).digest()
         assert mcd_xml_digest == b"D]\xfa\x15a\xb8\xe4\xb2z8od\x85c\xa9\xf9"
@@ -164,7 +165,7 @@ class TestMCDFile:
         not damond_mcd_file_path.exists(), reason="data not available"
     )
     def test_xmlns_damond(self):
-        mcd_xmlns = self.damond_mcd_file.metadata_xmlns
+        mcd_xmlns = get_xmlns(self.damond_mcd_file.metadata_xml)
         assert mcd_xmlns == "http://www.fluidigm.com/IMC/MCDSchema.xsd"
 
     @pytest.mark.skipif(
