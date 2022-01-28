@@ -10,12 +10,12 @@ Module Contents
 ---------------
 
 .. py:data:: version
-   :annotation: = 0.6.1.dev10+gba1fb26
+   :annotation: = 0.6.2.dev1+g60ff544
 
    
 
 .. py:data:: version_tuple
-   :annotation: = [0, 6, 1, 'dev10', 'gba1fb26']
+   :annotation: = [0, 6, 2, 'dev1', 'g60ff544']
 
    
 
