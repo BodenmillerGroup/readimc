@@ -6,7 +6,7 @@ The `readimc` package exports two classes for reading IMC .mcd and IMC .txt file
 from readimc import MCDFile, TXTFile
 ```
 
-## Loading .txt files
+## Loading IMC .txt files
 
 IMC .txt files can be loaded as follows:
 
