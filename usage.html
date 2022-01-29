@@ -42,7 +42,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#loading-txt-files">Loading .txt files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loading-imc-txt-files">Loading IMC .txt files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reading-imc-acquisitions">Reading IMC acquisitions</a></li>
 </ul>
 </li>
@@ -100,8 +100,8 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">readimc</span> <span class="kn">import</span> <span class="n">MCDFile</span><span class="p">,</span> <span class="n">TXTFile</span>
 </pre></div>
 </div>
-<section id="loading-txt-files">
-<h2>Loading .txt files<a class="headerlink" href="#loading-txt-files" title="Permalink to this headline"></a></h2>
+<section id="loading-imc-txt-files">
+<h2>Loading IMC .txt files<a class="headerlink" href="#loading-imc-txt-files" title="Permalink to this headline"></a></h2>
 <p>IMC .txt files can be loaded as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">TXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">channel_names</span><span class="p">)</span>  <span class="c1"># metals</span>
