@@ -15,7 +15,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -83,8 +85,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Changelog</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Changelog</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/changelog.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,13 +96,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline"></a></h1>
+  <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading"></a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <section id="id1">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.6.0...v0.6.1">0.6.1</a> - 2022-01-28<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.6.0...v0.6.1">0.6.1</a> - 2022-01-28<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <p>Rename <code class="docutils literal notranslate"><span class="pre">MCDXMLParser</span></code> to <code class="docutils literal notranslate"><span class="pre">MCDParser</span></code></p>
 <p>Refactor and simplify <code class="docutils literal notranslate"><span class="pre">MCDParser</span></code> usage</p>
 <p>BREAKING CHANGES in <code class="docutils literal notranslate"><span class="pre">MCDFile</span></code>:</p>
@@ -110,59 +112,59 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </ul>
 </section>
 <section id="id2">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.5.0...v0.6.0">0.6.0</a> - 2022-01-28<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.5.0...v0.6.0">0.6.0</a> - 2022-01-28<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p>Expose <code class="docutils literal notranslate"><span class="pre">MCDXMLParser</span></code></p>
 </section>
 <section id="id3">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.4.2...v0.5.0">0.5.0</a> - 2021-12-02<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.4.2...v0.5.0">0.5.0</a> - 2021-12-02<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <p>Refactored metadata accessors</p>
 <p>Refactored accessors for ROI points/coordinates</p>
 <p>Added link between acquisitions and associated panoramas</p>
 <p>Renamed <code class="docutils literal notranslate"><span class="pre">IMCMcdFile</span></code> and <code class="docutils literal notranslate"><span class="pre">IMCTxtFile</span></code> to <code class="docutils literal notranslate"><span class="pre">MCDFile</span></code> and <code class="docutils literal notranslate"><span class="pre">TXTFile</span></code></p>
 </section>
 <section id="id4">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.4.1...v0.4.2">0.4.2</a> - 2021-11-01<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.4.1...v0.4.2">0.4.2</a> - 2021-11-01<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <p>Use pandas for reading TXT files (better performance)</p>
 </section>
 <section id="id5">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.4.0...v0.4.1">0.4.1</a> - 2021-11-01<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.4.0...v0.4.1">0.4.1</a> - 2021-11-01<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <p>Added support for Python 3.10</p>
 </section>
 <section id="id6">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.3.1...v0.4.0">0.4.0</a> - 2021-10-19<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.3.1...v0.4.0">0.4.0</a> - 2021-10-19<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <p>Added support for older versions of the Fluidigm software</p>
 <p>Use heuristics for determining acquisition start position</p>
 <p>Add offline unit tests for data from (Damond et al., 2019)</p>
 <p>Fix a numerical bug in determining panorama image dimensions</p>
 </section>
 <section id="id7">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.3.0...v0.3.1">0.3.1</a> - 2021-10-11<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.3.0...v0.3.1">0.3.1</a> - 2021-10-11<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
 <p>Renamed <code class="docutils literal notranslate"><span class="pre">IMCMCDFile</span></code> and <code class="docutils literal notranslate"><span class="pre">IMCTXTFile</span></code> to <code class="docutils literal notranslate"><span class="pre">IMCMcdFile</span></code> and <code class="docutils literal notranslate"><span class="pre">IMCTxtFile</span></code>, respectively</p>
 </section>
 <section id="id8">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.2.0...v0.3.0">0.3.0</a> - 2021-10-11<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.2.0...v0.3.0">0.3.0</a> - 2021-10-11<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
 <p>Retain meta-information after closing a file</p>
 <p>Pre-compile regular expressions for faster parsing</p>
 <p>Separately store and expose channel metals &amp; masses; change channel name format from
 <code class="docutils literal notranslate"><span class="pre">f&quot;{metal}({mass})&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">f&quot;{metal}{mass}&quot;</span></code> for backwards compatibility with imctools</p>
 </section>
 <section id="id9">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.1.2...v0.2.0">0.2.0</a> - 2021-10-09<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.1.2...v0.2.0">0.2.0</a> - 2021-10-09<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
 <p>Use dataclasses instead of NamedTuples</p>
 <p>Renamed TXTFile and MCDFile to IMCTXTFile and IMCMCDFile, respectively</p>
 <p>IMCTXTFile and IMCMCDFile now implement a shared IMCFileBase interface</p>
 <p>IMCTXTFile and Acquisition now implement a shared AcquisitionBase interface</p>
 </section>
 <section id="id10">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.1.1...v0.1.2">0.1.2</a> - 2021-10-09<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.1.1...v0.1.2">0.1.2</a> - 2021-10-09<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
 <p>Explicit acquisition image reconstruction based on pixel indices</p>
 </section>
 <section id="id11">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.1.0...v0.1.1">0.1.1</a> - 2021-10-09<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/compare/v0.1.0...v0.1.1">0.1.1</a> - 2021-10-09<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h2>
 <p>Minor documentation changes</p>
 </section>
 <section id="id12">
-<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/releases/tag/v0.1.0">0.1.0</a> - 2021-10-09<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://github.com/BodenmillerGroup/readimc/releases/tag/v0.1.0">0.1.0</a> - 2021-10-09<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
 <p>Initial release</p>
 </section>
 </section>

@@ -28,6 +28,12 @@ Classes
    .. py:class:: args
 
 
+   .. py:method:: add_note()
+
+      Exception.add_note(note) --
+      add a note to the exception
+
+
    .. py:method:: with_traceback()
 
       Exception.with_traceback(tb) --
@@ -41,25 +47,25 @@ Classes
 
    :param metadata: IMC .mcd file metadata in proprietary XML format
 
-   .. py:method:: metadata(self)
-      :property:
+   .. py:property:: metadata
+      :type: str
 
       Full IMC .mcd file metadata in proprietary XML format
 
 
-   .. py:method:: metadata_elem(self)
-      :property:
+   .. py:property:: metadata_elem
+      :type: xml.etree.ElementTree.Element
 
       Full IMC .mcd file metadata as Python ElementTree element
 
 
-   .. py:method:: metadata_xmlns(self)
-      :property:
+   .. py:property:: metadata_xmlns
+      :type: Optional[str]
 
       Value of the metadata `xmlns` XML namespace attribute
 
 
-   .. py:method:: parse_slides(self)
+   .. py:method:: parse_slides()
 
       Extract slide metadata
 

@@ -6,16 +6,3 @@
 .. py:module:: readimc._version
 
 
-Module Contents
----------------
-
-.. py:data:: version
-   :annotation: = 0.6.2.dev2+gd46a3cc
-
-   
-
-.. py:data:: version_tuple
-   :annotation: = [0, 6, 2, 'dev2', 'gd46a3cc']
-
-   
-

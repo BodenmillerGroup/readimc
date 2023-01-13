@@ -23,6 +23,32 @@ Classes
 
    Panorama metadata (only for panoramas with panorama image data)
 
+   .. py:property:: description
+      :type: Optional[str]
+
+      User-provided panorama description
+
+
+   .. py:property:: width_um
+      :type: Optional[float]
+
+      Panorama width, in micrometers
+
+
+   .. py:property:: height_um
+      :type: Optional[float]
+
+      Panorama height, in micrometers
+
+
+   .. py:property:: points_um
+      :type: Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+
+      User-provided ROI points, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
+
+
    .. py:attribute:: slide
       :annotation: :readimc.data._slide.Slide
 
@@ -45,32 +71,6 @@ Classes
       :annotation: :List[readimc.data._acquisition.Acquisition]
 
       List of acquisitions associated with this panorama
-
-
-   .. py:method:: description(self)
-      :property:
-
-      User-provided panorama description
-
-
-   .. py:method:: width_um(self)
-      :property:
-
-      Panorama width, in micrometers
-
-
-   .. py:method:: height_um(self)
-      :property:
-
-      Panorama height, in micrometers
-
-
-   .. py:method:: points_um(self)
-      :property:
-
-      User-provided ROI points, in micrometers
-
-      Order: (top left, top right, bottom right, bottom left)
 
 
 

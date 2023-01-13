@@ -40,13 +40,13 @@ Classes
 
    Shared IMC file interface
 
-   .. py:method:: path(self)
-      :property:
+   .. py:property:: path
+      :type: pathlib.Path
 
       Path to the IMC file
 
 
-   .. py:method:: read_acquisition(self, *kwargs)
+   .. py:method:: read_acquisition(*kwargs)
       :abstractmethod:
 
       Reads IMC acquisition data as numpy array.
@@ -64,31 +64,44 @@ Classes
 
    :param path: path to the IMC .txt file
 
-   .. py:method:: num_channels(self)
-      :property:
+   .. py:property:: num_channels
+      :type: int
 
       Number of channels
 
 
-   .. py:method:: channel_metals(self)
-      :property:
+   .. py:property:: channel_metals
+      :type: Sequence[str]
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
-   .. py:method:: channel_masses(self)
-      :property:
+   .. py:property:: channel_masses
+      :type: Sequence[int]
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
-   .. py:method:: channel_labels(self)
-      :property:
+   .. py:property:: channel_labels
+      :type: Sequence[str]
 
       Channel labels (user-provided)
 
 
-   .. py:method:: open(self)
+   .. py:property:: path
+      :type: pathlib.Path
+
+      Path to the IMC file
+
+
+   .. py:property:: channel_names
+      :type: Sequence[str]
+
+      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+      ``["Ag107", "Ir191"]``)
+
+
+   .. py:method:: open()
 
       Opens the IMC .txt file for reading.
 
@@ -101,7 +114,7 @@ Classes
 
 
 
-   .. py:method:: close(self)
+   .. py:method:: close()
 
       Closes the IMC .txt file.
 
@@ -114,7 +127,7 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(self, *args)
+   .. py:method:: read_acquisition(*args)
 
       Reads IMC acquisition data as numpy array.
 
@@ -126,19 +139,6 @@ Classes
           shape: (c, y, x)
 
 
-   .. py:method:: path(self)
-      :property:
-
-      Path to the IMC file
-
-
-   .. py:method:: channel_names(self)
-      :property:
-
-      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
-      ``["Ag107", "Ir191"]``)
-
-
 
 .. py:class:: MCDFile(path)
 
@@ -148,19 +148,25 @@ Classes
 
    :param path: path to the IMC .mcd file
 
-   .. py:method:: metadata(self)
-      :property:
+   .. py:property:: metadata
+      :type: str
 
       Full metadata in proprietary XML format
 
 
-   .. py:method:: slides(self)
-      :property:
+   .. py:property:: slides
+      :type: Sequence[readimc.data.Slide]
 
       Metadata on slides contained in this IMC .mcd file
 
 
-   .. py:method:: open(self)
+   .. py:property:: path
+      :type: pathlib.Path
+
+      Path to the IMC file
+
+
+   .. py:method:: open()
 
       Opens the IMC .mcd file for reading.
 
@@ -173,7 +179,7 @@ Classes
 
 
 
-   .. py:method:: close(self)
+   .. py:method:: close()
 
       Closes the IMC .mcd file.
 
@@ -186,7 +192,7 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(self, acquisition)
+   .. py:method:: read_acquisition(acquisition)
 
       Reads IMC acquisition data as numpy array.
 
@@ -195,7 +201,7 @@ Classes
           shape: (c, y, x)
 
 
-   .. py:method:: read_slide(self, slide)
+   .. py:method:: read_slide(slide)
 
       Reads and decodes a slide image as numpy array using the ``imageio``
       package.
@@ -211,7 +217,7 @@ Classes
           specified slide
 
 
-   .. py:method:: read_panorama(self, panorama)
+   .. py:method:: read_panorama(panorama)
 
       Reads and decodes a panorama image as numpy array using the
       ``imageio`` package.
@@ -220,7 +226,7 @@ Classes
       :return: the panorama image as numpy array
 
 
-   .. py:method:: read_before_ablation_image(self, acquisition)
+   .. py:method:: read_before_ablation_image(acquisition)
 
       Reads and decodes a before-ablation image as numpy array using the
       ``imageio`` package.
@@ -231,7 +237,7 @@ Classes
           before-ablation image is available for the specified acquisition
 
 
-   .. py:method:: read_after_ablation_image(self, acquisition)
+   .. py:method:: read_after_ablation_image(acquisition)
 
       Reads and decodes a after-ablation image as numpy array using the
       ``imageio`` package.
@@ -242,12 +248,6 @@ Classes
           after-ablation image is available for the specified acquisition
 
 
-   .. py:method:: path(self)
-      :property:
-
-      Path to the IMC file
-
-
 
 .. py:class:: MCDParser(metadata)
 
@@ -255,25 +255,25 @@ Classes
 
    :param metadata: IMC .mcd file metadata in proprietary XML format
 
-   .. py:method:: metadata(self)
-      :property:
+   .. py:property:: metadata
+      :type: str
 
       Full IMC .mcd file metadata in proprietary XML format
 
 
-   .. py:method:: metadata_elem(self)
-      :property:
+   .. py:property:: metadata_elem
+      :type: xml.etree.ElementTree.Element
 
       Full IMC .mcd file metadata as Python ElementTree element
 
 
-   .. py:method:: metadata_xmlns(self)
-      :property:
+   .. py:property:: metadata_xmlns
+      :type: Optional[str]
 
       Value of the metadata `xmlns` XML namespace attribute
 
 
-   .. py:method:: parse_slides(self)
+   .. py:method:: parse_slides()
 
       Extract slide metadata
 
@@ -286,6 +286,12 @@ Classes
    Error occurring when parsing invalid IMC .mcd file metadata
 
    .. py:class:: args
+
+
+   .. py:method:: add_note()
+
+      Exception.add_note(note) --
+      add a note to the exception
 
 
    .. py:method:: with_traceback()

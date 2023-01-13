@@ -26,32 +26,36 @@ Classes
 
    Shared IMC acquisition metadata interface
 
-   .. py:method:: num_channels(self)
-      :property:
+   .. py:property:: num_channels
+      :type: int
+      :abstractmethod:
 
       Number of channels
 
 
-   .. py:method:: channel_metals(self)
-      :property:
+   .. py:property:: channel_metals
+      :type: Sequence[str]
+      :abstractmethod:
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
-   .. py:method:: channel_masses(self)
-      :property:
+   .. py:property:: channel_masses
+      :type: Sequence[int]
+      :abstractmethod:
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
-   .. py:method:: channel_labels(self)
-      :property:
+   .. py:property:: channel_labels
+      :type: Sequence[str]
+      :abstractmethod:
 
       Channel labels (user-provided)
 
 
-   .. py:method:: channel_names(self)
-      :property:
+   .. py:property:: channel_names
+      :type: Sequence[str]
 
       Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
       ``["Ag107", "Ir191"]``)
@@ -63,6 +67,87 @@ Classes
    Bases: :py:obj:`AcquisitionBase`
 
    IMC acquisition metadata
+
+   .. py:property:: description
+      :type: Optional[str]
+
+      User-provided acquisition description
+
+
+   .. py:property:: width_px
+      :type: Optional[int]
+
+      Acquisition width, in pixels
+
+
+   .. py:property:: height_px
+      :type: Optional[int]
+
+      Acquisition height, in pixels
+
+
+   .. py:property:: pixel_size_x_um
+      :type: Optional[float]
+
+      Width of a single pixel, in micrometers
+
+
+   .. py:property:: pixel_size_y_um
+      :type: Optional[float]
+
+      Height of a single pixel, in micrometers
+
+
+   .. py:property:: width_um
+      :type: Optional[float]
+
+      Acquisition width, in micrometers
+
+
+   .. py:property:: height_um
+      :type: Optional[float]
+
+      Acquisition height, in micrometers
+
+
+   .. py:property:: num_channels
+      :type: int
+
+      Number of channels
+
+
+   .. py:property:: channel_metals
+      :type: Sequence[str]
+
+      Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
+
+
+   .. py:property:: channel_masses
+      :type: Sequence[int]
+
+      Atomic masses of metal isotopes (e.g. ``[107, 191]``)
+
+
+   .. py:property:: channel_labels
+      :type: Sequence[str]
+
+      Channel labels (user-provided)
+
+
+   .. py:property:: roi_coords_um
+      :type: Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+
+      ROI stage coordinates, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
+
+
+   .. py:property:: channel_names
+      :type: Sequence[str]
+
+      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+      ``["Ag107", "Ir191"]``)
+
 
    .. py:attribute:: slide
       :annotation: :readimc.data._slide.Slide
@@ -94,87 +179,6 @@ Classes
       :annotation: :Dict[str, str]
 
       Full acquisition metadata
-
-
-   .. py:method:: description(self)
-      :property:
-
-      User-provided acquisition description
-
-
-   .. py:method:: width_px(self)
-      :property:
-
-      Acquisition width, in pixels
-
-
-   .. py:method:: height_px(self)
-      :property:
-
-      Acquisition height, in pixels
-
-
-   .. py:method:: pixel_size_x_um(self)
-      :property:
-
-      Width of a single pixel, in micrometers
-
-
-   .. py:method:: pixel_size_y_um(self)
-      :property:
-
-      Height of a single pixel, in micrometers
-
-
-   .. py:method:: width_um(self)
-      :property:
-
-      Acquisition width, in micrometers
-
-
-   .. py:method:: height_um(self)
-      :property:
-
-      Acquisition height, in micrometers
-
-
-   .. py:method:: num_channels(self)
-      :property:
-
-      Number of channels
-
-
-   .. py:method:: channel_metals(self)
-      :property:
-
-      Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
-
-
-   .. py:method:: channel_masses(self)
-      :property:
-
-      Atomic masses of metal isotopes (e.g. ``[107, 191]``)
-
-
-   .. py:method:: channel_labels(self)
-      :property:
-
-      Channel labels (user-provided)
-
-
-   .. py:method:: roi_coords_um(self)
-      :property:
-
-      ROI stage coordinates, in micrometers
-
-      Order: (top left, top right, bottom right, bottom left)
-
-
-   .. py:method:: channel_names(self)
-      :property:
-
-      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
-      ``["Ag107", "Ir191"]``)
 
 
 

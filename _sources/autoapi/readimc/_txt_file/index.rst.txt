@@ -27,31 +27,44 @@ Classes
 
    :param path: path to the IMC .txt file
 
-   .. py:method:: num_channels(self)
-      :property:
+   .. py:property:: num_channels
+      :type: int
 
       Number of channels
 
 
-   .. py:method:: channel_metals(self)
-      :property:
+   .. py:property:: channel_metals
+      :type: Sequence[str]
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
-   .. py:method:: channel_masses(self)
-      :property:
+   .. py:property:: channel_masses
+      :type: Sequence[int]
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
-   .. py:method:: channel_labels(self)
-      :property:
+   .. py:property:: channel_labels
+      :type: Sequence[str]
 
       Channel labels (user-provided)
 
 
-   .. py:method:: open(self)
+   .. py:property:: path
+      :type: pathlib.Path
+
+      Path to the IMC file
+
+
+   .. py:property:: channel_names
+      :type: Sequence[str]
+
+      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+      ``["Ag107", "Ir191"]``)
+
+
+   .. py:method:: open()
 
       Opens the IMC .txt file for reading.
 
@@ -64,7 +77,7 @@ Classes
 
 
 
-   .. py:method:: close(self)
+   .. py:method:: close()
 
       Closes the IMC .txt file.
 
@@ -77,7 +90,7 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(self, *args)
+   .. py:method:: read_acquisition(*args)
 
       Reads IMC acquisition data as numpy array.
 
@@ -87,19 +100,6 @@ Classes
 
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
-
-
-   .. py:method:: path(self)
-      :property:
-
-      Path to the IMC file
-
-
-   .. py:method:: channel_names(self)
-      :property:
-
-      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
-      ``["Ag107", "Ir191"]``)
 
 
 

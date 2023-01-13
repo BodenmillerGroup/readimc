@@ -25,13 +25,13 @@ Classes
 
    Shared IMC file interface
 
-   .. py:method:: path(self)
-      :property:
+   .. py:property:: path
+      :type: pathlib.Path
 
       Path to the IMC file
 
 
-   .. py:method:: read_acquisition(self, *kwargs)
+   .. py:method:: read_acquisition(*kwargs)
       :abstractmethod:
 
       Reads IMC acquisition data as numpy array.

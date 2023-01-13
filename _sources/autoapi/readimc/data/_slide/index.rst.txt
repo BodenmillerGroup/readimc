@@ -23,6 +23,24 @@ Classes
 
    Slide metadata
 
+   .. py:property:: description
+      :type: Optional[str]
+
+      User-provided slide description
+
+
+   .. py:property:: width_um
+      :type: Optional[float]
+
+      Slide width, in micrometers
+
+
+   .. py:property:: height_um
+      :type: Optional[float]
+
+      Slide height, in micrometers
+
+
    .. py:attribute:: id
       :annotation: :int
 
@@ -45,24 +63,6 @@ Classes
       :annotation: :List[readimc.data._acquisition.Acquisition]
 
       List of acquisitions associated with this slide
-
-
-   .. py:method:: description(self)
-      :property:
-
-      User-provided slide description
-
-
-   .. py:method:: width_um(self)
-      :property:
-
-      Slide width, in micrometers
-
-
-   .. py:method:: height_um(self)
-      :property:
-
-      Slide height, in micrometers
 
 
 
