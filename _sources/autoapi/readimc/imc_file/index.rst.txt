@@ -1,9 +1,7 @@
-:orphan:
+:py:mod:`readimc.imc_file`
+==========================
 
-:py:mod:`readimc._imc_file`
-===========================
-
-.. py:module:: readimc._imc_file
+.. py:module:: readimc.imc_file
 
 
 Module Contents
@@ -14,7 +12,7 @@ Classes
 
 .. autoapisummary::
 
-   readimc._imc_file.IMCFile
+   readimc.imc_file.IMCFile
 
 
 
@@ -31,11 +29,12 @@ Classes
       Path to the IMC file
 
 
-   .. py:method:: read_acquisition(*kwargs)
+   .. py:method:: read_acquisition(acquisition = None)
       :abstractmethod:
 
       Reads IMC acquisition data as numpy array.
 
+      :param acquisition: the acquisition to read
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
 

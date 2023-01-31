@@ -1,9 +1,7 @@
-:orphan:
+:py:mod:`readimc.data.acquisition`
+==================================
 
-:py:mod:`readimc.data._acquisition`
-===================================
-
-.. py:module:: readimc.data._acquisition
+.. py:module:: readimc.data.acquisition
 
 
 Module Contents
@@ -14,8 +12,8 @@ Classes
 
 .. autoapisummary::
 
-   readimc.data._acquisition.AcquisitionBase
-   readimc.data._acquisition.Acquisition
+   readimc.data.acquisition.AcquisitionBase
+   readimc.data.acquisition.Acquisition
 
 
 
@@ -150,25 +148,25 @@ Classes
 
 
    .. py:attribute:: slide
-      :annotation: :readimc.data._slide.Slide
+      :type: readimc.data.slide.Slide
 
       Parent slide
 
 
    .. py:attribute:: panorama
-      :annotation: :Optional[readimc.data._panorama.Panorama]
+      :type: Optional[readimc.data.panorama.Panorama]
 
       Associated panorama
 
 
    .. py:attribute:: id
-      :annotation: :int
+      :type: int
 
       Acquisition ID
 
 
    .. py:attribute:: roi_points_um
-      :annotation: :Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+      :type: Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
 
       User-provided ROI points, in micrometers
 
@@ -176,7 +174,7 @@ Classes
 
 
    .. py:attribute:: metadata
-      :annotation: :Dict[str, str]
+      :type: Dict[str, str]
 
       Full acquisition metadata
 

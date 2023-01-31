@@ -1,9 +1,7 @@
-:orphan:
+:py:mod:`readimc.txt_file`
+==========================
 
-:py:mod:`readimc._txt_file`
-===========================
-
-.. py:module:: readimc._txt_file
+.. py:module:: readimc.txt_file
 
 
 Module Contents
@@ -14,14 +12,14 @@ Classes
 
 .. autoapisummary::
 
-   readimc._txt_file.TXTFile
+   readimc.txt_file.TXTFile
 
 
 
 
 .. py:class:: TXTFile(path)
 
-   Bases: :py:obj:`readimc._imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
+   Bases: :py:obj:`readimc.imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
 
    A class for reading IMC .txt files
 
@@ -90,14 +88,12 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(*args)
+   .. py:method:: read_acquisition(acquisition = None)
 
       Reads IMC acquisition data as numpy array.
 
-      .. note::
-          This function takes a variable number of arguments for
-          compatibility with ``MCDFile``.
-
+      :param acquisition: the acquisition to read (for compatibility with ``IMCFile``
+          and ``MCDFile``; unused)
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
 

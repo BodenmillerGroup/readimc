@@ -1,9 +1,7 @@
-:orphan:
+:py:mod:`readimc.mcd_file`
+==========================
 
-:py:mod:`readimc._mcd_file`
-===========================
-
-.. py:module:: readimc._mcd_file
+.. py:module:: readimc.mcd_file
 
 
 Module Contents
@@ -14,23 +12,29 @@ Classes
 
 .. autoapisummary::
 
-   readimc._mcd_file.MCDFile
+   readimc.mcd_file.MCDFile
 
 
 
 
 .. py:class:: MCDFile(path)
 
-   Bases: :py:obj:`readimc._imc_file.IMCFile`
+   Bases: :py:obj:`readimc.imc_file.IMCFile`
 
    A class for reading IMC .mcd files
 
    :param path: path to the IMC .mcd file
 
-   .. py:property:: metadata
+   .. py:property:: schema_xml
       :type: str
 
       Full metadata in proprietary XML format
+
+
+   .. py:property:: metadata
+      :type: str
+
+      Legacy accessor for `schema_xml`
 
 
    .. py:property:: slides
@@ -71,7 +75,7 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(acquisition)
+   .. py:method:: read_acquisition(acquisition = None)
 
       Reads IMC acquisition data as numpy array.
 

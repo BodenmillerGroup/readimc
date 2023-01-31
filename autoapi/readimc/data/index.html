@@ -21,6 +21,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="readimc.data.acquisition" href="acquisition/index.html" />
     <link rel="prev" title="readimc" href="../index.html" /> 
 </head>
 
@@ -57,11 +58,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#package-contents">Package Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
 </ul>
 </li>
@@ -94,7 +97,17 @@
              
   <section id="module-readimc.data">
 <span id="readimc-data"></span><h1><a class="reference internal" href="#module-readimc.data" title="readimc.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data</span></code></a><a class="headerlink" href="#module-readimc.data" title="Permalink to this heading"></a></h1>
-<p>Imaging Mass Cytometry metadata classes</p>
+<p>Imaging mass cytometry (IMC) metadata classes</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="acquisition/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data.acquisition</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="panorama/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data.panorama</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="slide/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data.slide</span></code></a></li>
+</ul>
+</div>
+</section>
 <section id="package-contents">
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this heading"></a></h2>
 <section id="classes">
@@ -105,158 +118,20 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#readimc.data.Slide" title="readimc.data.Slide"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Slide</span></code></a></p></td>
-<td><p>Slide metadata</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#readimc.data.Panorama" title="readimc.data.Panorama"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Panorama</span></code></a></p></td>
-<td><p>Panorama metadata (only for panoramas with panorama image data)</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#readimc.data.Acquisition" title="readimc.data.Acquisition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Acquisition</span></code></a></p></td>
 <td><p>IMC acquisition metadata</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#readimc.data.AcquisitionBase" title="readimc.data.AcquisitionBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AcquisitionBase</span></code></a></p></td>
 <td><p>Shared IMC acquisition metadata interface</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc.data.Panorama" title="readimc.data.Panorama"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Panorama</span></code></a></p></td>
+<td><p>Panorama metadata (only for panoramas with panorama image data)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#readimc.data.Slide" title="readimc.data.Slide"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Slide</span></code></a></p></td>
+<td><p>Slide metadata</p></td>
+</tr>
 </tbody>
 </table>
-<dl class="py class">
-<dt class="sig sig-object py" id="readimc.data.Slide">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.data.</span></span><span class="sig-name descname"><span class="pre">Slide</span></span><a class="headerlink" href="#readimc.data.Slide" title="Permalink to this definition"></a></dt>
-<dd><p>Slide metadata</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Slide.description">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.description" title="Permalink to this definition"></a></dt>
-<dd><p>User-provided slide description</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Slide.width_um">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.width_um" title="Permalink to this definition"></a></dt>
-<dd><p>Slide width, in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Slide.height_um">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.height_um" title="Permalink to this definition"></a></dt>
-<dd><p>Slide height, in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Slide.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="pre">:int</span></em><a class="headerlink" href="#readimc.data.Slide.id" title="Permalink to this definition"></a></dt>
-<dd><p>Slide ID</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Slide.metadata">
-<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="w"> </span><span class="pre">:Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#readimc.data.Slide.metadata" title="Permalink to this definition"></a></dt>
-<dd><p>Full slide metadata</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Slide.panoramas">
-<span class="sig-name descname"><span class="pre">panoramas</span></span><em class="property"><span class="w"> </span><span class="pre">:List[readimc.data._panorama.Panorama]</span></em><a class="headerlink" href="#readimc.data.Slide.panoramas" title="Permalink to this definition"></a></dt>
-<dd><p>List of panoramas associated with this slide</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Slide.acquisitions">
-<span class="sig-name descname"><span class="pre">acquisitions</span></span><em class="property"><span class="w"> </span><span class="pre">:List[readimc.data._acquisition.Acquisition]</span></em><a class="headerlink" href="#readimc.data.Slide.acquisitions" title="Permalink to this definition"></a></dt>
-<dd><p>List of acquisitions associated with this slide</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="readimc.data.Panorama">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.data.</span></span><span class="sig-name descname"><span class="pre">Panorama</span></span><a class="headerlink" href="#readimc.data.Panorama" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama metadata (only for panoramas with panorama image data)</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Panorama.description">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.description" title="Permalink to this definition"></a></dt>
-<dd><p>User-provided panorama description</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Panorama.width_um">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.width_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama width, in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Panorama.height_um">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.height_um" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama height, in micrometers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[float]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.data.Panorama.points_um">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">points_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.points_um" title="Permalink to this definition"></a></dt>
-<dd><p>User-provided ROI points, in micrometers</p>
-<p>Order: (top left, top right, bottom right, bottom left)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Panorama.slide">
-<span class="sig-name descname"><span class="pre">slide</span></span><em class="property"><span class="w"> </span><span class="pre">:readimc.data._slide.Slide</span></em><a class="headerlink" href="#readimc.data.Panorama.slide" title="Permalink to this definition"></a></dt>
-<dd><p>Parent slide</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Panorama.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="pre">:int</span></em><a class="headerlink" href="#readimc.data.Panorama.id" title="Permalink to this definition"></a></dt>
-<dd><p>Panorama ID</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Panorama.metadata">
-<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="w"> </span><span class="pre">:Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#readimc.data.Panorama.metadata" title="Permalink to this definition"></a></dt>
-<dd><p>Full panorama metadata</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="readimc.data.Panorama.acquisitions">
-<span class="sig-name descname"><span class="pre">acquisitions</span></span><em class="property"><span class="w"> </span><span class="pre">:List[readimc.data._acquisition.Acquisition]</span></em><a class="headerlink" href="#readimc.data.Panorama.acquisitions" title="Permalink to this definition"></a></dt>
-<dd><p>List of acquisitions associated with this panorama</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="readimc.data.Acquisition">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.data.</span></span><span class="sig-name descname"><span class="pre">Acquisition</span></span><a class="headerlink" href="#readimc.data.Acquisition" title="Permalink to this definition"></a></dt>
@@ -409,32 +284,32 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data.Acquisition.slide">
-<span class="sig-name descname"><span class="pre">slide</span></span><em class="property"><span class="w"> </span><span class="pre">:readimc.data._slide.Slide</span></em><a class="headerlink" href="#readimc.data.Acquisition.slide" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">slide</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="slide/index.html#readimc.data.slide.Slide" title="readimc.data.slide.Slide"><span class="pre">readimc.data.slide.Slide</span></a></em><a class="headerlink" href="#readimc.data.Acquisition.slide" title="Permalink to this definition"></a></dt>
 <dd><p>Parent slide</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data.Acquisition.panorama">
-<span class="sig-name descname"><span class="pre">panorama</span></span><em class="property"><span class="w"> </span><span class="pre">:Optional[readimc.data._panorama.Panorama]</span></em><a class="headerlink" href="#readimc.data.Acquisition.panorama" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">panorama</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="panorama/index.html#readimc.data.panorama.Panorama" title="readimc.data.panorama.Panorama"><span class="pre">readimc.data.panorama.Panorama</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Acquisition.panorama" title="Permalink to this definition"></a></dt>
 <dd><p>Associated panorama</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data.Acquisition.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="pre">:int</span></em><a class="headerlink" href="#readimc.data.Acquisition.id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#readimc.data.Acquisition.id" title="Permalink to this definition"></a></dt>
 <dd><p>Acquisition ID</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data.Acquisition.roi_points_um">
-<span class="sig-name descname"><span class="pre">roi_points_um</span></span><em class="property"><span class="w"> </span><span class="pre">:Optional[Tuple[Tuple[float,</span> <span class="pre">float],</span> <span class="pre">Tuple[float,</span> <span class="pre">float],</span> <span class="pre">Tuple[float,</span> <span class="pre">float],</span> <span class="pre">Tuple[float,</span> <span class="pre">float]]]</span></em><a class="headerlink" href="#readimc.data.Acquisition.roi_points_um" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">roi_points_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Acquisition.roi_points_um" title="Permalink to this definition"></a></dt>
 <dd><p>User-provided ROI points, in micrometers</p>
 <p>Order: (top left, top right, bottom right, bottom left)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="readimc.data.Acquisition.metadata">
-<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="w"> </span><span class="pre">:Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#readimc.data.Acquisition.metadata" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Acquisition.metadata" title="Permalink to this definition"></a></dt>
 <dd><p>Full acquisition metadata</p>
 </dd></dl>
 
@@ -503,6 +378,144 @@
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="readimc.data.Panorama">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.data.</span></span><span class="sig-name descname"><span class="pre">Panorama</span></span><a class="headerlink" href="#readimc.data.Panorama" title="Permalink to this definition"></a></dt>
+<dd><p>Panorama metadata (only for panoramas with panorama image data)</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Panorama.description">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.description" title="Permalink to this definition"></a></dt>
+<dd><p>User-provided panorama description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Panorama.width_um">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.width_um" title="Permalink to this definition"></a></dt>
+<dd><p>Panorama width, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Panorama.height_um">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.height_um" title="Permalink to this definition"></a></dt>
+<dd><p>Panorama height, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Panorama.points_um">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">points_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.points_um" title="Permalink to this definition"></a></dt>
+<dd><p>User-provided ROI points, in micrometers</p>
+<p>Order: (top left, top right, bottom right, bottom left)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Panorama.slide">
+<span class="sig-name descname"><span class="pre">slide</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="slide/index.html#readimc.data.slide.Slide" title="readimc.data.slide.Slide"><span class="pre">readimc.data.slide.Slide</span></a></em><a class="headerlink" href="#readimc.data.Panorama.slide" title="Permalink to this definition"></a></dt>
+<dd><p>Parent slide</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Panorama.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#readimc.data.Panorama.id" title="Permalink to this definition"></a></dt>
+<dd><p>Panorama ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Panorama.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Full panorama metadata</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Panorama.acquisitions">
+<span class="sig-name descname"><span class="pre">acquisitions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="acquisition/index.html#readimc.data.acquisition.Acquisition" title="readimc.data.acquisition.Acquisition"><span class="pre">readimc.data.acquisition.Acquisition</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Panorama.acquisitions" title="Permalink to this definition"></a></dt>
+<dd><p>List of acquisitions associated with this panorama</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="readimc.data.Slide">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.data.</span></span><span class="sig-name descname"><span class="pre">Slide</span></span><a class="headerlink" href="#readimc.data.Slide" title="Permalink to this definition"></a></dt>
+<dd><p>Slide metadata</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Slide.description">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.description" title="Permalink to this definition"></a></dt>
+<dd><p>User-provided slide description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Slide.width_um">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.width_um" title="Permalink to this definition"></a></dt>
+<dd><p>Slide width, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.data.Slide.height_um">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height_um</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.height_um" title="Permalink to this definition"></a></dt>
+<dd><p>Slide height, in micrometers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Slide.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#readimc.data.Slide.id" title="Permalink to this definition"></a></dt>
+<dd><p>Slide ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Slide.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Full slide metadata</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Slide.panoramas">
+<span class="sig-name descname"><span class="pre">panoramas</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="panorama/index.html#readimc.data.panorama.Panorama" title="readimc.data.panorama.Panorama"><span class="pre">readimc.data.panorama.Panorama</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.panoramas" title="Permalink to this definition"></a></dt>
+<dd><p>List of panoramas associated with this slide</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.data.Slide.acquisitions">
+<span class="sig-name descname"><span class="pre">acquisitions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="acquisition/index.html#readimc.data.acquisition.Acquisition" title="readimc.data.acquisition.Acquisition"><span class="pre">readimc.data.acquisition.Acquisition</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.data.Slide.acquisitions" title="Permalink to this definition"></a></dt>
+<dd><p>List of acquisitions associated with this slide</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 </section>
@@ -512,12 +525,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="readimc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="acquisition/index.html" class="btn btn-neutral float-right" title="readimc.data.acquisition" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Jonas Windhager.</p>
+    <p>&#169; Copyright 2021, University of Zurich.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

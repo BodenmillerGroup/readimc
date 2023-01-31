@@ -1,9 +1,7 @@
-:orphan:
+:py:mod:`readimc.mcd_parser`
+============================
 
-:py:mod:`readimc._mcd_parser`
-=============================
-
-.. py:module:: readimc._mcd_parser
+.. py:module:: readimc.mcd_parser
 
 
 Module Contents
@@ -14,7 +12,7 @@ Classes
 
 .. autoapisummary::
 
-   readimc._mcd_parser.MCDParser
+   readimc.mcd_parser.MCDParser
 
 
 
@@ -41,28 +39,46 @@ Classes
 
 
 
-.. py:class:: MCDParser(metadata)
+.. py:class:: MCDParser(schema_xml)
 
    A class for parsing IMC .mcd file metadata
 
-   :param metadata: IMC .mcd file metadata in proprietary XML format
+   :param schema_xml: IMC .mcd file metadata in proprietary XML format
 
-   .. py:property:: metadata
+   .. py:property:: schema_xml
       :type: str
 
       Full IMC .mcd file metadata in proprietary XML format
 
 
-   .. py:property:: metadata_elem
+   .. py:property:: schema_xml_elem
       :type: xml.etree.ElementTree.Element
 
       Full IMC .mcd file metadata as Python ElementTree element
 
 
-   .. py:property:: metadata_xmlns
+   .. py:property:: schema_xml_xmlns
       :type: Optional[str]
 
       Value of the metadata `xmlns` XML namespace attribute
+
+
+   .. py:property:: metadata
+      :type: str
+
+      Legacy accessor for `schema_xml`
+
+
+   .. py:property:: metadata_elem
+      :type: xml.etree.ElementTree.Element
+
+      Legacy accessor for `schema_xml_elem`
+
+
+   .. py:property:: metadata_xmlns
+      :type: Optional[str]
+
+      Legacy accessor for `schema_xml_xmlns`
 
 
    .. py:method:: parse_slides()

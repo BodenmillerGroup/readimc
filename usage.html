@@ -144,7 +144,7 @@ have zero or more panorama images and zero or more IMC acquisitions.</p>
     <span class="nb">print</span><span class="p">(</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
-        <span class="n">slide</span><span class="o">.</span><span class="n">width_um</span><span class="p">,</span> 
+        <span class="n">slide</span><span class="o">.</span><span class="n">width_um</span><span class="p">,</span>
         <span class="n">slide</span><span class="o">.</span><span class="n">height_um</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># first panorama of first slide</span>
@@ -152,7 +152,7 @@ have zero or more panorama images and zero or more IMC acquisitions.</p>
     <span class="nb">print</span><span class="p">(</span>
         <span class="n">panorama</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
         <span class="n">panorama</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
-        <span class="n">panorama</span><span class="o">.</span><span class="n">width_um</span><span class="p">,</span> 
+        <span class="n">panorama</span><span class="o">.</span><span class="n">width_um</span><span class="p">,</span>
         <span class="n">panorama</span><span class="o">.</span><span class="n">height_um</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># first acquisition of first slide</span>
@@ -170,7 +170,7 @@ have zero or more panorama images and zero or more IMC acquisitions.</p>
 <p>For a full list of available properties, please consult the API documentation of the
 <code class="docutils literal notranslate"><span class="pre">Slide</span></code>, <code class="docutils literal notranslate"><span class="pre">Panorama</span></code> and <code class="docutils literal notranslate"><span class="pre">Acquisition</span></code> classes (additional metadata is available through
 their <code class="docutils literal notranslate"><span class="pre">metadata</span></code> properties). The complete metadata embedded in IMC .mcd files is
-accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.metadata</span></code> (in proprietary XML format).</p>
+accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.schema_xml</span></code> (in proprietary XML format).</p>
 </section>
 <section id="reading-slide-images">
 <h3>Reading slide images<a class="headerlink" href="#reading-slide-images" title="Permalink to this heading"></a></h3>
@@ -196,7 +196,7 @@ which can be read as follows:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">Slide.panoramas</span></code> only exposes panoramas for which panorama images are available. The
-raw metadata accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.metadata</span></code> may contain additional panorama
+raw metadata accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.schema_xml</span></code> may contain additional panorama
 entries of type <code class="docutils literal notranslate"><span class="pre">&quot;Default&quot;</span></code> that represent “virtual” panoramas and do not correspond
 to actual images.</p>
 </div>
@@ -235,7 +235,7 @@ acquisition. If available, these before/after-ablation images can be read as fol
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Jonas Windhager.</p>
+    <p>&#169; Copyright 2021, University of Zurich.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

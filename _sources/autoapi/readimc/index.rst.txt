@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   Python package for reading Imaging Mass Cytometry files
+   Python package for reading imaging mass cytometry (IMC) files
 
 
 
@@ -18,6 +18,18 @@ Subpackages
    data/index.rst
 
 
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   imc_file/index.rst
+   mcd_file/index.rst
+   mcd_parser/index.rst
+   txt_file/index.rst
+
+
 Package Contents
 ----------------
 
@@ -27,9 +39,9 @@ Classes
 .. autoapisummary::
 
    readimc.IMCFile
-   readimc.TXTFile
    readimc.MCDFile
    readimc.MCDParser
+   readimc.TXTFile
 
 
 
@@ -46,19 +58,205 @@ Classes
       Path to the IMC file
 
 
-   .. py:method:: read_acquisition(*kwargs)
+   .. py:method:: read_acquisition(acquisition = None)
       :abstractmethod:
 
       Reads IMC acquisition data as numpy array.
 
+      :param acquisition: the acquisition to read
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
 
 
 
+.. py:class:: MCDFile(path)
+
+   Bases: :py:obj:`readimc.imc_file.IMCFile`
+
+   A class for reading IMC .mcd files
+
+   :param path: path to the IMC .mcd file
+
+   .. py:property:: schema_xml
+      :type: str
+
+      Full metadata in proprietary XML format
+
+
+   .. py:property:: metadata
+      :type: str
+
+      Legacy accessor for `schema_xml`
+
+
+   .. py:property:: slides
+      :type: Sequence[readimc.data.Slide]
+
+      Metadata on slides contained in this IMC .mcd file
+
+
+   .. py:property:: path
+      :type: pathlib.Path
+
+      Path to the IMC file
+
+
+   .. py:method:: open()
+
+      Opens the IMC .mcd file for reading.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with MCDFile("/path/to/file.mcd") as f:
+              pass
+
+
+
+   .. py:method:: close()
+
+      Closes the IMC .mcd file.
+
+      It is good practice to use context managers whenever possible:
+
+      .. code-block:: python
+
+          with MCDFile("/path/to/file.mcd") as f:
+              pass
+
+
+
+   .. py:method:: read_acquisition(acquisition = None)
+
+      Reads IMC acquisition data as numpy array.
+
+      :param acquisition: the acquisition to read
+      :return: the acquisition data as 32-bit floating point array,
+          shape: (c, y, x)
+
+
+   .. py:method:: read_slide(slide)
+
+      Reads and decodes a slide image as numpy array using the ``imageio``
+      package.
+
+      .. note::
+          Slide images are stored as binary data within the IMC .mcd file in
+          an arbitrary encoding. The ``imageio`` package can decode most
+          commonly used image file formats, but may fail for more obscure,
+          in which case an ``IOException`` is raised.
+
+      :param slide: the slide to read
+      :return: the slide image, or ``None`` if no image is available for the
+          specified slide
+
+
+   .. py:method:: read_panorama(panorama)
+
+      Reads and decodes a panorama image as numpy array using the
+      ``imageio`` package.
+
+      :param panorama: the panorama to read
+      :return: the panorama image as numpy array
+
+
+   .. py:method:: read_before_ablation_image(acquisition)
+
+      Reads and decodes a before-ablation image as numpy array using the
+      ``imageio`` package.
+
+      :param acquisition: the acquisition for which to read the
+          before-ablation image
+      :return: the before-ablation image as numpy array, or ``None`` if no
+          before-ablation image is available for the specified acquisition
+
+
+   .. py:method:: read_after_ablation_image(acquisition)
+
+      Reads and decodes a after-ablation image as numpy array using the
+      ``imageio`` package.
+
+      :param acquisition: the acquisition for which to read the
+          after-ablation image
+      :return: the after-ablation image as numpy array, or ``None`` if no
+          after-ablation image is available for the specified acquisition
+
+
+
+.. py:class:: MCDParser(schema_xml)
+
+   A class for parsing IMC .mcd file metadata
+
+   :param schema_xml: IMC .mcd file metadata in proprietary XML format
+
+   .. py:property:: schema_xml
+      :type: str
+
+      Full IMC .mcd file metadata in proprietary XML format
+
+
+   .. py:property:: schema_xml_elem
+      :type: xml.etree.ElementTree.Element
+
+      Full IMC .mcd file metadata as Python ElementTree element
+
+
+   .. py:property:: schema_xml_xmlns
+      :type: Optional[str]
+
+      Value of the metadata `xmlns` XML namespace attribute
+
+
+   .. py:property:: metadata
+      :type: str
+
+      Legacy accessor for `schema_xml`
+
+
+   .. py:property:: metadata_elem
+      :type: xml.etree.ElementTree.Element
+
+      Legacy accessor for `schema_xml_elem`
+
+
+   .. py:property:: metadata_xmlns
+      :type: Optional[str]
+
+      Legacy accessor for `schema_xml_xmlns`
+
+
+   .. py:method:: parse_slides()
+
+      Extract slide metadata
+
+
+
+.. py:exception:: MCDParserError(*args)
+
+   Bases: :py:obj:`Exception`
+
+   Error occurring when parsing invalid IMC .mcd file metadata
+
+   .. py:class:: args
+
+
+   .. py:method:: add_note()
+
+      Exception.add_note(note) --
+      add a note to the exception
+
+
+   .. py:method:: with_traceback()
+
+      Exception.with_traceback(tb) --
+      set self.__traceback__ to tb and return self.
+
+
+
 .. py:class:: TXTFile(path)
 
-   Bases: :py:obj:`readimc._imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
+   Bases: :py:obj:`readimc.imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
 
    A class for reading IMC .txt files
 
@@ -127,177 +325,14 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(*args)
+   .. py:method:: read_acquisition(acquisition = None)
 
       Reads IMC acquisition data as numpy array.
 
-      .. note::
-          This function takes a variable number of arguments for
-          compatibility with ``MCDFile``.
-
+      :param acquisition: the acquisition to read (for compatibility with ``IMCFile``
+          and ``MCDFile``; unused)
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
-
-
-
-.. py:class:: MCDFile(path)
-
-   Bases: :py:obj:`readimc._imc_file.IMCFile`
-
-   A class for reading IMC .mcd files
-
-   :param path: path to the IMC .mcd file
-
-   .. py:property:: metadata
-      :type: str
-
-      Full metadata in proprietary XML format
-
-
-   .. py:property:: slides
-      :type: Sequence[readimc.data.Slide]
-
-      Metadata on slides contained in this IMC .mcd file
-
-
-   .. py:property:: path
-      :type: pathlib.Path
-
-      Path to the IMC file
-
-
-   .. py:method:: open()
-
-      Opens the IMC .mcd file for reading.
-
-      It is good practice to use context managers whenever possible:
-
-      .. code-block:: python
-
-          with MCDFile("/path/to/file.mcd") as f:
-              pass
-
-
-
-   .. py:method:: close()
-
-      Closes the IMC .mcd file.
-
-      It is good practice to use context managers whenever possible:
-
-      .. code-block:: python
-
-          with MCDFile("/path/to/file.mcd") as f:
-              pass
-
-
-
-   .. py:method:: read_acquisition(acquisition)
-
-      Reads IMC acquisition data as numpy array.
-
-      :param acquisition: the acquisition to read
-      :return: the acquisition data as 32-bit floating point array,
-          shape: (c, y, x)
-
-
-   .. py:method:: read_slide(slide)
-
-      Reads and decodes a slide image as numpy array using the ``imageio``
-      package.
-
-      .. note::
-          Slide images are stored as binary data within the IMC .mcd file in
-          an arbitrary encoding. The ``imageio`` package can decode most
-          commonly used image file formats, but may fail for more obscure,
-          in which case an ``IOException`` is raised.
-
-      :param slide: the slide to read
-      :return: the slide image, or ``None`` if no image is available for the
-          specified slide
-
-
-   .. py:method:: read_panorama(panorama)
-
-      Reads and decodes a panorama image as numpy array using the
-      ``imageio`` package.
-
-      :param panorama: the panorama to read
-      :return: the panorama image as numpy array
-
-
-   .. py:method:: read_before_ablation_image(acquisition)
-
-      Reads and decodes a before-ablation image as numpy array using the
-      ``imageio`` package.
-
-      :param acquisition: the acquisition for which to read the
-          before-ablation image
-      :return: the before-ablation image as numpy array, or ``None`` if no
-          before-ablation image is available for the specified acquisition
-
-
-   .. py:method:: read_after_ablation_image(acquisition)
-
-      Reads and decodes a after-ablation image as numpy array using the
-      ``imageio`` package.
-
-      :param acquisition: the acquisition for which to read the
-          after-ablation image
-      :return: the after-ablation image as numpy array, or ``None`` if no
-          after-ablation image is available for the specified acquisition
-
-
-
-.. py:class:: MCDParser(metadata)
-
-   A class for parsing IMC .mcd file metadata
-
-   :param metadata: IMC .mcd file metadata in proprietary XML format
-
-   .. py:property:: metadata
-      :type: str
-
-      Full IMC .mcd file metadata in proprietary XML format
-
-
-   .. py:property:: metadata_elem
-      :type: xml.etree.ElementTree.Element
-
-      Full IMC .mcd file metadata as Python ElementTree element
-
-
-   .. py:property:: metadata_xmlns
-      :type: Optional[str]
-
-      Value of the metadata `xmlns` XML namespace attribute
-
-
-   .. py:method:: parse_slides()
-
-      Extract slide metadata
-
-
-
-.. py:exception:: MCDParserError(*args)
-
-   Bases: :py:obj:`Exception`
-
-   Error occurring when parsing invalid IMC .mcd file metadata
-
-   .. py:class:: args
-
-
-   .. py:method:: add_note()
-
-      Exception.add_note(note) --
-      add a note to the exception
-
-
-   .. py:method:: with_traceback()
-
-      Exception.with_traceback(tb) --
-      set self.__traceback__ to tb and return self.
 
 
 

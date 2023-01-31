@@ -8,4 +8,3 @@ You can install `readimc` from [PyPI](https://pypi.org) using
 Alternatively, you can install `readimc` from [conda-forge](https://conda-forge.org) using [conda](https://conda.io):
 
     conda install -c conda-forge readimc
-    

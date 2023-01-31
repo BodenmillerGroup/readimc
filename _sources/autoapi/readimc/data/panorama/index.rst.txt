@@ -1,9 +1,7 @@
-:orphan:
+:py:mod:`readimc.data.panorama`
+===============================
 
-:py:mod:`readimc.data._panorama`
-================================
-
-.. py:module:: readimc.data._panorama
+.. py:module:: readimc.data.panorama
 
 
 Module Contents
@@ -14,7 +12,7 @@ Classes
 
 .. autoapisummary::
 
-   readimc.data._panorama.Panorama
+   readimc.data.panorama.Panorama
 
 
 
@@ -50,25 +48,25 @@ Classes
 
 
    .. py:attribute:: slide
-      :annotation: :readimc.data._slide.Slide
+      :type: readimc.data.slide.Slide
 
       Parent slide
 
 
    .. py:attribute:: id
-      :annotation: :int
+      :type: int
 
       Panorama ID
 
 
    .. py:attribute:: metadata
-      :annotation: :Dict[str, str]
+      :type: Dict[str, str]
 
       Full panorama metadata
 
 
    .. py:attribute:: acquisitions
-      :annotation: :List[readimc.data._acquisition.Acquisition]
+      :type: List[readimc.data.acquisition.Acquisition]
 
       List of acquisitions associated with this panorama
 

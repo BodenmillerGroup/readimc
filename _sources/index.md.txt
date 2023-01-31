@@ -1,6 +1,6 @@
 # Welcome
 
-`readimc` is a Python package for reading Imaging Mass Cytometry files
+`readimc` is a Python package for reading imaging mass cytometry (IMC) files
 
 ## Supported file types
 
