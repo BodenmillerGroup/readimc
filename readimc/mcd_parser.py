@@ -1,9 +1,9 @@
 import re
-
 from typing import Dict, List, Optional, Tuple
+from warnings import warn
 from xml.etree import ElementTree as ET
 
-from .data import Slide, Panorama, Acquisition
+from .data import Acquisition, Panorama, Slide
 
 
 class MCDParserError(Exception):
@@ -16,30 +16,57 @@ class MCDParser:
     _XMLNS_REGEX = re.compile(r"{(?P<xmlns>.*)}")
     _CHANNEL_REGEX = re.compile(r"^(?P<metal>[a-zA-Z]+)\((?P<mass>[0-9]+)\)$")
 
-    def __init__(self, metadata: str) -> None:
+    def __init__(self, schema_xml: str) -> None:
         """A class for parsing IMC .mcd file metadata
 
-        :param metadata: IMC .mcd file metadata in proprietary XML format
+        :param schema_xml: IMC .mcd file metadata in proprietary XML format
         """
-        self._metadata = metadata
-        self._metadata_elem = ET.fromstring(self._metadata)
-        m = self._XMLNS_REGEX.match(self._metadata_elem.tag)
-        self._metadata_xmlns = m.group("xmlns") if m is not None else None
+        self._schema_xml = schema_xml
+        self._schema_xml_elem = ET.fromstring(self._schema_xml)
+        m = self._XMLNS_REGEX.match(self._schema_xml_elem.tag)
+        self._schema_xml_xmlns = m.group("xmlns") if m is not None else None
+
+    @property
+    def schema_xml(self) -> str:
+        """Full IMC .mcd file metadata in proprietary XML format"""
+        return self._schema_xml
+
+    @property
+    def schema_xml_elem(self) -> ET.Element:
+        """Full IMC .mcd file metadata as Python ElementTree element"""
+        return self._schema_xml_elem
+
+    @property
+    def schema_xml_xmlns(self) -> Optional[str]:
+        """Value of the metadata `xmlns` XML namespace attribute"""
+        return self._schema_xml_xmlns
 
     @property
     def metadata(self) -> str:
-        """Full IMC .mcd file metadata in proprietary XML format"""
-        return self._metadata
+        """Legacy accessor for `schema_xml`"""
+        warn(
+            "`MCDParser.metadata` will be removed in future readimc releases; "
+            "use `MCDFile.schema_xml` instead"
+        )
+        return self.schema_xml
 
     @property
     def metadata_elem(self) -> ET.Element:
-        """Full IMC .mcd file metadata as Python ElementTree element"""
-        return self._metadata_elem
+        """Legacy accessor for `schema_xml_elem`"""
+        warn(
+            "`MCDParser.metadata_elem` will be removed in future readimc releases; "
+            "use `MCDFile.schema_xml_elem` instead"
+        )
+        return self.schema_xml_elem
 
     @property
     def metadata_xmlns(self) -> Optional[str]:
-        """Value of the metadata `xmlns` XML namespace attribute"""
-        self._metadata_xmlns
+        """Legacy accessor for `schema_xml_xmlns`"""
+        warn(
+            "`MCDParser.metadata_xmlns` will be removed in future readimc releases; "
+            "use `MCDFile.schema_xml_xmlns` instead"
+        )
+        return self.schema_xml_xmlns
 
     def parse_slides(self) -> List[Slide]:
         """Extract slide metadata"""
@@ -89,7 +116,7 @@ class MCDParser:
                 )
                 for acquisition_elem in acquisition_elems:
                     acquisition = self._parse_acquisition(
-                        acquisition_elem, slide, panorama, roi_points_um
+                        acquisition_elem, slide, panorama, roi_points_um  # type: ignore
                     )
                     slide.acquisitions.append(acquisition)
                     if panorama is not None:
@@ -160,21 +187,21 @@ class MCDParser:
                     f"for acquisition {acquisition.id}"
                 )
             channel_label = self._get_text(acquisition_channel_elem, "ChannelLabel")
-            acquisition.channel_metals.append(m.group("metal"))
-            acquisition.channel_masses.append(int(m.group("mass")))
-            acquisition.channel_labels.append(channel_label)
+            acquisition._channel_metals.append(m.group("metal"))
+            acquisition._channel_masses.append(int(m.group("mass")))
+            acquisition._channel_labels.append(channel_label)
         return acquisition
 
     def _find_elements(self, path: str) -> List[ET.Element]:
         namespaces = None
-        if self._metadata_xmlns is not None:
-            namespaces = {"": self._metadata_xmlns}
-        return self._metadata_elem.findall(path, namespaces=namespaces)
+        if self._schema_xml_xmlns is not None:
+            namespaces = {"": self._schema_xml_xmlns}
+        return self._schema_xml_elem.findall(path, namespaces=namespaces)
 
     def _get_text_or_none(self, parent_elem: ET.Element, tag: str) -> Optional[str]:
         namespaces = None
-        if self._metadata_xmlns is not None:
-            namespaces = {"": self._metadata_xmlns}
+        if self._schema_xml_xmlns is not None:
+            namespaces = {"": self._schema_xml_xmlns}
         elem = parent_elem.find(tag, namespaces=namespaces)
         return (elem.text or "") if elem is not None else None
 
@@ -210,7 +237,7 @@ class MCDParser:
         metadata = {}
         for elem in parent_elem:
             tag = elem.tag
-            if self._metadata_xmlns is not None:
-                tag = tag.replace(f"{{{self._metadata_xmlns}}}", "")
+            if self._schema_xml_xmlns is not None:
+                tag = tag.replace(f"{{{self._schema_xml_xmlns}}}", "")
             metadata[tag] = elem.text or ""
         return metadata

@@ -1,7 +1,7 @@
-"""Imaging Mass Cytometry metadata classes"""
+"""Imaging mass cytometry (IMC) metadata classes"""
 
-from readimc.data._slide import Slide
-from readimc.data._panorama import Panorama
-from readimc.data._acquisition import Acquisition, AcquisitionBase
+from readimc.data.acquisition import Acquisition, AcquisitionBase
+from readimc.data.panorama import Panorama
+from readimc.data.slide import Slide
 
 __all__ = ["Slide", "Panorama", "Acquisition", "AcquisitionBase"]

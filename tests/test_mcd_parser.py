@@ -1,6 +1,6 @@
-import pytest
-
 from pathlib import Path
+
+import pytest
 
 from readimc import MCDFile, MCDParser
 
@@ -22,17 +22,17 @@ class TestMCDParser:
             cls.damond_mcd_file.close()
             cls.damond_mcd_file = None
 
-    def test_metadata(self):
+    def test_schema_xml(self):
         pass  # TODO
 
-    def test_metadata_elem(self):
+    def test_schema_xml_elem(self):
         pass  # TODO
 
-    def test_metadata_xmlns(self):
+    def test_schema_xml_xmlns(self):
         pass  # TODO
 
     def test_parse_slides(self, imc_test_data_mcd_file: MCDFile):
-        parser = MCDParser(imc_test_data_mcd_file.metadata)
+        parser = MCDParser(imc_test_data_mcd_file.schema_xml)
         slides = parser.parse_slides()
         assert len(slides) == 1
 
@@ -106,20 +106,20 @@ class TestMCDParser:
         )
 
     @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
-    def test_metadata_damond(self):
+    def test_schema_xml_damond(self):
         pass  # TODO
 
     @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
-    def test_metadata_elem_damond(self):
+    def test_schema_xml_elem_damond(self):
         pass  # TODO
 
     @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
-    def test_metadata_xmlns_damond(self):
+    def test_schema_xml_xmlns_damond(self):
         pass  # TODO
 
     @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
     def test_parse_slides_damond(self):
-        parser = MCDParser(self.damond_mcd_file.metadata)
+        parser = MCDParser(self.damond_mcd_file.schema_xml)
         slides = parser.parse_slides()
         assert len(slides) == 1
 

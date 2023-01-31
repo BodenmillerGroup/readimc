@@ -1,13 +1,14 @@
 import mmap
-import numpy as np
-
-from imageio import imread
 from os import PathLike
 from typing import BinaryIO, List, Optional, Sequence, Union
+from warnings import warn
 
-from ._imc_file import IMCFile
-from ._mcd_parser import MCDParser, MCDParserError
-from .data import Slide, Panorama, Acquisition
+import numpy as np
+from imageio.v2 import imread
+
+from .data import Acquisition, Panorama, Slide
+from .imc_file import IMCFile
+from .mcd_parser import MCDParser, MCDParserError
 
 
 class MCDFile(IMCFile):
@@ -18,15 +19,24 @@ class MCDFile(IMCFile):
         """
         super(MCDFile, self).__init__(path)
         self._fh: Optional[BinaryIO] = None
-        self._metadata: Optional[str] = None
+        self._schema_xml: Optional[str] = None
         self._slides: Optional[List[Slide]] = None
 
     @property
-    def metadata(self) -> str:
+    def schema_xml(self) -> str:
         """Full metadata in proprietary XML format"""
-        if self._metadata is None:
+        if self._schema_xml is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        return self._metadata
+        return self._schema_xml
+
+    @property
+    def metadata(self) -> str:
+        """Legacy accessor for `schema_xml`"""
+        warn(
+            "`MCDFile.metadata` will be removed in future readimc releases; "
+            "use `MCDFile.schema_xml` instead"
+        )
+        return self.schema_xml
 
     @property
     def slides(self) -> Sequence[Slide]:
@@ -56,9 +66,9 @@ class MCDFile(IMCFile):
         if self._fh is not None:
             self._fh.close()
         self._fh = open(self._path, mode="rb")
-        self._metadata = self._read_metadata()
+        self._schema_xml = self._read_schema_xml()
         try:
-            self._slides = MCDParser(self.metadata).parse_slides()
+            self._slides = MCDParser(self._schema_xml).parse_slides()
         except MCDParserError as e:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -80,7 +90,7 @@ class MCDFile(IMCFile):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(self, acquisition: Acquisition) -> np.ndarray:
+    def read_acquisition(self, acquisition: Optional[Acquisition] = None) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read
@@ -89,6 +99,8 @@ class MCDFile(IMCFile):
         """
         if acquisition is None:
             raise ValueError("acquisition")
+        if self._fh is None:
+            raise IOError(f"MCD file '{self.path.name}' has not been opened")
         try:
             data_start_offset = int(acquisition.metadata["DataStartOffset"])
             data_end_offset = int(acquisition.metadata["DataEndOffset"])
@@ -289,12 +301,14 @@ class MCDFile(IMCFile):
                 f"for acquisition {acquisition.id}"
             ) from e
 
-    def _read_metadata(
+    def _read_schema_xml(
         self,
         encoding: str = "utf-16-le",
         start_sub: str = "<MCDSchema",
         end_sub: str = "</MCDSchema>",
     ) -> str:
+        if self._fh is None:
+            raise IOError(f"MCD file '{self.path.name}' has not been opened")
         with mmap.mmap(self._fh.fileno(), 0, access=mmap.ACCESS_READ) as mm:
             # V1 contains multiple MCDSchema entries
             # As per imctools, the latest entry should be taken
@@ -317,6 +331,8 @@ class MCDFile(IMCFile):
         return data.decode(encoding=encoding)
 
     def _read_image(self, data_offset: int, data_size: int) -> np.ndarray:
+        if self._fh is None:
+            raise IOError(f"MCD file '{self.path.name}' has not been opened")
         self._fh.seek(data_offset)
         data = self._fh.read(data_size)
         return imread(data)

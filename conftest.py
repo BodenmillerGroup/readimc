@@ -1,12 +1,11 @@
-import pytest
-import requests
 import shutil
-
 from pathlib import Path
 from typing import Generator
 
-from readimc import MCDFile, TXTFile
+import pytest
+import requests
 
+from readimc import MCDFile, TXTFile
 
 _imc_test_data_asset_url = (
     "https://github.com/BodenmillerGroup/TestData"
@@ -14,9 +13,7 @@ _imc_test_data_asset_url = (
 )
 _imc_test_data_raw_dir = "datasets/210308_ImcTestData/raw"
 _imc_test_data_mcd_file = "20210305_NE_mockData1/20210305_NE_mockData1.mcd"
-_imc_test_data_txt_file = (
-    "20210305_NE_mockData1/20210305_NE_mockData1_ROI_001_1.txt"
-)
+_imc_test_data_txt_file = "20210305_NE_mockData1/20210305_NE_mockData1_ROI_001_1.txt"
 
 
 def _download_and_extract_asset(tmp_dir_path: Path, asset_url: str):

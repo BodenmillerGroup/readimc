@@ -1,9 +1,9 @@
-"""Python package for reading Imaging Mass Cytometry files"""
+"""Python package for reading imaging mass cytometry (IMC) files"""
 
-from ._imc_file import IMCFile
-from ._txt_file import TXTFile
-from ._mcd_file import MCDFile
-from ._mcd_parser import MCDParser, MCDParserError
+from .imc_file import IMCFile
+from .mcd_file import MCDFile
+from .mcd_parser import MCDParser, MCDParserError
+from .txt_file import TXTFile
 
 __all__ = [
     "IMCFile",

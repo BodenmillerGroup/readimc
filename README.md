@@ -9,6 +9,6 @@
 <a href="https://github.com/BodenmillerGroup/readimc/pulls" alt="Pull requests"><img alt="Pull requests" src="https://img.shields.io/github/issues-pr/BodenmillerGroup/readimc" /></a>
 <a href="https://github.com/BodenmillerGroup/readimc/blob/main/LICENSE" alt="License"><img alt="License" src="https://img.shields.io/github/license/BodenmillerGroup/readimc" /></a>
 
-Python package for reading Imaging Mass Cytometry files
+Python package for reading imaging mass cytometry (IMC) files
 
 Documentation is available at https://bodenmillergroup.github.io/readimc

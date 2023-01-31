@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
-from readimc.data._acquisition import Acquisition
-from readimc.data._panorama import Panorama
+from readimc.data.acquisition import Acquisition
+from readimc.data.panorama import Panorama
 
 
 @dataclass
