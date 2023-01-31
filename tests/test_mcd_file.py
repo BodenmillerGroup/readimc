@@ -1,8 +1,8 @@
-import numpy as np
-import pytest
-
 from hashlib import md5
 from pathlib import Path
+
+import numpy as np
+import pytest
 
 from readimc import MCDFile
 
@@ -24,8 +24,8 @@ class TestMCDFile:
             cls.damond_mcd_file.close()
             cls.damond_mcd_file = None
 
-    def test_metadata(self, imc_test_data_mcd_file: MCDFile):
-        digest = md5(imc_test_data_mcd_file.metadata.encode("utf-8")).digest()
+    def test_schema_xml(self, imc_test_data_mcd_file: MCDFile):
+        digest = md5(imc_test_data_mcd_file.schema_xml.encode("utf-8")).digest()
         assert digest == b"\xac\xd8@\x0f\x0b\xf4p\x89\xdd!\xe7o\x19\xa6\x8d\x97"
 
     def test_slides(self, imc_test_data_mcd_file: MCDFile):
@@ -110,6 +110,7 @@ class TestMCDFile:
     def test_read_slide(self, imc_test_data_mcd_file: MCDFile):
         slide = imc_test_data_mcd_file.slides[0]
         img = imc_test_data_mcd_file.read_slide(slide)
+        assert img is not None
         assert img.dtype == np.uint8
         assert img.shape == (669, 2002, 4)
 
@@ -133,8 +134,8 @@ class TestMCDFile:
         assert img is None
 
     @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")
-    def test_metadata_damond(self, imc_test_data_mcd_file: MCDFile):
-        digest = md5(imc_test_data_mcd_file.metadata.encode("utf-8")).digest()
+    def test_schema_xml_damond(self, imc_test_data_mcd_file: MCDFile):
+        digest = md5(imc_test_data_mcd_file.schema_xml.encode("utf-8")).digest()
         assert digest == b"\xac\xd8@\x0f\x0b\xf4p\x89\xdd!\xe7o\x19\xa6\x8d\x97"
 
     @pytest.mark.skipif(not damond_mcd_file_path.exists(), reason="data not available")

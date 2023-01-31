@@ -54,7 +54,7 @@ with MCDFile("/path/to/file.mcd") as f:
     print(
         slide.id,
         slide.description,
-        slide.width_um, 
+        slide.width_um,
         slide.height_um,
     )
     # first panorama of first slide
@@ -62,7 +62,7 @@ with MCDFile("/path/to/file.mcd") as f:
     print(
         panorama.id,
         panorama.description,
-        panorama.width_um, 
+        panorama.width_um,
         panorama.height_um,
     )
     # first acquisition of first slide
@@ -80,7 +80,7 @@ with MCDFile("/path/to/file.mcd") as f:
 For a full list of available properties, please consult the API documentation of the
 `Slide`, `Panorama` and `Acquisition` classes (additional metadata is available through
 their `metadata` properties). The complete metadata embedded in IMC .mcd files is
-accessible through `MCDFile.metadata` (in proprietary XML format).
+accessible through `MCDFile.schema_xml` (in proprietary XML format).
 
 ### Reading slide images
 
@@ -108,7 +108,7 @@ with MCDFile("/path/to/file.mcd") as f:
 
 ```{note}
 `Slide.panoramas` only exposes panoramas for which panorama images are available. The
-raw metadata accessible through `MCDFile.metadata` may contain additional panorama
+raw metadata accessible through `MCDFile.schema_xml` may contain additional panorama
 entries of type `"Default"` that represent "virtual" panoramas and do not correspond
 to actual images.
 ```

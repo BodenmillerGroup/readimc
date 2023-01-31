@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "readimc"
-copyright = "2021, Jonas Windhager"
+copyright = "2021, University of Zurich"
 author = "Jonas Windhager"
 
 

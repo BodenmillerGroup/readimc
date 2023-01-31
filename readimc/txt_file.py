@@ -1,12 +1,12 @@
+import re
+from os import PathLike
+from typing import List, Optional, Sequence, TextIO, Tuple, Union
+
 import numpy as np
 import pandas as pd
-import re
 
-from os import PathLike
-from typing import BinaryIO, List, Optional, Sequence, Tuple, Union
-
-from ._imc_file import IMCFile
-from .data import AcquisitionBase
+from .data import Acquisition, AcquisitionBase
+from .imc_file import IMCFile
 
 
 class TXTFile(IMCFile, AcquisitionBase):
@@ -20,7 +20,7 @@ class TXTFile(IMCFile, AcquisitionBase):
         :param path: path to the IMC .txt file
         """
         super(TXTFile, self).__init__(path)
-        self._fh: Optional[BinaryIO] = None
+        self._fh: Optional[TextIO] = None
         self._num_channels: Optional[int] = None
         self._channel_metals: Optional[List[str]] = None
         self._channel_masses: Optional[List[int]] = None
@@ -93,16 +93,16 @@ class TXTFile(IMCFile, AcquisitionBase):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(self, *args) -> np.ndarray:
+    def read_acquisition(self, acquisition: Optional[Acquisition] = None) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
-        .. note::
-            This function takes a variable number of arguments for
-            compatibility with ``MCDFile``.
-
+        :param acquisition: the acquisition to read (for compatibility with ``IMCFile``
+            and ``MCDFile``; unused)
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)
         """
+        if self._fh is None:
+            raise IOError(f"TXT file '{self.path.name}' has not been opened")
         self._fh.seek(0)
         df = pd.read_table(self._fh, dtype=np.float32)
         if tuple(df.columns[:3]) != (
@@ -130,6 +130,8 @@ class TXTFile(IMCFile, AcquisitionBase):
         return np.moveaxis(img, -1, 0)
 
     def _read_channels(self) -> Tuple[int, List[str], List[int], List[str]]:
+        if self._fh is None:
+            raise IOError(f"TXT file '{self.path.name}' has not been opened")
         self._fh.seek(0)
         columns = self._fh.readline().split("\t")
         if tuple(columns[:3]) != ("Start_push", "End_push", "Pushes_duration"):

@@ -1,13 +1,13 @@
 import math
-import numpy as np
-
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple, TYPE_CHECKING, Sequence
+from typing import TYPE_CHECKING, Dict, List, Optional, Sequence, Tuple
+
+import numpy as np
 
 if TYPE_CHECKING:
-    from readimc.data._slide import Slide
-    from readimc.data._panorama import Panorama
+    from readimc.data.panorama import Panorama
+    from readimc.data.slide import Slide
 
 
 class AcquisitionBase(ABC):
@@ -163,17 +163,22 @@ class Acquisition(AcquisitionBase):
         """ROI stage coordinates, in micrometers
 
         Order: (top left, top right, bottom right, bottom left)"""
-        x1 = self.metadata.get("ROIStartXPosUm")
-        y1 = self.metadata.get("ROIStartYPosUm")
-        x3 = self.metadata.get("ROIEndXPosUm")
-        y3 = self.metadata.get("ROIEndYPosUm")
+        x1_str = self.metadata.get("ROIStartXPosUm")
+        y1_str = self.metadata.get("ROIStartYPosUm")
+        x3_str = self.metadata.get("ROIEndXPosUm")
+        y3_str = self.metadata.get("ROIEndYPosUm")
         if (
-            x1 != x3
-            and y1 != y3
-            and None not in (x1, y1, x3, y3, self.width_um, self.height_um)
+            x1_str != x3_str
+            and y1_str != y3_str
+            and x1_str is not None
+            and y1_str is not None
+            and x3_str is not None
+            and y3_str is not None
+            and self.width_um is not None
+            and self.height_um is not None
         ):
-            x1, y1 = float(x1), float(y1)
-            x3, y3 = float(x3), float(y3)
+            x1, y1 = float(x1_str), float(y1_str)
+            x3, y3 = float(x3_str), float(y3_str)
             # fix Fluidigm bug, where start positions are multiplied by 1000
             if abs(x1 / 1000.0 - x3) < abs(x1 - x3):
                 x1 /= 1000.0
