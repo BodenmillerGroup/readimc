@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>readimc.mcd_parser &mdash; readimc  documentation</title>
@@ -30,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> readimc
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            readimc
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -85,7 +89,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></a></li>
       <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_parser</span></code></li>
       <li class="wy-breadcrumbs-aside">
@@ -104,10 +108,6 @@
 <section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#readimc.mcd_parser.MCDParser" title="readimc.mcd_parser.MCDParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDParser</span></code></a></p></td>
 <td><p>A class for parsing IMC .mcd file metadata</p></td>
@@ -145,7 +145,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.mcd_parser.</span></span><span class="sig-name descname"><span class="pre">MCDParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema_xml</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.mcd_parser.MCDParser" title="Permalink to this definition"></a></dt>
 <dd><p>A class for parsing IMC .mcd file metadata</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>schema_xml</strong> (<em>str</em>) – IMC .mcd file metadata in proprietary XML format</p>
 </dd>
 </dl>
@@ -154,7 +154,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.schema_xml" title="Permalink to this definition"></a></dt>
 <dd><p>Full IMC .mcd file metadata in proprietary XML format</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -165,7 +165,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml_elem</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">xml.etree.ElementTree.Element</span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.schema_xml_elem" title="Permalink to this definition"></a></dt>
 <dd><p>Full IMC .mcd file metadata as Python ElementTree element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xml.etree.ElementTree.Element</p>
 </dd>
 </dl>
@@ -176,7 +176,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml_xmlns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.schema_xml_xmlns" title="Permalink to this definition"></a></dt>
 <dd><p>Value of the metadata <cite>xmlns</cite> XML namespace attribute</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Optional[str]</p>
 </dd>
 </dl>
@@ -187,7 +187,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.metadata" title="Permalink to this definition"></a></dt>
 <dd><p>Legacy accessor for <cite>schema_xml</cite></p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -198,7 +198,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_elem</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">xml.etree.ElementTree.Element</span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.metadata_elem" title="Permalink to this definition"></a></dt>
 <dd><p>Legacy accessor for <cite>schema_xml_elem</cite></p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xml.etree.ElementTree.Element</p>
 </dd>
 </dl>
@@ -209,7 +209,7 @@ set self.__traceback__ to tb and return self.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_xmlns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.metadata_xmlns" title="Permalink to this definition"></a></dt>
 <dd><p>Legacy accessor for <cite>schema_xml_xmlns</cite></p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Optional[str]</p>
 </dd>
 </dl>
@@ -220,7 +220,7 @@ set self.__traceback__ to tb and return self.</p>
 <span class="sig-name descname"><span class="pre">parse_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc.mcd_parser.MCDParser.parse_slides" title="Permalink to this definition"></a></dt>
 <dd><p>Extract slide metadata</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[<a class="reference internal" href="../data/index.html#readimc.data.Slide" title="readimc.data.Slide">readimc.data.Slide</a>]</p>
 </dd>
 </dl>
