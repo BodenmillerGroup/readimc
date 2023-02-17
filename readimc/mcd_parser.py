@@ -2,7 +2,7 @@ import re
 from typing import Dict, List, Optional, Tuple
 from warnings import warn
 from xml.etree import ElementTree as ET
-
+import itertools
 from .data import Acquisition, Panorama, Slide
 
 
@@ -123,6 +123,27 @@ class MCDParser:
                         panorama.acquisitions.append(acquisition)
         slide.panoramas.sort(key=lambda panorama: panorama.id)
         slide.acquisitions.sort(key=lambda acquisition: acquisition.id)
+        
+        # Check that acquisitions data blocks don't overlap                               
+        acqDict = {}
+        for acq in slide.acquisitions:
+            acqDict[slide.acquisitions.index(acq)]= [acq.metadata['DataStartOffset'], acq.metadata['DataEndOffset']]
+        
+
+    
+        for a, b in itertools.combinations(acqDict.items(), 2):
+            if (b[1][0] <= a[1][0] and b[1][1] > a[1][0]) or (b[1][0] < a[1][1] and b[1][1] >= a[1][1]):
+                warn(
+                    "The mcd file appears to be curropted. There is an overlap between the memory blocks that correspond to acquisitions "+ str(a[0])+ " and "+ str(b[0]) + ". In an uncurropted file there should be no overlap between acquisition memory blocks."
+                )        
+        
+        
+        
+        
+        
+        
+        
+        
         return slide
 
     def _parse_panorama(self, panorama_elem: ET.Element, slide: Slide) -> Panorama:
