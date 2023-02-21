@@ -130,9 +130,7 @@ class MCDParser:
             b_start = b.metadata["DataStartOffset"]
             b_end = b.metadata["DataEndOffset"]
             # TODO change 'slide_elem[2].text' to select by element names for modularity
-            if (b_start <= a_start and b_end > a_start) or (
-                b_start < a_end and b_end >= a_end
-            ):
+            if b_start <= a_start < b_end or b_start < a_end <= b_end:
                 warn(
                     f" {slide_elem[2].text} appears to be curropted. There are memory blocks that map to both acquisitions {a.id} and {b.id}. In an uncurropted file a given memory block should map to only one acquisition"
                 )
