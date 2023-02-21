@@ -123,17 +123,19 @@ class MCDParser:
                     if panorama is not None:
                         panorama.acquisitions.append(acquisition)
 
-        # Check for possible overlap of memory blocks between qcquisitions:                
+        # Check for possible overlap of memory blocks between qcquisitions:
         for a, b in itertools.combinations(slide.acquisitions, 2):
             a_start = a.metadata["DataStartOffset"]
             a_end = a.metadata["DataEndOffset"]
             b_start = b.metadata["DataStartOffset"]
             b_end = b.metadata["DataEndOffset"]
-            #TODO change 'slide_elem[2].text' to select by element names for modularity
-            if (b_start <= a_start and b_end > a_start) or (b_start < a_end and b_end >= a_end):
+            # TODO change 'slide_elem[2].text' to select by element names for modularity
+            if (b_start <= a_start and b_end > a_start) or (
+                b_start < a_end and b_end >= a_end
+            ):
                 warn(
                     f" {slide_elem[2].text} appears to be curropted. There are memory blocks that map to both acquisitions {a.id} and {b.id}. In an uncurropted file a given memory block should map to only one acquisition"
-                )       
+                )
         slide.panoramas.sort(key=lambda panorama: panorama.id)
         slide.acquisitions.sort(key=lambda acquisition: acquisition.id)
         return slide
