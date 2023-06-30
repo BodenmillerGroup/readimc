@@ -125,7 +125,7 @@ class MCDFile(IMCFile):
         if data_size % bytes_per_pixel != 0:
             data_size += 1
         if data_size % bytes_per_pixel != 0:
-            if strict == True:
+            if strict:
                 raise IOError(
                     f"MCD file '{self.path.name}' corrupted: "
                     "invalid acquisition image data size"
