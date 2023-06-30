@@ -131,7 +131,7 @@ class MCDFile(IMCFile):
                     "invalid acquisition image data size"
                 )
             else:
-                print(
+                warn(
                     f"MCD file '{self.path.name}' corrupted: "
                     "invalid acquisition image data size"
                 )
