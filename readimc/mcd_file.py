@@ -124,7 +124,6 @@ class MCDFile(IMCFile):
         bytes_per_pixel = (num_channels + 3) * value_bytes
         if data_size % bytes_per_pixel != 0:
             data_size += 1
-
         if data_size % bytes_per_pixel != 0:
             if strict == True:
                 raise IOError(
