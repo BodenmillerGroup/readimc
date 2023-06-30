@@ -122,7 +122,6 @@ class MCDFile(IMCFile):
         num_channels = acquisition.num_channels
         data_size = data_end_offset - data_start_offset
         bytes_per_pixel = (num_channels + 3) * value_bytes
-
         if data_size % bytes_per_pixel != 0:
             data_size += 1
 
