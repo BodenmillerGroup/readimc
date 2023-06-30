@@ -153,7 +153,7 @@ class MCDFile(IMCFile):
                     "inconsistent acquisition image data size"
                 )
 
-        else:  # strict == False
+        else:
             width = int(acquisition.metadata["MaxX"])
             height = int(acquisition.metadata["MaxY"])
             if width * height != num_pixels:
