@@ -145,7 +145,7 @@ class MCDFile(IMCFile):
             shape=(num_pixels, num_channels + 3),
         )
 
-        if strict == True:  # default behavior
+        if strict:
             width, height = np.amax(data[:, :2], axis=0).astype(int) + 1
             if width * height != data.shape[0]:
                 raise IOError(
