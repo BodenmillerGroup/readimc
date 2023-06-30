@@ -91,7 +91,7 @@ class MCDFile(IMCFile):
             self._fh = None
 
     def read_acquisition(
-        self, acquisition: Optional[Acquisition] = None, strict=True
+        self, acquisition: Optional[Acquisition] = None, strict: bool = True
     ) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
