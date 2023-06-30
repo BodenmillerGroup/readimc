@@ -90,7 +90,7 @@ class MCDFile(IMCFile):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(self, acquisition: Optional[Acquisition] = None) -> np.ndarray:
+    def read_acquisition(self, acquisition: Optional[Acquisition] = None, strict = True) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read
@@ -120,13 +120,21 @@ class MCDFile(IMCFile):
         num_channels = acquisition.num_channels
         data_size = data_end_offset - data_start_offset
         bytes_per_pixel = (num_channels + 3) * value_bytes
-        if data_size % bytes_per_pixel != 0:
+        
+        if data_size % bytes_per_pixel != 0:            
             data_size += 1
+        
         if data_size % bytes_per_pixel != 0:
-            raise IOError(
+            if strict == True:
+                raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
                 "invalid acquisition image data size"
-            )
+                )
+            else: # strict == False, print error and continue
+                print(
+                f"MCD file '{self.path.name}' corrupted: "
+                "invalid acquisition image data size"
+                )
         num_pixels = data_size // bytes_per_pixel
         self._fh.seek(0)
         data = np.memmap(
@@ -136,12 +144,27 @@ class MCDFile(IMCFile):
             offset=data_start_offset,
             shape=(num_pixels, num_channels + 3),
         )
-        width, height = np.amax(data[:, :2], axis=0).astype(int) + 1
-        if width * height != data.shape[0]:
-            raise IOError(
-                f"MCD file '{self.path.name}' corrupted: "
-                "inconsistent acquisition image data size"
-            )
+        
+        if strict == True: # default behavior
+            width, height = np.amax(data[:, :2], axis=0).astype(int) + 1
+            if width * height != data.shape[0]:
+                raise IOError(
+                    f"MCD file '{self.path.name}' corrupted: "
+                    "inconsistent acquisition image data size"
+                    )
+            
+        else: #strict == False
+            width = int(acquisition.metadata["MaxX"])
+            height = int(acquisition.metadata["MaxY"])
+            if width * height != num_pixels:
+                print(
+                    f"MCD file '{self.path.name}' corrupted: "
+                    "inconsistent acquisition image data size"
+                    )
+            append_pixel = (width * height)-num_pixels
+            append_data = np.zeros((append_pixel, num_channels), dtype=np.float32)
+            np.append(data, append_data)
+        
         img = np.zeros((height, width, num_channels), dtype=np.float32)
         img[data[:, 1].astype(int), data[:, 0].astype(int), :] = data[:, 3:]
         return np.moveaxis(img, -1, 0)
