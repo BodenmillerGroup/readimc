@@ -163,7 +163,7 @@ class MCDFile(IMCFile):
                 )
             append_pixel = (width * height) - num_pixels
             append_data = np.zeros((append_pixel, num_channels), dtype=np.float32)
-            np.append(data, append_data)
+            data = np.append(data, append_data)
 
         img = np.zeros((height, width, num_channels), dtype=np.float32)
         img[data[:, 1].astype(int), data[:, 0].astype(int), :] = data[:, 3:]
