@@ -130,7 +130,7 @@ class MCDFile(IMCFile):
                     f"MCD file '{self.path.name}' corrupted: "
                     "invalid acquisition image data size"
                 )
-            else:  # strict == False, print error and continue
+            else:
                 print(
                     f"MCD file '{self.path.name}' corrupted: "
                     "invalid acquisition image data size"
