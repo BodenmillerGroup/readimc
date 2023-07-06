@@ -96,6 +96,7 @@ class MCDFile(IMCFile):
         """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read
+        :param strict: set this parameter to False to try to recover corrupted data
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)
         """
@@ -130,11 +131,10 @@ class MCDFile(IMCFile):
                     f"MCD file '{self.path.name}' corrupted: "
                     "invalid acquisition image data size"
                 )
-            else:
-                warn(
-                    f"MCD file '{self.path.name}' corrupted: "
-                    "invalid acquisition image data size"
-                )
+            warn(
+                f"MCD file '{self.path.name}' corrupted: "
+                "invalid acquisition image data size"
+            )
         num_pixels = data_size // bytes_per_pixel
         self._fh.seek(0)
         data = np.memmap(
@@ -144,7 +144,6 @@ class MCDFile(IMCFile):
             offset=data_start_offset,
             shape=(num_pixels, num_channels + 3),
         )
-
         if strict:
             width, height = np.amax(data[:, :2], axis=0).astype(int) + 1
             if width * height != data.shape[0]:
@@ -164,7 +163,6 @@ class MCDFile(IMCFile):
             append_pixel = (width * height) - num_pixels
             append_data = np.zeros((append_pixel, num_channels), dtype=np.float32)
             data = np.append(data, append_data)
-
         img = np.zeros((height, width, num_channels), dtype=np.float32)
         img[data[:, 1].astype(int), data[:, 0].astype(int), :] = data[:, 3:]
         return np.moveaxis(img, -1, 0)
