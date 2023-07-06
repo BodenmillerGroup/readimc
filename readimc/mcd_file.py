@@ -147,8 +147,8 @@ class MCDFile(IMCFile):
         xs = data[:, 0].astype(int)
         ys = data[:, 1].astype(int)
         try:
-            width = int(acquisition.metadata["MaxX"]) + 1
-            height = int(acquisition.metadata["MaxY"]) + 1
+            width = int(acquisition.metadata["MaxX"])
+            height = int(acquisition.metadata["MaxY"])
             if width <= np.amax(xs) or height <= np.amax(ys):
                 raise ValueError(
                     "data shape is incompatible with acquisition image dimensions"
