@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: MCDFile(path)
 
+
    Bases: :py:obj:`readimc.imc_file.IMCFile`
 
    A class for reading IMC .mcd files

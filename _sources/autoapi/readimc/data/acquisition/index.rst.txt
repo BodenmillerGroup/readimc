@@ -20,6 +20,7 @@ Classes
 
 .. py:class:: AcquisitionBase
 
+
    Bases: :py:obj:`abc.ABC`
 
    Shared IMC acquisition metadata interface
@@ -61,6 +62,7 @@ Classes
 
 
 .. py:class:: Acquisition
+
 
    Bases: :py:obj:`AcquisitionBase`
 

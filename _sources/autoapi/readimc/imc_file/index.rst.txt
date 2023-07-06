@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: IMCFile(path)
 
+
    Bases: :py:obj:`abc.ABC`
 
    Shared IMC file interface

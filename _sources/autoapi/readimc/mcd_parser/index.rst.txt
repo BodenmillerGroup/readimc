@@ -19,11 +19,13 @@ Classes
 
 .. py:exception:: MCDParserError(*args)
 
+
    Bases: :py:obj:`Exception`
 
    Error occurring when parsing invalid IMC .mcd file metadata
 
    .. py:class:: args
+
 
 
    .. py:method:: add_note()
@@ -40,6 +42,7 @@ Classes
 
 
 .. py:class:: MCDParser(schema_xml)
+
 
    A class for parsing IMC .mcd file metadata
 

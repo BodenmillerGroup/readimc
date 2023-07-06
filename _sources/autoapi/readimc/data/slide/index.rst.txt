@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: Slide
 
+
    Slide metadata
 
    .. py:property:: description

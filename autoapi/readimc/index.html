@@ -12,10 +12,9 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -78,11 +77,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser"><code class="docutils literal notranslate"><span class="pre">MCDParser</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError"><code class="docutils literal notranslate"><span class="pre">MCDParserError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile"><code class="docutils literal notranslate"><span class="pre">TXTFile</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.IMCFile">IMCFile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile">MCDFile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser">MCDParser</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError">MCDParserError</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile">TXTFile</a></li>
 </ul>
 </li>
 </ul>
@@ -426,7 +420,7 @@ after-ablation image is available for the specified acquisition</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="readimc.MCDParser.schema_xml_xmlns">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml_xmlns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.MCDParser.schema_xml_xmlns" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml_xmlns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#readimc.MCDParser.schema_xml_xmlns" title="Permalink to this definition"></a></dt>
 <dd><p>Value of the metadata <cite>xmlns</cite> XML namespace attribute</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -459,7 +453,7 @@ after-ablation image is available for the specified acquisition</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="readimc.MCDParser.metadata_xmlns">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_xmlns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.MCDParser.metadata_xmlns" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata_xmlns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#readimc.MCDParser.metadata_xmlns" title="Permalink to this definition"></a></dt>
 <dd><p>Legacy accessor for <cite>schema_xml_xmlns</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

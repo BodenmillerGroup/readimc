@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: TXTFile(path)
 
+
    Bases: :py:obj:`readimc.imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
 
    A class for reading IMC .txt files
