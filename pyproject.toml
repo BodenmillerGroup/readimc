@@ -2,5 +2,12 @@
 requires = ["setuptools>=64", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
+[tool.pytest.ini_options]
+addopts = ["--cov=readimc", "--cov-report=xml:coverage.xml"]
+testpaths = ["tests"]
+
+[tool.ruff]
+select = ["E", "F", "I"]
+
 [tool.setuptools_scm]
 write_to = "readimc/_version.py"
