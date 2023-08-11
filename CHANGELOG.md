@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.3] - 2023-08-11
+
+Maintenance release
+
+Implemented checks for overlapping raw data blocks in MCD file metadata [#6](https://github.com/BodenmillerGroup/readimc/issues/6)
+
+Implemented lenient extraction of corrupted imaging data  [#19](https://github.com/BodenmillerGroup/readimc/pull/19)
+
 ## [0.6.2] - 2023-01-31
 
 Maintenance release
