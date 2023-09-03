@@ -94,7 +94,9 @@ class TXTFile(IMCFile, AcquisitionBase):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(self, acquisition: Optional[Acquisition] = None, strict: bool = True) -> np.ndarray:
+    def read_acquisition(
+        self, acquisition: Optional[Acquisition] = None, strict: bool = True
+    ) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read (for compatibility with ``IMCFile``
