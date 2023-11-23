@@ -1,6 +1,7 @@
 import re
 from os import PathLike
 from typing import List, Optional, Sequence, TextIO, Tuple, Union
+from warnings import warn
 
 import numpy as np
 import pandas as pd
@@ -93,11 +94,14 @@ class TXTFile(IMCFile, AcquisitionBase):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(self, acquisition: Optional[Acquisition] = None) -> np.ndarray:
+    def read_acquisition(
+        self, acquisition: Optional[Acquisition] = None, strict: bool = True
+    ) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read (for compatibility with ``IMCFile``
             and ``MCDFile``; unused)
+        :param strict: set this parameter to False to try to recover corrupted data
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)
         """
@@ -121,7 +125,12 @@ class TXTFile(IMCFile, AcquisitionBase):
             )
         width, height = df[["X", "Y"]].add(1).max(axis=0).astype(int)
         if width * height != len(df.index):
-            raise IOError(
+            if strict:
+                raise IOError(
+                    f"TXT file '{self.path.name}' corrupted: "
+                    "inconsistent acquisition image data size"
+                )
+            warn(
                 f"TXT file '{self.path.name}' corrupted: "
                 "inconsistent acquisition image data size"
             )

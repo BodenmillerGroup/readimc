@@ -19,7 +19,7 @@
 
 project = "readimc"
 copyright = "2021, University of Zurich"
-author = "Jonas Windhager"
+author = "Jonas Windhager, Milad Adibi"
 
 
 # -- General configuration ---------------------------------------------------
