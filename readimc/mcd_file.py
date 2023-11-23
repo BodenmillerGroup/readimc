@@ -90,10 +90,13 @@ class MCDFile(IMCFile):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(self, acquisition: Optional[Acquisition] = None) -> np.ndarray:
+    def read_acquisition(
+        self, acquisition: Optional[Acquisition] = None, strict: bool = True
+    ) -> np.ndarray:
         """Reads IMC acquisition data as numpy array.
 
         :param acquisition: the acquisition to read
+        :param strict: set this parameter to False to try to recover corrupted data
         :return: the acquisition data as 32-bit floating point array,
             shape: (c, y, x)
         """
@@ -123,7 +126,12 @@ class MCDFile(IMCFile):
         if data_size % bytes_per_pixel != 0:
             data_size += 1
         if data_size % bytes_per_pixel != 0:
-            raise IOError(
+            if strict:
+                raise IOError(
+                    f"MCD file '{self.path.name}' corrupted: "
+                    "invalid acquisition image data size"
+                )
+            warn(
                 f"MCD file '{self.path.name}' corrupted: "
                 "invalid acquisition image data size"
             )
@@ -136,15 +144,35 @@ class MCDFile(IMCFile):
             offset=data_start_offset,
             shape=(num_pixels, num_channels + 3),
         )
-        width, height = np.amax(data[:, :2], axis=0).astype(int) + 1
+        xs = data[:, 0].astype(int)
+        ys = data[:, 1].astype(int)
+        try:
+            width = int(acquisition.metadata["MaxX"])
+            height = int(acquisition.metadata["MaxY"])
+            if width <= np.amax(xs) or height <= np.amax(ys):
+                raise ValueError(
+                    "data shape is incompatible with acquisition image dimensions"
+                )
+        except (KeyError, ValueError):
+            warn(
+                f"MCD file '{self.path.name}' corrupted: "
+                "cannot read acquisition image dimensions; recovering from data shape"
+            )
+            width = np.amax(xs) + 1
+            height = np.amax(ys) + 1
         if width * height != data.shape[0]:
-            raise IOError(
+            if strict:
+                raise IOError(
+                    f"MCD file '{self.path.name}' corrupted: "
+                    "inconsistent acquisition image data size"
+                )
+            warn(
                 f"MCD file '{self.path.name}' corrupted: "
                 "inconsistent acquisition image data size"
             )
-        img = np.zeros((height, width, num_channels), dtype=np.float32)
-        img[data[:, 1].astype(int), data[:, 0].astype(int), :] = data[:, 3:]
-        return np.moveaxis(img, -1, 0)
+        img = np.zeros((num_channels, height, width), dtype=np.float32)
+        img[:, ys, xs] = np.transpose(data[:, 3:])
+        return img
 
     def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
         """Reads and decodes a slide image as numpy array using the ``imageio``

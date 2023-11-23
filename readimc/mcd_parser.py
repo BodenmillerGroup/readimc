@@ -1,3 +1,4 @@
+import itertools
 import re
 from typing import Dict, List, Optional, Tuple
 from warnings import warn
@@ -121,6 +122,16 @@ class MCDParser:
                     slide.acquisitions.append(acquisition)
                     if panorama is not None:
                         panorama.acquisitions.append(acquisition)
+        for a, b in itertools.combinations(slide.acquisitions, 2):
+            a_start = a.metadata["DataStartOffset"]
+            a_end = a.metadata["DataEndOffset"]
+            b_start = b.metadata["DataStartOffset"]
+            b_end = b.metadata["DataEndOffset"]
+            if b_start <= a_start < b_end or b_start < a_end <= b_end:
+                warn(
+                    f"Slide {slide.id} corrupted: "
+                    f"overlapping memory blocks for acquisitions {a.id} and {b.id}"
+                )
         slide.panoramas.sort(key=lambda panorama: panorama.id)
         slide.acquisitions.sort(key=lambda acquisition: acquisition.id)
         return slide
