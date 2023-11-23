@@ -12,11 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -100,13 +100,13 @@
            <div itemprop="articleBody">
              
   <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">readimc</span></code> package exports two classes for reading IMC .mcd and IMC .txt files:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">readimc</span> <span class="kn">import</span> <span class="n">MCDFile</span><span class="p">,</span> <span class="n">TXTFile</span>
 </pre></div>
 </div>
 <section id="loading-imc-txt-files">
-<h2>Loading IMC .txt files<a class="headerlink" href="#loading-imc-txt-files" title="Permalink to this heading"></a></h2>
+<h2>Loading IMC .txt files<a class="headerlink" href="#loading-imc-txt-files" title="Link to this heading"></a></h2>
 <p>IMC .txt files can be loaded as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">TXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">channel_names</span><span class="p">)</span>  <span class="c1"># metals</span>
@@ -114,7 +114,7 @@
 </pre></div>
 </div>
 <section id="reading-imc-acquisitions">
-<h3>Reading IMC acquisitions<a class="headerlink" href="#reading-imc-acquisitions" title="Permalink to this heading"></a></h3>
+<h3>Reading IMC acquisitions<a class="headerlink" href="#reading-imc-acquisitions" title="Link to this heading"></a></h3>
 <p>The acquisition contained in an IMC .txt file can be read as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">TXTFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">()</span>  <span class="c1"># numpy array, shape: (c, y, x), dtype: float32</span>
@@ -127,7 +127,7 @@
 </section>
 </section>
 <section id="loading-imc-mcd-files">
-<h2>Loading IMC .mcd files<a class="headerlink" href="#loading-imc-mcd-files" title="Permalink to this heading"></a></h2>
+<h2>Loading IMC .mcd files<a class="headerlink" href="#loading-imc-mcd-files" title="Link to this heading"></a></h2>
 <p>IMC .mcd files can be loaded as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">num_slides</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">)</span>
@@ -139,7 +139,7 @@
 have zero or more panorama images and zero or more IMC acquisitions.</p>
 </div>
 <section id="extracting-metadata">
-<h3>Extracting metadata<a class="headerlink" href="#extracting-metadata" title="Permalink to this heading"></a></h3>
+<h3>Extracting metadata<a class="headerlink" href="#extracting-metadata" title="Link to this heading"></a></h3>
 <p>Basic metadata on slides, panoramas and acquisitions can be accessed through properties:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="c1"># first slide</span>
@@ -176,7 +176,7 @@ their <code class="docutils literal notranslate"><span class="pre">metadata</spa
 accessible through <code class="docutils literal notranslate"><span class="pre">MCDFile.schema_xml</span></code> (in proprietary XML format).</p>
 </section>
 <section id="reading-slide-images">
-<h3>Reading slide images<a class="headerlink" href="#reading-slide-images" title="Permalink to this heading"></a></h3>
+<h3>Reading slide images<a class="headerlink" href="#reading-slide-images" title="Link to this heading"></a></h3>
 <p>IMC .mcd files can store slide images uploaded by the user (e.g., photographs) or
 acquired by the instrument. For
 <a class="reference external" href="https://imageio.readthedocs.io/en/stable/formats.html">supported image file formats</a>,
@@ -188,7 +188,7 @@ these images can be read as follows:</p>
 </div>
 </section>
 <section id="reading-panorama-images">
-<h3>Reading panorama images<a class="headerlink" href="#reading-panorama-images" title="Permalink to this heading"></a></h3>
+<h3>Reading panorama images<a class="headerlink" href="#reading-panorama-images" title="Link to this heading"></a></h3>
 <p>IMC .mcd files can contain zero or more panorama images acquired by the instrument,
 which can be read as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -205,7 +205,7 @@ to actual images.</p>
 </div>
 </section>
 <section id="id1">
-<h3>Reading IMC acquisitions<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>Reading IMC acquisitions<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>IMC .mcd files can contain zero or more IMC acquisitions, which can be read as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
@@ -214,7 +214,7 @@ to actual images.</p>
 </div>
 </section>
 <section id="reading-before-after-ablation-images">
-<h3>Reading before/after-ablation images<a class="headerlink" href="#reading-before-after-ablation-images" title="Permalink to this heading"></a></h3>
+<h3>Reading before/after-ablation images<a class="headerlink" href="#reading-before-after-ablation-images" title="Link to this heading"></a></h3>
 <p>The IMC instrument may be configured to acquire an optical image before/after each IMC
 acquisition. If available, these before/after-ablation images can be read as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>

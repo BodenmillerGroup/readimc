@@ -76,11 +76,12 @@ Classes
 
 
 
-   .. py:method:: read_acquisition(acquisition = None)
+   .. py:method:: read_acquisition(acquisition = None, strict = True)
 
       Reads IMC acquisition data as numpy array.
 
       :param acquisition: the acquisition to read
+      :param strict: set this parameter to False to try to recover corrupted data
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
 
