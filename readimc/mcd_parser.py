@@ -123,10 +123,10 @@ class MCDParser:
                     if panorama is not None:
                         panorama.acquisitions.append(acquisition)
         for a, b in itertools.combinations(slide.acquisitions, 2):
-            a_start = a.metadata["DataStartOffset"]
-            a_end = a.metadata["DataEndOffset"]
-            b_start = b.metadata["DataStartOffset"]
-            b_end = b.metadata["DataEndOffset"]
+            a_start = self._get_text_as_int(a.metadata["DataStartOffset"])
+            a_end = self._get_text_as_int(a.metadata["DataEndOffset"])
+            b_start = self._get_text_as_int(b.metadata["DataStartOffset"])
+            b_end = self._get_text_as_int(b.metadata["DataEndOffset"])
             if b_start <= a_start < b_end or b_start < a_end <= b_end:
                 warn(
                     f"Slide {slide.id} corrupted: "
