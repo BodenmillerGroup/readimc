@@ -1,31 +1,58 @@
-:py:mod:`readimc.data.panorama`
-===============================
+readimc.data.panorama
+=====================
 
 .. py:module:: readimc.data.panorama
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    readimc.data.panorama.Panorama
 
 
-
+Module Contents
+---------------
 
 .. py:class:: Panorama
 
-
    Panorama metadata (only for panoramas with panorama image data)
+
+
+   .. py:attribute:: slide
+      :type:  readimc.data.slide.Slide
+
+      Parent slide
+
+
+
+   .. py:attribute:: id
+      :type:  int
+
+      Panorama ID
+
+
+
+   .. py:attribute:: metadata
+      :type:  Dict[str, str]
+
+      Full panorama metadata
+
+
+
+   .. py:attribute:: acquisitions
+      :type:  List[readimc.data.acquisition.Acquisition]
+
+      List of acquisitions associated with this panorama
+
+
 
    .. py:property:: description
       :type: Optional[str]
 
       User-provided panorama description
+
 
 
    .. py:property:: width_um
@@ -34,10 +61,12 @@ Classes
       Panorama width, in micrometers
 
 
+
    .. py:property:: height_um
       :type: Optional[float]
 
       Panorama height, in micrometers
+
 
 
    .. py:property:: points_um
@@ -46,30 +75,6 @@ Classes
       User-provided ROI points, in micrometers
 
       Order: (top left, top right, bottom right, bottom left)
-
-
-   .. py:attribute:: slide
-      :type: readimc.data.slide.Slide
-
-      Parent slide
-
-
-   .. py:attribute:: id
-      :type: int
-
-      Panorama ID
-
-
-   .. py:attribute:: metadata
-      :type: Dict[str, str]
-
-      Full panorama metadata
-
-
-   .. py:attribute:: acquisitions
-      :type: List[readimc.data.acquisition.Acquisition]
-
-      List of acquisitions associated with this panorama
 
 
 

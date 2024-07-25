@@ -1,35 +1,35 @@
-:py:mod:`readimc.mcd_file`
-==========================
+readimc.mcd_file
+================
 
 .. py:module:: readimc.mcd_file
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    readimc.mcd_file.MCDFile
 
 
-
+Module Contents
+---------------
 
 .. py:class:: MCDFile(path)
 
-
    Bases: :py:obj:`readimc.imc_file.IMCFile`
+
 
    A class for reading IMC .mcd files
 
    :param path: path to the IMC .mcd file
 
+
    .. py:property:: schema_xml
       :type: str
 
       Full metadata in proprietary XML format
+
 
 
    .. py:property:: metadata
@@ -38,16 +38,12 @@ Classes
       Legacy accessor for `schema_xml`
 
 
+
    .. py:property:: slides
       :type: Sequence[readimc.data.Slide]
 
       Metadata on slides contained in this IMC .mcd file
 
-
-   .. py:property:: path
-      :type: pathlib.Path
-
-      Path to the IMC file
 
 
    .. py:method:: open()
@@ -60,6 +56,7 @@ Classes
 
           with MCDFile("/path/to/file.mcd") as f:
               pass
+
 
 
 
@@ -76,6 +73,7 @@ Classes
 
 
 
+
    .. py:method:: read_acquisition(acquisition = None, strict = True)
 
       Reads IMC acquisition data as numpy array.
@@ -84,6 +82,7 @@ Classes
       :param strict: set this parameter to False to try to recover corrupted data
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
+
 
 
    .. py:method:: read_slide(slide)
@@ -102,6 +101,7 @@ Classes
           specified slide
 
 
+
    .. py:method:: read_panorama(panorama)
 
       Reads and decodes a panorama image as numpy array using the
@@ -109,6 +109,7 @@ Classes
 
       :param panorama: the panorama to read
       :return: the panorama image as numpy array
+
 
 
    .. py:method:: read_before_ablation_image(acquisition)
@@ -122,6 +123,7 @@ Classes
           before-ablation image is available for the specified acquisition
 
 
+
    .. py:method:: read_after_ablation_image(acquisition)
 
       Reads and decodes a after-ablation image as numpy array using the
@@ -131,6 +133,13 @@ Classes
           after-ablation image
       :return: the after-ablation image as numpy array, or ``None`` if no
           after-ablation image is available for the specified acquisition
+
+
+
+   .. py:property:: path
+      :type: pathlib.Path
+
+      Path to the IMC file
 
 
 

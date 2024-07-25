@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>readimc.mcd_parser &mdash; readimc  documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,7 @@
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -58,18 +60,22 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">readimc</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../imc_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.imc_file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../mcd_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_file</span></code></a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_parser</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../imc_file/index.html">readimc.imc_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../mcd_file/index.html">readimc.mcd_file</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">readimc.mcd_parser</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../txt_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.txt_file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../txt_file/index.html">readimc.txt_file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
 </ul>
 </li>
@@ -89,8 +95,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></a></li>
-      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_parser</span></code></li>
+          <li class="breadcrumb-item"><a href="../index.html">readimc</a></li>
+      <li class="breadcrumb-item active">readimc.mcd_parser</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/autoapi/readimc/mcd_parser/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,11 +107,19 @@
            <div itemprop="articleBody">
              
   <section id="module-readimc.mcd_parser">
-<span id="readimc-mcd-parser"></span><h1><a class="reference internal" href="#module-readimc.mcd_parser" title="readimc.mcd_parser"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_parser</span></code></a><a class="headerlink" href="#module-readimc.mcd_parser" title="Link to this heading"></a></h1>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<span id="readimc-mcd-parser"></span><h1>readimc.mcd_parser<a class="headerlink" href="#module-readimc.mcd_parser" title="Link to this heading"></a></h1>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc.mcd_parser.MCDParserError" title="readimc.mcd_parser.MCDParserError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDParserError</span></code></a></p></td>
+<td><p>Error occurring when parsing invalid IMC .mcd file metadata</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#readimc.mcd_parser.MCDParser" title="readimc.mcd_parser.MCDParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDParser</span></code></a></p></td>
@@ -113,22 +127,25 @@
 </tr>
 </tbody>
 </table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 <dl class="py exception">
 <dt class="sig sig-object py" id="readimc.mcd_parser.MCDParserError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.mcd_parser.</span></span><span class="sig-name descname"><span class="pre">MCDParserError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.mcd_parser.MCDParserError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error occurring when parsing invalid IMC .mcd file metadata</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="readimc.mcd_parser.MCDParserError.args">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc.mcd_parser.MCDParserError.args" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.mcd_parser.MCDParserError.add_note">
 <span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc.mcd_parser.MCDParserError.add_note" title="Link to this definition"></a></dt>
 <dd><p>Exception.add_note(note) –
 add a note to the exception</p>
 </dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="readimc.mcd_parser.MCDParserError.args">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc.mcd_parser.MCDParserError.args" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.mcd_parser.MCDParserError.with_traceback">
@@ -148,6 +165,11 @@ set self.__traceback__ to tb and return self.</p>
 <dd class="field-odd"><p><strong>schema_xml</strong> (<em>str</em>) – IMC .mcd file metadata in proprietary XML format</p>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.mcd_parser.MCDParser.m">
+<span class="sig-name descname"><span class="pre">m</span></span><a class="headerlink" href="#readimc.mcd_parser.MCDParser.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="readimc.mcd_parser.MCDParser.schema_xml">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#readimc.mcd_parser.MCDParser.schema_xml" title="Link to this definition"></a></dt>
@@ -227,7 +249,6 @@ set self.__traceback__ to tb and return self.</p>
 
 </dd></dl>
 
-</section>
 </section>
 </section>
 

@@ -1,5 +1,5 @@
-:py:mod:`readimc.data`
-======================
+readimc.data
+============
 
 .. py:module:: readimc.data
 
@@ -11,20 +11,17 @@
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   acquisition/index.rst
-   panorama/index.rst
-   slide/index.rst
+   /autoapi/readimc/data/acquisition/index
+   /autoapi/readimc/data/panorama/index
+   /autoapi/readimc/data/slide/index
 
-
-Package Contents
-----------------
 
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
@@ -34,19 +31,59 @@ Classes
    readimc.data.Slide
 
 
-
+Package Contents
+----------------
 
 .. py:class:: Acquisition
 
-
    Bases: :py:obj:`AcquisitionBase`
 
+
    IMC acquisition metadata
+
+
+   .. py:attribute:: slide
+      :type:  readimc.data.slide.Slide
+
+      Parent slide
+
+
+
+   .. py:attribute:: panorama
+      :type:  Optional[readimc.data.panorama.Panorama]
+
+      Associated panorama
+
+
+
+   .. py:attribute:: id
+      :type:  int
+
+      Acquisition ID
+
+
+
+   .. py:attribute:: roi_points_um
+      :type:  Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+
+      User-provided ROI points, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
+
+
+
+   .. py:attribute:: metadata
+      :type:  Dict[str, str]
+
+      Full acquisition metadata
+
+
 
    .. py:property:: description
       :type: Optional[str]
 
       User-provided acquisition description
+
 
 
    .. py:property:: width_px
@@ -55,10 +92,12 @@ Classes
       Acquisition width, in pixels
 
 
+
    .. py:property:: height_px
       :type: Optional[int]
 
       Acquisition height, in pixels
+
 
 
    .. py:property:: pixel_size_x_um
@@ -67,10 +106,12 @@ Classes
       Width of a single pixel, in micrometers
 
 
+
    .. py:property:: pixel_size_y_um
       :type: Optional[float]
 
       Height of a single pixel, in micrometers
+
 
 
    .. py:property:: width_um
@@ -79,10 +120,12 @@ Classes
       Acquisition width, in micrometers
 
 
+
    .. py:property:: height_um
       :type: Optional[float]
 
       Acquisition height, in micrometers
+
 
 
    .. py:property:: num_channels
@@ -91,10 +134,12 @@ Classes
       Number of channels
 
 
+
    .. py:property:: channel_metals
       :type: Sequence[str]
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
+
 
 
    .. py:property:: channel_masses
@@ -103,10 +148,12 @@ Classes
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
+
    .. py:property:: channel_labels
       :type: Sequence[str]
 
       Channel labels (user-provided)
+
 
 
    .. py:property:: roi_coords_um
@@ -117,6 +164,7 @@ Classes
       Order: (top left, top right, bottom right, bottom left)
 
 
+
    .. py:property:: channel_names
       :type: Sequence[str]
 
@@ -124,72 +172,49 @@ Classes
       ``["Ag107", "Ir191"]``)
 
 
-   .. py:attribute:: slide
-      :type: readimc.data.slide.Slide
-
-      Parent slide
-
-
-   .. py:attribute:: panorama
-      :type: Optional[readimc.data.panorama.Panorama]
-
-      Associated panorama
-
-
-   .. py:attribute:: id
-      :type: int
-
-      Acquisition ID
-
-
-   .. py:attribute:: roi_points_um
-      :type: Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
-
-      User-provided ROI points, in micrometers
-
-      Order: (top left, top right, bottom right, bottom left)
-
-
-   .. py:attribute:: metadata
-      :type: Dict[str, str]
-
-      Full acquisition metadata
-
-
 
 .. py:class:: AcquisitionBase
 
-
    Bases: :py:obj:`abc.ABC`
+
 
    Shared IMC acquisition metadata interface
 
+
    .. py:property:: num_channels
       :type: int
+
       :abstractmethod:
 
       Number of channels
 
 
+
    .. py:property:: channel_metals
       :type: Sequence[str]
+
       :abstractmethod:
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
+
    .. py:property:: channel_masses
       :type: Sequence[int]
+
       :abstractmethod:
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
+
    .. py:property:: channel_labels
       :type: Sequence[str]
+
       :abstractmethod:
 
       Channel labels (user-provided)
+
 
 
    .. py:property:: channel_names
@@ -202,13 +227,42 @@ Classes
 
 .. py:class:: Panorama
 
-
    Panorama metadata (only for panoramas with panorama image data)
+
+
+   .. py:attribute:: slide
+      :type:  readimc.data.slide.Slide
+
+      Parent slide
+
+
+
+   .. py:attribute:: id
+      :type:  int
+
+      Panorama ID
+
+
+
+   .. py:attribute:: metadata
+      :type:  Dict[str, str]
+
+      Full panorama metadata
+
+
+
+   .. py:attribute:: acquisitions
+      :type:  List[readimc.data.acquisition.Acquisition]
+
+      List of acquisitions associated with this panorama
+
+
 
    .. py:property:: description
       :type: Optional[str]
 
       User-provided panorama description
+
 
 
    .. py:property:: width_um
@@ -217,10 +271,12 @@ Classes
       Panorama width, in micrometers
 
 
+
    .. py:property:: height_um
       :type: Optional[float]
 
       Panorama height, in micrometers
+
 
 
    .. py:property:: points_um
@@ -231,40 +287,45 @@ Classes
       Order: (top left, top right, bottom right, bottom left)
 
 
-   .. py:attribute:: slide
-      :type: readimc.data.slide.Slide
-
-      Parent slide
-
-
-   .. py:attribute:: id
-      :type: int
-
-      Panorama ID
-
-
-   .. py:attribute:: metadata
-      :type: Dict[str, str]
-
-      Full panorama metadata
-
-
-   .. py:attribute:: acquisitions
-      :type: List[readimc.data.acquisition.Acquisition]
-
-      List of acquisitions associated with this panorama
-
-
 
 .. py:class:: Slide
 
-
    Slide metadata
+
+
+   .. py:attribute:: id
+      :type:  int
+
+      Slide ID
+
+
+
+   .. py:attribute:: metadata
+      :type:  Dict[str, str]
+
+      Full slide metadata
+
+
+
+   .. py:attribute:: panoramas
+      :type:  List[readimc.data.panorama.Panorama]
+
+      List of panoramas associated with this slide
+
+
+
+   .. py:attribute:: acquisitions
+      :type:  List[readimc.data.acquisition.Acquisition]
+
+      List of acquisitions associated with this slide
+
+
 
    .. py:property:: description
       :type: Optional[str]
 
       User-provided slide description
+
 
 
    .. py:property:: width_um
@@ -273,34 +334,11 @@ Classes
       Slide width, in micrometers
 
 
+
    .. py:property:: height_um
       :type: Optional[float]
 
       Slide height, in micrometers
-
-
-   .. py:attribute:: id
-      :type: int
-
-      Slide ID
-
-
-   .. py:attribute:: metadata
-      :type: Dict[str, str]
-
-      Full slide metadata
-
-
-   .. py:attribute:: panoramas
-      :type: List[readimc.data.panorama.Panorama]
-
-      List of panoramas associated with this slide
-
-
-   .. py:attribute:: acquisitions
-      :type: List[readimc.data.acquisition.Acquisition]
-
-      List of acquisitions associated with this slide
 
 
 

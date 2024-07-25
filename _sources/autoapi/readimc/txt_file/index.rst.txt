@@ -1,35 +1,35 @@
-:py:mod:`readimc.txt_file`
-==========================
+readimc.txt_file
+================
 
 .. py:module:: readimc.txt_file
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    readimc.txt_file.TXTFile
 
 
-
+Module Contents
+---------------
 
 .. py:class:: TXTFile(path)
 
-
    Bases: :py:obj:`readimc.imc_file.IMCFile`, :py:obj:`readimc.data.AcquisitionBase`
+
 
    A class for reading IMC .txt files
 
    :param path: path to the IMC .txt file
 
+
    .. py:property:: num_channels
       :type: int
 
       Number of channels
+
 
 
    .. py:property:: channel_metals
@@ -38,10 +38,12 @@ Classes
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
+
    .. py:property:: channel_masses
       :type: Sequence[int]
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
+
 
 
    .. py:property:: channel_labels
@@ -49,18 +51,6 @@ Classes
 
       Channel labels (user-provided)
 
-
-   .. py:property:: path
-      :type: pathlib.Path
-
-      Path to the IMC file
-
-
-   .. py:property:: channel_names
-      :type: Sequence[str]
-
-      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
-      ``["Ag107", "Ir191"]``)
 
 
    .. py:method:: open()
@@ -73,6 +63,7 @@ Classes
 
           with TXTFile("/path/to/file.txt") as f:
               pass
+
 
 
 
@@ -89,6 +80,7 @@ Classes
 
 
 
+
    .. py:method:: read_acquisition(acquisition = None, strict = True)
 
       Reads IMC acquisition data as numpy array.
@@ -98,6 +90,21 @@ Classes
       :param strict: set this parameter to False to try to recover corrupted data
       :return: the acquisition data as 32-bit floating point array,
           shape: (c, y, x)
+
+
+
+   .. py:property:: path
+      :type: pathlib.Path
+
+      Path to the IMC file
+
+
+
+   .. py:property:: channel_names
+      :type: Sequence[str]
+
+      Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
+      ``["Ag107", "Ir191"]``)
 
 
 

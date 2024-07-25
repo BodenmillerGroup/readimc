@@ -1,28 +1,27 @@
-:py:mod:`readimc.imc_file`
-==========================
+readimc.imc_file
+================
 
 .. py:module:: readimc.imc_file
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    readimc.imc_file.IMCFile
 
 
-
+Module Contents
+---------------
 
 .. py:class:: IMCFile(path)
 
-
    Bases: :py:obj:`abc.ABC`
 
+
    Shared IMC file interface
+
 
    .. py:property:: path
       :type: pathlib.Path
@@ -30,8 +29,10 @@ Classes
       Path to the IMC file
 
 
+
    .. py:method:: read_acquisition(acquisition = None)
       :abstractmethod:
+
 
       Reads IMC acquisition data as numpy array.
 

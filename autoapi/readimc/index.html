@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>readimc &mdash; readimc  documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,7 @@
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -58,25 +60,67 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">readimc</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="data/index.html">readimc.data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="imc_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.imc_file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mcd_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mcd_parser/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_parser</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="txt_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.txt_file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="imc_file/index.html">readimc.imc_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcd_file/index.html">readimc.mcd_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcd_parser/index.html">readimc.mcd_parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="txt_file/index.html">readimc.txt_file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#package-contents">Package Contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.IMCFile"><code class="docutils literal notranslate"><span class="pre">IMCFile</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile"><code class="docutils literal notranslate"><span class="pre">MCDFile</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser"><code class="docutils literal notranslate"><span class="pre">MCDParser</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError"><code class="docutils literal notranslate"><span class="pre">MCDParserError</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile"><code class="docutils literal notranslate"><span class="pre">TXTFile</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#readimc.IMCFile"><code class="docutils literal notranslate"><span class="pre">IMCFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.IMCFile.path"><code class="docutils literal notranslate"><span class="pre">IMCFile.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.IMCFile.read_acquisition"><code class="docutils literal notranslate"><span class="pre">IMCFile.read_acquisition()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#readimc.MCDFile"><code class="docutils literal notranslate"><span class="pre">MCDFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.schema_xml"><code class="docutils literal notranslate"><span class="pre">MCDFile.schema_xml</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.metadata"><code class="docutils literal notranslate"><span class="pre">MCDFile.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.slides"><code class="docutils literal notranslate"><span class="pre">MCDFile.slides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.open"><code class="docutils literal notranslate"><span class="pre">MCDFile.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.close"><code class="docutils literal notranslate"><span class="pre">MCDFile.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.read_acquisition"><code class="docutils literal notranslate"><span class="pre">MCDFile.read_acquisition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.read_slide"><code class="docutils literal notranslate"><span class="pre">MCDFile.read_slide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.read_panorama"><code class="docutils literal notranslate"><span class="pre">MCDFile.read_panorama()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.read_before_ablation_image"><code class="docutils literal notranslate"><span class="pre">MCDFile.read_before_ablation_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.read_after_ablation_image"><code class="docutils literal notranslate"><span class="pre">MCDFile.read_after_ablation_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDFile.path"><code class="docutils literal notranslate"><span class="pre">MCDFile.path</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#readimc.MCDParser"><code class="docutils literal notranslate"><span class="pre">MCDParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.m"><code class="docutils literal notranslate"><span class="pre">MCDParser.m</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.schema_xml"><code class="docutils literal notranslate"><span class="pre">MCDParser.schema_xml</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.schema_xml_elem"><code class="docutils literal notranslate"><span class="pre">MCDParser.schema_xml_elem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.schema_xml_xmlns"><code class="docutils literal notranslate"><span class="pre">MCDParser.schema_xml_xmlns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.metadata"><code class="docutils literal notranslate"><span class="pre">MCDParser.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.metadata_elem"><code class="docutils literal notranslate"><span class="pre">MCDParser.metadata_elem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.metadata_xmlns"><code class="docutils literal notranslate"><span class="pre">MCDParser.metadata_xmlns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.parse_slides"><code class="docutils literal notranslate"><span class="pre">MCDParser.parse_slides()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#readimc.MCDParserError"><code class="docutils literal notranslate"><span class="pre">MCDParserError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError.add_note"><code class="docutils literal notranslate"><span class="pre">MCDParserError.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError.args"><code class="docutils literal notranslate"><span class="pre">MCDParserError.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MCDParserError.with_traceback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#readimc.TXTFile"><code class="docutils literal notranslate"><span class="pre">TXTFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.num_channels"><code class="docutils literal notranslate"><span class="pre">TXTFile.num_channels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.channel_metals"><code class="docutils literal notranslate"><span class="pre">TXTFile.channel_metals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.channel_masses"><code class="docutils literal notranslate"><span class="pre">TXTFile.channel_masses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.channel_labels"><code class="docutils literal notranslate"><span class="pre">TXTFile.channel_labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.open"><code class="docutils literal notranslate"><span class="pre">TXTFile.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.close"><code class="docutils literal notranslate"><span class="pre">TXTFile.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.read_acquisition"><code class="docutils literal notranslate"><span class="pre">TXTFile.read_acquisition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.path"><code class="docutils literal notranslate"><span class="pre">TXTFile.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.channel_names"><code class="docutils literal notranslate"><span class="pre">TXTFile.channel_names</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -99,7 +143,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></li>
+      <li class="breadcrumb-item active">readimc</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/autoapi/readimc/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -110,18 +154,13 @@
            <div itemprop="articleBody">
              
   <section id="module-readimc">
-<span id="readimc"></span><h1><a class="reference internal" href="#module-readimc" title="readimc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc</span></code></a><a class="headerlink" href="#module-readimc" title="Link to this heading"></a></h1>
+<span id="readimc"></span><h1>readimc<a class="headerlink" href="#module-readimc" title="Link to this heading"></a></h1>
 <p>Python package for reading imaging mass cytometry (IMC) files</p>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="data/acquisition/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data.acquisition</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data/panorama/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data.panorama</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data/slide/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.data.slide</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="data/index.html">readimc.data</a></li>
 </ul>
 </div>
 </section>
@@ -129,17 +168,25 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="imc_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.imc_file</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcd_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_file</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcd_parser/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.mcd_parser</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="txt_file/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readimc.txt_file</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="imc_file/index.html">readimc.imc_file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcd_file/index.html">readimc.mcd_file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcd_parser/index.html">readimc.mcd_parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="txt_file/index.html">readimc.txt_file</a></li>
 </ul>
 </div>
 </section>
-<section id="package-contents">
-<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#readimc.MCDParserError" title="readimc.MCDParserError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MCDParserError</span></code></a></p></td>
+<td><p>Error occurring when parsing invalid IMC .mcd file metadata</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#readimc.IMCFile" title="readimc.IMCFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMCFile</span></code></a></p></td>
@@ -156,6 +203,9 @@
 </tr>
 </tbody>
 </table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="readimc.IMCFile">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.</span></span><span class="sig-name descname"><span class="pre">IMCFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.IMCFile" title="Link to this definition"></a></dt>
@@ -163,7 +213,7 @@
 <p>Shared IMC file interface</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>os.PathLike</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>os.PathLike</em><em>]</em>)</p>
 </dd>
 </dl>
 <dl class="py property">
@@ -236,17 +286,6 @@ shape: (c, y, x)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Sequence[<a class="reference internal" href="data/index.html#readimc.data.Slide" title="readimc.data.Slide">readimc.data.Slide</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.MCDFile.path">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></em><a class="headerlink" href="#readimc.MCDFile.path" title="Link to this definition"></a></dt>
-<dd><p>Path to the IMC file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pathlib.Path</p>
 </dd>
 </dl>
 </dd></dl>
@@ -388,6 +427,17 @@ after-ablation image is available for the specified acquisition</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.MCDFile.path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></em><a class="headerlink" href="#readimc.MCDFile.path" title="Link to this definition"></a></dt>
+<dd><p>Path to the IMC file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -399,6 +449,11 @@ after-ablation image is available for the specified acquisition</p>
 <dd class="field-odd"><p><strong>schema_xml</strong> (<em>str</em>) – IMC .mcd file metadata in proprietary XML format</p>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="readimc.MCDParser.m">
+<span class="sig-name descname"><span class="pre">m</span></span><a class="headerlink" href="#readimc.MCDParser.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="readimc.MCDParser.schema_xml">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema_xml</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#readimc.MCDParser.schema_xml" title="Link to this definition"></a></dt>
@@ -483,17 +538,17 @@ after-ablation image is available for the specified acquisition</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.</span></span><span class="sig-name descname"><span class="pre">MCDParserError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDParserError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error occurring when parsing invalid IMC .mcd file metadata</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="readimc.MCDParserError.args">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc.MCDParserError.args" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.MCDParserError.add_note">
 <span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDParserError.add_note" title="Link to this definition"></a></dt>
 <dd><p>Exception.add_note(note) –
 add a note to the exception</p>
 </dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="readimc.MCDParserError.args">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc.MCDParserError.args" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.MCDParserError.with_traceback">
@@ -558,29 +613,6 @@ set self.__traceback__ to tb and return self.</p>
 </dl>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.TXTFile.path">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></em><a class="headerlink" href="#readimc.TXTFile.path" title="Link to this definition"></a></dt>
-<dd><p>Path to the IMC file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pathlib.Path</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="readimc.TXTFile.channel_names">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">channel_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.TXTFile.channel_names" title="Link to this definition"></a></dt>
-<dd><p>Unique channel names in the format <code class="docutils literal notranslate"><span class="pre">f&quot;{metal}{mass}&quot;</span></code> (e.g.
-<code class="docutils literal notranslate"><span class="pre">[&quot;Ag107&quot;,</span> <span class="pre">&quot;Ir191&quot;]</span></code>)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Sequence[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.TXTFile.open">
 <span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc.TXTFile.open" title="Link to this definition"></a></dt>
@@ -635,9 +667,31 @@ shape: (c, y, x)</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.TXTFile.path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></em><a class="headerlink" href="#readimc.TXTFile.path" title="Link to this definition"></a></dt>
+<dd><p>Path to the IMC file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pathlib.Path</p>
+</dd>
+</dl>
 </dd></dl>
 
-</section>
+<dl class="py property">
+<dt class="sig sig-object py" id="readimc.TXTFile.channel_names">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">channel_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#readimc.TXTFile.channel_names" title="Link to this definition"></a></dt>
+<dd><p>Unique channel names in the format <code class="docutils literal notranslate"><span class="pre">f&quot;{metal}{mass}&quot;</span></code> (e.g.
+<code class="docutils literal notranslate"><span class="pre">[&quot;Ag107&quot;,</span> <span class="pre">&quot;Ir191&quot;]</span></code>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sequence[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 

@@ -1,14 +1,11 @@
-:py:mod:`readimc.data.acquisition`
-==================================
+readimc.data.acquisition
+========================
 
 .. py:module:: readimc.data.acquisition
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
@@ -16,41 +13,51 @@ Classes
    readimc.data.acquisition.Acquisition
 
 
-
+Module Contents
+---------------
 
 .. py:class:: AcquisitionBase
 
-
    Bases: :py:obj:`abc.ABC`
+
 
    Shared IMC acquisition metadata interface
 
+
    .. py:property:: num_channels
       :type: int
+
       :abstractmethod:
 
       Number of channels
 
 
+
    .. py:property:: channel_metals
       :type: Sequence[str]
+
       :abstractmethod:
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
+
    .. py:property:: channel_masses
       :type: Sequence[int]
+
       :abstractmethod:
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
+
    .. py:property:: channel_labels
       :type: Sequence[str]
+
       :abstractmethod:
 
       Channel labels (user-provided)
+
 
 
    .. py:property:: channel_names
@@ -63,15 +70,54 @@ Classes
 
 .. py:class:: Acquisition
 
-
    Bases: :py:obj:`AcquisitionBase`
 
+
    IMC acquisition metadata
+
+
+   .. py:attribute:: slide
+      :type:  readimc.data.slide.Slide
+
+      Parent slide
+
+
+
+   .. py:attribute:: panorama
+      :type:  Optional[readimc.data.panorama.Panorama]
+
+      Associated panorama
+
+
+
+   .. py:attribute:: id
+      :type:  int
+
+      Acquisition ID
+
+
+
+   .. py:attribute:: roi_points_um
+      :type:  Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+
+      User-provided ROI points, in micrometers
+
+      Order: (top left, top right, bottom right, bottom left)
+
+
+
+   .. py:attribute:: metadata
+      :type:  Dict[str, str]
+
+      Full acquisition metadata
+
+
 
    .. py:property:: description
       :type: Optional[str]
 
       User-provided acquisition description
+
 
 
    .. py:property:: width_px
@@ -80,10 +126,12 @@ Classes
       Acquisition width, in pixels
 
 
+
    .. py:property:: height_px
       :type: Optional[int]
 
       Acquisition height, in pixels
+
 
 
    .. py:property:: pixel_size_x_um
@@ -92,10 +140,12 @@ Classes
       Width of a single pixel, in micrometers
 
 
+
    .. py:property:: pixel_size_y_um
       :type: Optional[float]
 
       Height of a single pixel, in micrometers
+
 
 
    .. py:property:: width_um
@@ -104,10 +154,12 @@ Classes
       Acquisition width, in micrometers
 
 
+
    .. py:property:: height_um
       :type: Optional[float]
 
       Acquisition height, in micrometers
+
 
 
    .. py:property:: num_channels
@@ -116,10 +168,12 @@ Classes
       Number of channels
 
 
+
    .. py:property:: channel_metals
       :type: Sequence[str]
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
+
 
 
    .. py:property:: channel_masses
@@ -128,10 +182,12 @@ Classes
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
+
    .. py:property:: channel_labels
       :type: Sequence[str]
 
       Channel labels (user-provided)
+
 
 
    .. py:property:: roi_coords_um
@@ -142,43 +198,12 @@ Classes
       Order: (top left, top right, bottom right, bottom left)
 
 
+
    .. py:property:: channel_names
       :type: Sequence[str]
 
       Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
       ``["Ag107", "Ir191"]``)
-
-
-   .. py:attribute:: slide
-      :type: readimc.data.slide.Slide
-
-      Parent slide
-
-
-   .. py:attribute:: panorama
-      :type: Optional[readimc.data.panorama.Panorama]
-
-      Associated panorama
-
-
-   .. py:attribute:: id
-      :type: int
-
-      Acquisition ID
-
-
-   .. py:attribute:: roi_points_um
-      :type: Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
-
-      User-provided ROI points, in micrometers
-
-      Order: (top left, top right, bottom right, bottom left)
-
-
-   .. py:attribute:: metadata
-      :type: Dict[str, str]
-
-      Full acquisition metadata
 
 
 
