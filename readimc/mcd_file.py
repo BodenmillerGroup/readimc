@@ -174,7 +174,9 @@ class MCDFile(IMCFile):
         img[:, ys, xs] = np.transpose(data[:, 3:])
         return img
 
-    def read_slide(self, slide: Slide, raw: bool = False) -> Union[np.ndarray, bytes, None]:
+    def read_slide(
+        self, slide: Slide, raw: bool = False
+    ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a slide image as numpy array using the ``imageio``
         package.
 
@@ -214,7 +216,9 @@ class MCDFile(IMCFile):
                 f"cannot read image for slide {slide.id}"
             ) from e
 
-    def read_panorama(self, panorama: Panorama, raw: bool = False) -> Union[np.ndarray, bytes, None]:
+    def read_panorama(
+        self, panorama: Panorama, raw: bool = False
+    ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a panorama image as numpy array using the
         ``imageio`` package.
 
@@ -248,8 +252,7 @@ class MCDFile(IMCFile):
             ) from e
 
     def read_before_ablation_image(
-        self, acquisition: Acquisition,
-        raw: bool = False
+        self, acquisition: Acquisition, raw: bool = False
     ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a before-ablation image as numpy array using the
         ``imageio`` package.
@@ -361,15 +364,17 @@ class MCDFile(IMCFile):
             data = mm.read(end_index + len(end_sub_encoded) - start_index)
         return data.decode(encoding=encoding)
 
-    def _read_image(self, data_offset: int, data_size: int, raw: bool = False) -> Union[np.ndarray, bytes]:
+    def _read_image(
+        self, data_offset: int, data_size: int, raw: bool = False
+    ) -> Union[np.ndarray, bytes]:
         if self._fh is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         self._fh.seek(data_offset)
         data = self._fh.read(data_size)
         if raw:
-          return data
+            return data
         else:
-          return imread(data)
+            return imread(data)
 
     def __repr__(self) -> str:
         return str(self._path)
