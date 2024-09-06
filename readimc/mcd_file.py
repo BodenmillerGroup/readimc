@@ -199,6 +199,7 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset == 0:
             return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -230,6 +231,7 @@ class MCDFile(IMCFile):
                 f"cannot locate image data for panorama {panorama.id}"
             ) from e
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -270,6 +272,7 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset == 0:
             return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -312,6 +315,7 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset == 0:
             return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
