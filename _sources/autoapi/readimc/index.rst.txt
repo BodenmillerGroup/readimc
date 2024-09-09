@@ -149,7 +149,7 @@ Package Contents
 
 
 
-   .. py:method:: read_slide(slide)
+   .. py:method:: read_slide(slide, raw = False)
 
       Reads and decodes a slide image as numpy array using the ``imageio``
       package.
@@ -166,7 +166,7 @@ Package Contents
 
 
 
-   .. py:method:: read_panorama(panorama)
+   .. py:method:: read_panorama(panorama, raw = False)
 
       Reads and decodes a panorama image as numpy array using the
       ``imageio`` package.
@@ -176,7 +176,7 @@ Package Contents
 
 
 
-   .. py:method:: read_before_ablation_image(acquisition)
+   .. py:method:: read_before_ablation_image(acquisition, raw = False)
 
       Reads and decodes a before-ablation image as numpy array using the
       ``imageio`` package.
@@ -188,7 +188,7 @@ Package Contents
 
 
 
-   .. py:method:: read_after_ablation_image(acquisition)
+   .. py:method:: read_after_ablation_image(acquisition, raw = False)
 
       Reads and decodes a after-ablation image as numpy array using the
       ``imageio`` package.
@@ -271,23 +271,6 @@ Package Contents
 
 
    Error occurring when parsing invalid IMC .mcd file metadata
-
-
-   .. py:method:: add_note()
-
-      Exception.add_note(note) --
-      add a note to the exception
-
-
-
-   .. py:class:: args
-
-
-   .. py:method:: with_traceback()
-
-      Exception.with_traceback(tb) --
-      set self.__traceback__ to tb and return self.
-
 
 
 .. py:class:: TXTFile(path)

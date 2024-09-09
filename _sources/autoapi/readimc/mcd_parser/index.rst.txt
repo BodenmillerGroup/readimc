@@ -31,23 +31,6 @@ Module Contents
    Error occurring when parsing invalid IMC .mcd file metadata
 
 
-   .. py:method:: add_note()
-
-      Exception.add_note(note) --
-      add a note to the exception
-
-
-
-   .. py:class:: args
-
-
-   .. py:method:: with_traceback()
-
-      Exception.with_traceback(tb) --
-      set self.__traceback__ to tb and return self.
-
-
-
 .. py:class:: MCDParser(schema_xml)
 
    A class for parsing IMC .mcd file metadata

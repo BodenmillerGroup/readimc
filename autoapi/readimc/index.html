@@ -105,12 +105,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParser.parse_slides"><code class="docutils literal notranslate"><span class="pre">MCDParser.parse_slides()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#readimc.MCDParserError"><code class="docutils literal notranslate"><span class="pre">MCDParserError</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError.add_note"><code class="docutils literal notranslate"><span class="pre">MCDParserError.add_note()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError.args"><code class="docutils literal notranslate"><span class="pre">MCDParserError.args</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readimc.MCDParserError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MCDParserError.with_traceback()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#readimc.MCDParserError"><code class="docutils literal notranslate"><span class="pre">MCDParserError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#readimc.TXTFile"><code class="docutils literal notranslate"><span class="pre">TXTFile</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.num_channels"><code class="docutils literal notranslate"><span class="pre">TXTFile.num_channels</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#readimc.TXTFile.channel_metals"><code class="docutils literal notranslate"><span class="pre">TXTFile.channel_metals</span></code></a></li>
@@ -345,7 +340,7 @@ shape: (c, y, x)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.MCDFile.read_slide">
-<span class="sig-name descname"><span class="pre">read_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_slide" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_slide" title="Link to this definition"></a></dt>
 <dd><p>Reads and decodes a slide image as numpy array using the <code class="docutils literal notranslate"><span class="pre">imageio</span></code>
 package.</p>
 <div class="admonition note">
@@ -357,72 +352,84 @@ in which case an <code class="docutils literal notranslate"><span class="pre">IO
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>slide</strong> (<a class="reference internal" href="data/index.html#readimc.data.Slide" title="readimc.data.Slide"><em>readimc.data.Slide</em></a>) – the slide to read</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slide</strong> (<a class="reference internal" href="data/index.html#readimc.data.Slide" title="readimc.data.Slide"><em>readimc.data.Slide</em></a>) – the slide to read</p></li>
+<li><p><strong>raw</strong> (<em>bool</em>)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the slide image, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no image is available for the
 specified slide</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[numpy.ndarray]</p>
+<dd class="field-odd"><p>Union[numpy.ndarray, bytes, None]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.MCDFile.read_panorama">
-<span class="sig-name descname"><span class="pre">read_panorama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">panorama</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_panorama" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_panorama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">panorama</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_panorama" title="Link to this definition"></a></dt>
 <dd><p>Reads and decodes a panorama image as numpy array using the
 <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>panorama</strong> (<a class="reference internal" href="data/index.html#readimc.data.Panorama" title="readimc.data.Panorama"><em>readimc.data.Panorama</em></a>) – the panorama to read</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>panorama</strong> (<a class="reference internal" href="data/index.html#readimc.data.Panorama" title="readimc.data.Panorama"><em>readimc.data.Panorama</em></a>) – the panorama to read</p></li>
+<li><p><strong>raw</strong> (<em>bool</em>)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the panorama image as numpy array</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-odd"><p>Union[numpy.ndarray, bytes, None]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.MCDFile.read_before_ablation_image">
-<span class="sig-name descname"><span class="pre">read_before_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_before_ablation_image" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_before_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_before_ablation_image" title="Link to this definition"></a></dt>
 <dd><p>Reads and decodes a before-ablation image as numpy array using the
 <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>acquisition</strong> (<a class="reference internal" href="data/index.html#readimc.data.Acquisition" title="readimc.data.Acquisition"><em>readimc.data.Acquisition</em></a>) – the acquisition for which to read the
-before-ablation image</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acquisition</strong> (<a class="reference internal" href="data/index.html#readimc.data.Acquisition" title="readimc.data.Acquisition"><em>readimc.data.Acquisition</em></a>) – the acquisition for which to read the
+before-ablation image</p></li>
+<li><p><strong>raw</strong> (<em>bool</em>)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the before-ablation image as numpy array, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no
 before-ablation image is available for the specified acquisition</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[numpy.ndarray]</p>
+<dd class="field-odd"><p>Union[numpy.ndarray, bytes, None]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="readimc.MCDFile.read_after_ablation_image">
-<span class="sig-name descname"><span class="pre">read_after_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_after_ablation_image" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_after_ablation_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acquisition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDFile.read_after_ablation_image" title="Link to this definition"></a></dt>
 <dd><p>Reads and decodes a after-ablation image as numpy array using the
 <code class="docutils literal notranslate"><span class="pre">imageio</span></code> package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>acquisition</strong> (<a class="reference internal" href="data/index.html#readimc.data.Acquisition" title="readimc.data.Acquisition"><em>readimc.data.Acquisition</em></a>) – the acquisition for which to read the
-after-ablation image</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acquisition</strong> (<a class="reference internal" href="data/index.html#readimc.data.Acquisition" title="readimc.data.Acquisition"><em>readimc.data.Acquisition</em></a>) – the acquisition for which to read the
+after-ablation image</p></li>
+<li><p><strong>raw</strong> (<em>bool</em>)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the after-ablation image as numpy array, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no
 after-ablation image is available for the specified acquisition</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[numpy.ndarray]</p>
+<dd class="field-odd"><p>Union[numpy.ndarray, bytes, None]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -538,25 +545,6 @@ after-ablation image is available for the specified acquisition</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">readimc.</span></span><span class="sig-name descname"><span class="pre">MCDParserError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDParserError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error occurring when parsing invalid IMC .mcd file metadata</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.MCDParserError.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDParserError.add_note" title="Link to this definition"></a></dt>
-<dd><p>Exception.add_note(note) –
-add a note to the exception</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="readimc.MCDParserError.args">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#readimc.MCDParserError.args" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="readimc.MCDParserError.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#readimc.MCDParserError.with_traceback" title="Link to this definition"></a></dt>
-<dd><p>Exception.with_traceback(tb) –
-set self.__traceback__ to tb and return self.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
