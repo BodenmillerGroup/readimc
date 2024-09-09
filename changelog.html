@@ -51,20 +51,21 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">[0.7.0] - 2023-08-11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">[0.6.2] - 2023-01-31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">[0.6.1] - 2022-01-28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">[0.6.0] - 2022-01-28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">[0.5.0] - 2021-12-02</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">[0.4.2] - 2021-11-01</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">[0.4.1] - 2021-11-01</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">[0.4.0] - 2021-10-19</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">[0.3.1] - 2021-10-11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">[0.3.0] - 2021-10-11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">[0.2.0] - 2021-10-09</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">[0.1.2] - 2021-10-09</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id13">[0.1.1] - 2021-10-09</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">[0.1.0] - 2021-10-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">[0.8.0] - 2024-09-06</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">[0.7.0] - 2023-08-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">[0.6.2] - 2023-01-31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">[0.6.1] - 2022-01-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">[0.6.0] - 2022-01-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">[0.5.0] - 2021-12-02</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">[0.4.2] - 2021-11-01</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">[0.4.1] - 2021-11-01</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">[0.4.0] - 2021-10-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">[0.3.1] - 2021-10-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">[0.3.0] - 2021-10-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">[0.2.0] - 2021-10-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">[0.1.2] - 2021-10-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">[0.1.1] - 2021-10-09</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">[0.1.0] - 2021-10-09</a></li>
 </ul>
 </li>
 </ul>
@@ -109,12 +110,17 @@
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <section id="id1">
-<h2>[0.7.0] - 2023-08-11<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>[0.8.0] - 2024-09-06<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Added the option to return raw data for read_slide, read_panorama, read_before_ablation_image, read_after_ablation_image functions.</p>
+<p>Fixed a bug where the reading of ablation image functions was returning an extra byte at the end of the DotNet Binary Serialization Record.</p>
+</section>
+<section id="id2">
+<h2>[0.7.0] - 2023-08-11<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>Implemented checks for overlapping raw data blocks in MCD file metadata <a class="reference external" href="https://github.com/BodenmillerGroup/readimc/issues/6">#6</a></p>
 <p>Implemented lenient extraction of corrupted imaging data  <a class="reference external" href="https://github.com/BodenmillerGroup/readimc/pull/19">#19</a></p>
 </section>
-<section id="id2">
-<h2>[0.6.2] - 2023-01-31<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h2>[0.6.2] - 2023-01-31<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>Maintenance release</p>
 <p>Made modules public</p>
 <p>Renamed <code class="docutils literal notranslate"><span class="pre">MCDFile.metadata</span></code> to <code class="docutils literal notranslate"><span class="pre">MCDFile.schema_xml</span></code></p>
@@ -123,8 +129,8 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <p>Small bugfixes and improvements</p>
 <p>Python 3.11 compatibility</p>
 </section>
-<section id="id3">
-<h2>[0.6.1] - 2022-01-28<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id4">
+<h2>[0.6.1] - 2022-01-28<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <p>Rename <code class="docutils literal notranslate"><span class="pre">MCDXMLParser</span></code> to <code class="docutils literal notranslate"><span class="pre">MCDParser</span></code></p>
 <p>Refactor and simplify <code class="docutils literal notranslate"><span class="pre">MCDParser</span></code> usage</p>
 <p>BREAKING CHANGES in <code class="docutils literal notranslate"><span class="pre">MCDFile</span></code>:</p>
@@ -133,60 +139,60 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Removed <code class="docutils literal notranslate"><span class="pre">MCDFile.metadata_xml</span></code> and <code class="docutils literal notranslate"><span class="pre">MCDFile.metadata_xmlns</span></code> (use <code class="docutils literal notranslate"><span class="pre">MCDParser</span></code> instead)</p></li>
 </ul>
 </section>
-<section id="id4">
-<h2>[0.6.0] - 2022-01-28<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="id5">
+<h2>[0.6.0] - 2022-01-28<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <p>Expose <code class="docutils literal notranslate"><span class="pre">MCDXMLParser</span></code></p>
 </section>
-<section id="id5">
-<h2>[0.5.0] - 2021-12-02<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<section id="id6">
+<h2>[0.5.0] - 2021-12-02<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <p>Refactored metadata accessors</p>
 <p>Refactored accessors for ROI points/coordinates</p>
 <p>Added link between acquisitions and associated panoramas</p>
 <p>Renamed <code class="docutils literal notranslate"><span class="pre">IMCMcdFile</span></code> and <code class="docutils literal notranslate"><span class="pre">IMCTxtFile</span></code> to <code class="docutils literal notranslate"><span class="pre">MCDFile</span></code> and <code class="docutils literal notranslate"><span class="pre">TXTFile</span></code></p>
 </section>
-<section id="id6">
-<h2>[0.4.2] - 2021-11-01<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<section id="id7">
+<h2>[0.4.2] - 2021-11-01<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <p>Use pandas for reading TXT files (better performance)</p>
 </section>
-<section id="id7">
-<h2>[0.4.1] - 2021-11-01<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<section id="id8">
+<h2>[0.4.1] - 2021-11-01<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
 <p>Added support for Python 3.10</p>
 </section>
-<section id="id8">
-<h2>[0.4.0] - 2021-10-19<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<section id="id9">
+<h2>[0.4.0] - 2021-10-19<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
 <p>Added support for older versions of the Fluidigm software</p>
 <p>Use heuristics for determining acquisition start position</p>
 <p>Add offline unit tests for data from (Damond et al., 2019)</p>
 <p>Fix a numerical bug in determining panorama image dimensions</p>
 </section>
-<section id="id9">
-<h2>[0.3.1] - 2021-10-11<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<section id="id10">
+<h2>[0.3.1] - 2021-10-11<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
 <p>Renamed <code class="docutils literal notranslate"><span class="pre">IMCMCDFile</span></code> and <code class="docutils literal notranslate"><span class="pre">IMCTXTFile</span></code> to <code class="docutils literal notranslate"><span class="pre">IMCMcdFile</span></code> and <code class="docutils literal notranslate"><span class="pre">IMCTxtFile</span></code>, respectively</p>
 </section>
-<section id="id10">
-<h2>[0.3.0] - 2021-10-11<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<section id="id11">
+<h2>[0.3.0] - 2021-10-11<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
 <p>Retain meta-information after closing a file</p>
 <p>Pre-compile regular expressions for faster parsing</p>
 <p>Separately store and expose channel metals &amp; masses; change channel name format from
 <code class="docutils literal notranslate"><span class="pre">f&quot;{metal}({mass})&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">f&quot;{metal}{mass}&quot;</span></code> for backwards compatibility with imctools</p>
 </section>
-<section id="id11">
-<h2>[0.2.0] - 2021-10-09<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<section id="id12">
+<h2>[0.2.0] - 2021-10-09<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
 <p>Use dataclasses instead of NamedTuples</p>
 <p>Renamed TXTFile and MCDFile to IMCTXTFile and IMCMCDFile, respectively</p>
 <p>IMCTXTFile and IMCMCDFile now implement a shared IMCFileBase interface</p>
 <p>IMCTXTFile and Acquisition now implement a shared AcquisitionBase interface</p>
 </section>
-<section id="id12">
-<h2>[0.1.2] - 2021-10-09<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<section id="id13">
+<h2>[0.1.2] - 2021-10-09<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
 <p>Explicit acquisition image reconstruction based on pixel indices</p>
 </section>
-<section id="id13">
-<h2>[0.1.1] - 2021-10-09<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<section id="id14">
+<h2>[0.1.1] - 2021-10-09<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
 <p>Minor documentation changes</p>
 </section>
-<section id="id14">
-<h2>[0.1.0] - 2021-10-09<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<section id="id15">
+<h2>[0.1.0] - 2021-10-09<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
 <p>Initial release
 [0.7.0]: https://github.com/BodenmillerGroup/readimc/compare/v0.6.2…v0.7.0
 [0.6.2]: https://github.com/BodenmillerGroup/readimc/compare/v0.6.1…v0.6.2
