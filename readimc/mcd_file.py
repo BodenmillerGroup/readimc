@@ -174,7 +174,9 @@ class MCDFile(IMCFile):
         img[:, ys, xs] = np.transpose(data[:, 3:])
         return img
 
-    def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
+    def read_slide(
+        self, slide: Slide, raw: bool = False
+    ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a slide image as numpy array using the ``imageio``
         package.
 
@@ -199,6 +201,7 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset == 0:
             return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -206,7 +209,7 @@ class MCDFile(IMCFile):
             )
         try:
             return self._read_image(
-                data_start_offset, data_end_offset - data_start_offset
+                data_start_offset, data_end_offset - data_start_offset, raw
             )
         except Exception as e:
             raise IOError(
@@ -214,7 +217,9 @@ class MCDFile(IMCFile):
                 f"cannot read image for slide {slide.id}"
             ) from e
 
-    def read_panorama(self, panorama: Panorama) -> np.ndarray:
+    def read_panorama(
+        self, panorama: Panorama, raw: bool = False
+    ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a panorama image as numpy array using the
         ``imageio`` package.
 
@@ -229,7 +234,10 @@ class MCDFile(IMCFile):
                 f"MCD file '{self.path.name}' corrupted: "
                 f"cannot locate image data for panorama {panorama.id}"
             ) from e
+        if data_start_offset == data_end_offset == 0:
+            return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -237,7 +245,7 @@ class MCDFile(IMCFile):
             )
         try:
             return self._read_image(
-                data_start_offset, data_end_offset - data_start_offset
+                data_start_offset, data_end_offset - data_start_offset, raw
             )
         except Exception as e:
             raise IOError(
@@ -246,8 +254,8 @@ class MCDFile(IMCFile):
             ) from e
 
     def read_before_ablation_image(
-        self, acquisition: Acquisition
-    ) -> Optional[np.ndarray]:
+        self, acquisition: Acquisition, raw: bool = False
+    ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a before-ablation image as numpy array using the
         ``imageio`` package.
 
@@ -270,6 +278,7 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset == 0:
             return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -278,7 +287,7 @@ class MCDFile(IMCFile):
             )
         try:
             return self._read_image(
-                data_start_offset, data_end_offset - data_start_offset
+                data_start_offset, data_end_offset - data_start_offset, raw
             )
         except Exception as e:
             raise IOError(
@@ -288,8 +297,8 @@ class MCDFile(IMCFile):
             ) from e
 
     def read_after_ablation_image(
-        self, acquisition: Acquisition
-    ) -> Optional[np.ndarray]:
+        self, acquisition: Acquisition, raw: bool = False
+    ) -> Union[np.ndarray, bytes, None]:
         """Reads and decodes a after-ablation image as numpy array using the
         ``imageio`` package.
 
@@ -312,6 +321,7 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset == 0:
             return None
         data_start_offset += 161
+        data_end_offset -= 1
         if data_start_offset >= data_end_offset:
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: "
@@ -320,7 +330,7 @@ class MCDFile(IMCFile):
             )
         try:
             return self._read_image(
-                data_start_offset, data_end_offset - data_start_offset
+                data_start_offset, data_end_offset - data_start_offset, raw
             )
         except Exception as e:
             raise IOError(
@@ -358,12 +368,17 @@ class MCDFile(IMCFile):
             data = mm.read(end_index + len(end_sub_encoded) - start_index)
         return data.decode(encoding=encoding)
 
-    def _read_image(self, data_offset: int, data_size: int) -> np.ndarray:
+    def _read_image(
+        self, data_offset: int, data_size: int, raw: bool = False
+    ) -> Union[np.ndarray, bytes]:
         if self._fh is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         self._fh.seek(data_offset)
         data = self._fh.read(data_size)
-        return imread(data)
+        if raw:
+            return data
+        else:
+            return imread(data)
 
     def __repr__(self) -> str:
         return str(self._path)
