@@ -170,7 +170,9 @@ class MCDFile(IMCFile):
                 f"MCD file '{self.path.name}' corrupted: "
                 "inconsistent acquisition image data size"
             )
-        img = np.zeros((num_channels, height, width), dtype=np.float32)
+        img = np.memmap(
+            'temp_mmap.dat', dtype=np.float32, mode='w+', shape=(num_channels, height, width)
+        )
         img[:, ys, xs] = np.transpose(data[:, 3:])
         return img
 
