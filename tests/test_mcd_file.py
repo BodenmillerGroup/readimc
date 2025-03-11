@@ -1,9 +1,9 @@
 from hashlib import md5
 from pathlib import Path
+from typing import List, Tuple
 
 import numpy as np
 import pytest
-from typing import List, Tuple, Union
 
 from readimc import MCDFile
 
@@ -105,8 +105,10 @@ class TestMCDFile:
         # 1. Test the standard read without channels or region
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
-        
-        img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+
+        img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition
+        )
         assert img.dtype == np.float32
         assert img.shape == (5, 60, 60)
 
@@ -144,7 +146,8 @@ class TestMCDFile:
         # 6. Test for ValueError when invalid channel indices are provided
         try:
             img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, channels=['invalid_channel']  # Invalid channel list
+                acquisition=acquisition,
+                channels=["invalid_channel"],  # Invalid channel list
             )
         except ValueError as e:
             assert "channels must be a list of integers" in str(e)
@@ -152,7 +155,7 @@ class TestMCDFile:
         # 7. Test for ValueError when an invalid region tuple is provided
         try:
             img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, region=('invalid', 'values', 'here')
+                acquisition=acquisition, region=("invalid", "values", "here")
             )
         except ValueError as e:
             assert "region must be a tuple of integers" in str(e)
@@ -170,20 +173,28 @@ class TestMCDFile:
         acquisition.metadata["DataStartOffset"] = "100"
         acquisition.metadata["DataEndOffset"] = "100"
         with pytest.warns(UserWarning, match="contains empty acquisition image data"):
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition
+            )
             assert img.shape == (5, 60, 60)
 
         # 12. Test for reading with `strict=False`, allowing recovery from issues
         acquisition.metadata["DataStartOffset"] = "100"
-        acquisition.metadata["DataEndOffset"] = "105"  # Corrupted but will try to recover
-        img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, strict=False)
+        acquisition.metadata["DataEndOffset"] = (
+            "105"  # Corrupted but will try to recover
+        )
+        img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, strict=False
+        )
         assert img.shape == (5, 60, 60)
 
         # 13. Test for IOError when invalid data offsets are provided
         acquisition.metadata["DataStartOffset"] = "200"
         acquisition.metadata["DataEndOffset"] = "100"  # Invalid offsets
         try:
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition
+            )
         except IOError as e:
             assert "invalid data offsets or byte size" in str(e)
 
