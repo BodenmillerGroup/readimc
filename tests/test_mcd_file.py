@@ -123,11 +123,11 @@ class TestMCDFile:
 
         # Invalid `channels` (not all integers)
         with pytest.raises(ValueError, match="channels must be a list of integers"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=[0, "invalid"]) # type: ignore
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=[0, "invalid"])  # type: ignore
 
         # Invalid `region` (not all integers)
         with pytest.raises(ValueError, match="region must be a tuple of integers"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50)) # type: ignore
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50))  # type: ignore
 
         # Invalid `region` values
         with pytest.raises(
@@ -138,8 +138,10 @@ class TestMCDFile:
             )
 
         # Invalid `create_temp_file` type
-        with pytest.raises(ValueError, match="create_temp_file must be a string or Path object."): 
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, create_temp_file=123) # type: ignore
+        with pytest.raises(
+            ValueError, match="create_temp_file must be a string or Path object."
+        ):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, create_temp_file=123)  # type: ignore
 
         # Missing metadata keys
         acquisition.metadata.pop("DataStartOffset", None)
@@ -150,8 +152,10 @@ class TestMCDFile:
         acquisition.metadata["DataStartOffset"] = "100"
         acquisition.metadata["DataEndOffset"] = "50"  # Invalid offset order
 
-        with pytest.raises(IOError, match="MCD file corrupted: invalid data offsets or byte size"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition) # type: ignore
+        with pytest.raises(
+            IOError, match="MCD file corrupted: invalid data offsets or byte size"
+        ):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)  # type: ignore
 
         # Restore metadata for empty acquisition test
         acquisition.metadata["DataEndOffset"] = "100"
