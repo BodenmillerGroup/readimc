@@ -104,47 +104,65 @@ class TestMCDFile:
         # Prepare data for testing
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
-        
+
         # Test for valid acquisition (as previously done)
         img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
         assert img.dtype == np.float32
         assert img.shape == (5, 60, 60)
 
         channels = [0, 2]
-        img_channels = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=channels)
+        img_channels = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, channels=channels
+        )
         assert img_channels.dtype == np.float32
         assert img_channels.shape == (2, 60, 60)
 
         region = (10, 10, 50, 50)
-        img_region = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=region)
+        img_region = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, region=region
+        )
         assert img_region.dtype == np.float32
         assert img_region.shape == (5, 40, 40)
 
         try:
             invalid_region = (0, 0, 1000, 1000)
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=invalid_region)
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=invalid_region
+            )
         except ValueError as e:
             assert "Data shape is incompatible with acquisition dimensions" in str(e)
 
         # Invalid `channels` (not all integers)
         with pytest.raises(ValueError, match="channels must be a list of integers"):
             # Pass a string in channels list, expecting ValueError
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=[0, "invalid"])
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, channels=[0, "invalid"]
+            )
 
         # Invalid `region` (not all integers)
         with pytest.raises(ValueError, match="region must be a tuple of integers"):
             # Pass a region where one of the elements is a string
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50))
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=(0, 0, "50", 50)
+            )
 
         # Invalid `region` values
-        with pytest.raises(ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"):
+        with pytest.raises(
+            ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"
+        ):
             # Pass an invalid region with incorrect values
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(10, 10, 5, 50))
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=(10, 10, 5, 50)
+            )
 
         # Invalid `create_temp_file` type
-        with pytest.raises(ValueError, match="create_temp_file must be a string or Path object."):
+        with pytest.raises(
+            ValueError, match="create_temp_file must be a string or Path object."
+        ):
             # Pass an integer instead of Path or string
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, create_temp_file=123)
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, create_temp_file=123
+            )
 
         # Missing metadata keys
         acquisition.metadata.pop("DataStartOffset", None)
@@ -155,7 +173,9 @@ class TestMCDFile:
         acquisition.metadata["DataStartOffset"] = "100"
         acquisition.metadata["DataEndOffset"] = "50"  # Invalid offset order
 
-        with pytest.raises(IOError, match="MCD file corrupted: invalid data offsets or byte size"):
+        with pytest.raises(
+            IOError, match="MCD file corrupted: invalid data offsets or byte size"
+        ):
             imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
 
         # Empty acquisition warning
