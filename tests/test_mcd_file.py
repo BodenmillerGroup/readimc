@@ -3,11 +3,6 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-import tempfile
-import os
-from unittest.mock import patch
-from warnings import warn
-from os import access, W_OK
 
 from readimc import MCDFile
 
