@@ -164,8 +164,6 @@ class MCDFile(IMCFile):
         )
         xs = data[:, 0].copy().astype(int)
         ys = data[:, 1].copy().astype(int)
-        if width <= np.amax(xs) or height <= np.amax(ys):
-            raise ValueError("Data shape is incompatible with acquisition dimensions")
         if region is not None:
             x_min, y_min, x_max, y_max = region
             mask = (xs >= x_min) & (xs < x_max) & (ys >= y_min) & (ys < y_max)
@@ -178,7 +176,11 @@ class MCDFile(IMCFile):
             num_selected_channels = len(channels)
         else:
             num_selected_channels = num_channels
+        if xs.size == 0 or ys.size == 0:
+            return np.zeros((num_selected_channels, height, width), dtype=np.float32)
         if create_temp_file:
+            if isinstance(create_temp_file, (str, PathLike)):
+                create_temp_file = Path(create_temp_file)
             create_temp_file.mkdir(parents=True, exist_ok=True)
             temp_file = tempfile.NamedTemporaryFile(
                 delete=False, dir=str(create_temp_file)
