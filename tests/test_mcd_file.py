@@ -134,7 +134,7 @@ class TestMCDFile:
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
 <<<<<<< HEAD
         acquisition.metadata["DataStartOffset"] = "100"
-        acquisition.metadata["DataEndOffset"] = "100" 
+        acquisition.metadata["DataEndOffset"] = "100"
 =======
         acquisition.metadata["DataStartOffset"] = 100
         acquisition.metadata["DataEndOffset"] = 100
