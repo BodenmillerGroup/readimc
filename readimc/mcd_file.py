@@ -95,7 +95,7 @@ class MCDFile(IMCFile):
 
     def read_acquisition(
         self,
-        acquisition: Optional[Acquisition] = None,
+        acquisition: Acquisition,
         strict: bool = True,
         channels: Optional[List[int]] = None,
         region: Optional[Tuple[int, int, int, int]] = None,
@@ -110,8 +110,7 @@ class MCDFile(IMCFile):
         :param create_temp_file: Directory to store the temporary file (if memory-mapping is used).
         :return: The acquisition data as a 32-bit float array, shape (c, y, x).
         """
-        if acquisition is None:
-            raise ValueError("acquisition")
+
         if self._fh is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
         if channels is not None and not all(isinstance(c, int) for c in channels):
@@ -128,7 +127,6 @@ class MCDFile(IMCFile):
             if not create_temp_file.exists() or not access(str(create_temp_file), W_OK):
                 raise PermissionError(f"The path {create_temp_file} is not writable.")
 
-        # Extract metadata
         try:
             data_start_offset = int(acquisition.metadata["DataStartOffset"])
             data_end_offset = int(acquisition.metadata["DataEndOffset"])
@@ -138,7 +136,6 @@ class MCDFile(IMCFile):
         except (KeyError, ValueError) as e:
             raise IOError(f"MCD file '{self.path.name}' corrupted: missing metadata") from e
 
-        # Check for corruption
         if data_start_offset >= data_end_offset or value_bytes <= 0:
             raise IOError("MCD file corrupted: invalid data offsets or byte size")
 
@@ -150,11 +147,10 @@ class MCDFile(IMCFile):
             if strict:
                 raise IOError(f"MCD file '{self.path.name}' corrupted: invalid data size")
             warn(f"MCD file '{self.path.name}' corrupted: adjusting data size")
-            data_size += 1  # Adjust for possible corruption
+            data_size += 1 
 
         num_pixels = data_size // bytes_per_pixel
 
-        # Memory-map the file to avoid loading everything into memory
         self._fh.seek(0)
           
         data = np.memmap(
@@ -165,15 +161,12 @@ class MCDFile(IMCFile):
             shape=(num_pixels, num_channels + 3),
         )
 
-        # Extract spatial coordinates
         xs = data[:, 0].copy().astype(int)
         ys = data[:, 1].copy().astype(int)
 
-        # Ensure valid image dimensions
         if width <= np.amax(xs) or height <= np.amax(ys):
             raise ValueError("Data shape is incompatible with acquisition dimensions")
 
-        # Apply region filtering if specified
         if region is not None:
             x_min, y_min, x_max, y_max = region
             mask = (xs >= x_min) & (xs < x_max) & (ys >= y_min) & (ys < y_max)
@@ -185,25 +178,22 @@ class MCDFile(IMCFile):
             width = x_max - x_min
             height = y_max - y_min
 
-        # Determine number of selected channels
         if channels is not None:
             num_selected_channels = len(channels)
         else:
-            num_selected_channels = num_channels  # Load all channels
+            num_selected_channels = num_channels 
 
         if create_temp_file:
             # Ensure the path exists
             create_temp_file.mkdir(parents=True, exist_ok=True)
             
             # Create a persistent temp file in the specified directory
-            temp_file = tempfile.NamedTemporaryFile(delete=False, dir=str(create_temp_file))  # Persistent
+            temp_file = tempfile.NamedTemporaryFile(delete=False, dir=str(create_temp_file))
             img = np.memmap(temp_file.name, dtype=np.float32, mode="w+", shape=(num_selected_channels, height, width))
             warn(f"Temporary file created: {temp_file.name}")
         else:
-            # Allocate memory for the output image
             img = np.zeros((num_selected_channels, height, width), dtype=np.float32)
 
-        # Efficiently load only the selected channels
         for i, c in enumerate(channels if channels is not None else range(num_channels)):
             img[i, ys, xs] = data[:, c + 3]  # Load one channel at a time, avoiding full copy
 
