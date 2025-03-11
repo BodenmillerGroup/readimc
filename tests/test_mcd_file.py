@@ -132,13 +132,8 @@ class TestMCDFile:
     def test_read_acquisition_empty_data(self, imc_test_data_mcd_file: MCDFile):
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
-<<<<<<< HEAD
         acquisition.metadata["DataStartOffset"] = "100"
-        acquisition.metadata["DataEndOffset"] = "100" 
-=======
-        acquisition.metadata["DataStartOffset"] = 100
-        acquisition.metadata["DataEndOffset"] = 100
->>>>>>> 027aab62f595f7177cc3882ae9a4f35a31898aa6
+        acquisition.metadata["DataEndOffset"] = "100"
         with pytest.warns(UserWarning, match="contains empty acquisition image data"):
             img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
             assert img.shape == (5, 60, 60)
