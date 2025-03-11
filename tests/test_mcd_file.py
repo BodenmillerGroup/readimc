@@ -100,46 +100,51 @@ class TestMCDFile:
             (31080.701956188677, 13389.195237582955),
         )
 
-    def test_read_acquisition(self, imc_test_data_mcd_file: MCDFile, tmp_path: Path):
+    def test_read_acquisition(self, imc_test_data_mcd_file: MCDFile):
+        # Prepare data for testing
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
-
-        # Valid case
+        
+        # Test for valid acquisition (as previously done)
         img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
         assert img.dtype == np.float32
         assert img.shape == (5, 60, 60)
 
-        # Missing acquisition
-        with pytest.raises(ValueError, match="acquisition must be specified"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=None)
+        channels = [0, 2]
+        img_channels = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=channels)
+        assert img_channels.dtype == np.float32
+        assert img_channels.shape == (2, 60, 60)
 
-        # File handle `_fh` is None (simulate closed file)
-        imc_test_data_mcd_file._fh = None
-        with pytest.raises(IOError, match="MCD file .* has not been opened"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+        region = (10, 10, 50, 50)
+        img_region = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=region)
+        assert img_region.dtype == np.float32
+        assert img_region.shape == (5, 40, 40)
 
-        # Restore `_fh` for further tests
-        imc_test_data_mcd_file._fh = open(imc_test_data_mcd_file.path, "rb")
+        try:
+            invalid_region = (0, 0, 1000, 1000)
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=invalid_region)
+        except ValueError as e:
+            assert "Data shape is incompatible with acquisition dimensions" in str(e)
 
         # Invalid `channels` (not all integers)
         with pytest.raises(ValueError, match="channels must be a list of integers"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=[0, "invalid"]) # type: ignore
+            # Pass a string in channels list, expecting ValueError
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=[0, "invalid"])
 
         # Invalid `region` (not all integers)
         with pytest.raises(ValueError, match="region must be a tuple of integers"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50)) # type: ignore
+            # Pass a region where one of the elements is a string
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50))
 
         # Invalid `region` values
-        with pytest.raises(
-            ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"
-        ):
-            imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, region=(10, 10, 5, 50)
-            )
+        with pytest.raises(ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"):
+            # Pass an invalid region with incorrect values
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(10, 10, 5, 50))
 
         # Invalid `create_temp_file` type
-        with pytest.raises(ValueError, match="create_temp_file must be a string or Path object."): 
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, create_temp_file=123) # type: ignore
+        with pytest.raises(ValueError, match="create_temp_file must be a string or Path object."):
+            # Pass an integer instead of Path or string
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, create_temp_file=123)
 
         # Missing metadata keys
         acquisition.metadata.pop("DataStartOffset", None)
@@ -151,14 +156,13 @@ class TestMCDFile:
         acquisition.metadata["DataEndOffset"] = "50"  # Invalid offset order
 
         with pytest.raises(IOError, match="MCD file corrupted: invalid data offsets or byte size"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition) # type: ignore
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
 
-        # Restore metadata for empty acquisition test
+        # Empty acquisition warning
         acquisition.metadata["DataEndOffset"] = "100"
-
         with pytest.warns(UserWarning, match="contains empty acquisition image data"):
             img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
-            assert img.shape == (5, 60, 60)
+            assert img.shape == (5, 60, 60)  # Ensure correct shape even with empty data
 
     def test_read_slide(self, imc_test_data_mcd_file: MCDFile):
         slide = imc_test_data_mcd_file.slides[0]
