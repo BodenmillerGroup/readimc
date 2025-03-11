@@ -101,7 +101,7 @@ class MCDFile(IMCFile):
         region: Optional[Tuple[int, int, int, int]] = None,
         create_temp_file: Optional[PathLike] = None,
         ) -> np.ndarray:
-        """Reads IMC acquisition data as a numpy array with optional subsetting.
+        """Reads IMC acquisition data as a numpy array with optional memory-mapping and/or subsetting.
 
         :param acquisition: The acquisition to read.
         :param strict: If True, raises errors for inconsistencies; otherwise, warns and recovers.
