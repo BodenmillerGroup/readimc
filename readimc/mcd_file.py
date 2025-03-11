@@ -1,11 +1,11 @@
 import mmap
-from os import PathLike, access, W_OK
-from typing import BinaryIO, List, Optional, Sequence, Union, Tuple
+import tempfile
+from os import W_OK, PathLike, access
 from pathlib import Path
+from typing import BinaryIO, List, Optional, Sequence, Tuple, Union
 from warnings import warn
 
 import numpy as np
-import tempfile
 from imageio.v2 import imread
 
 from .data import Acquisition, Panorama, Slide

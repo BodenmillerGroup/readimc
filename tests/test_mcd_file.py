@@ -3,8 +3,6 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-import tempfile
-import os
 
 from readimc import MCDFile
 
@@ -110,18 +108,24 @@ class TestMCDFile:
         assert img.shape == (5, 60, 60)
 
         channels = [0, 2]
-        img_channels = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=channels)
+        img_channels = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, channels=channels
+        )
         assert img_channels.dtype == np.float32
         assert img_channels.shape == (2, 60, 60)
 
         region = (10, 10, 50, 50)
-        img_region = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=region)
+        img_region = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, region=region
+        )
         assert img_region.dtype == np.float32
         assert img_region.shape == (5, 40, 40)
 
         try:
             invalid_region = (0, 0, 1000, 1000)
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=invalid_region)
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=invalid_region
+            )
         except ValueError as e:
             assert "Data shape is incompatible with acquisition dimensions" in str(e)
 
