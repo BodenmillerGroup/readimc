@@ -1,9 +1,11 @@
 import mmap
-from os import PathLike
-from typing import BinaryIO, List, Optional, Sequence, Union
+from os import PathLike, access, W_OK
+from typing import BinaryIO, List, Optional, Sequence, Union, Tuple
+from pathlib import Path
 from warnings import warn
 
 import numpy as np
+import tempfile
 from imageio.v2 import imread
 
 from .data import Acquisition, Panorama, Slide
@@ -90,53 +92,71 @@ class MCDFile(IMCFile):
             self._fh.close()
             self._fh = None
 
-    def read_acquisition(
-        self, acquisition: Optional[Acquisition] = None, strict: bool = True
-    ) -> np.ndarray:
-        """Reads IMC acquisition data as numpy array.
 
-        :param acquisition: the acquisition to read
-        :param strict: set this parameter to False to try to recover corrupted data
-        :return: the acquisition data as 32-bit floating point array,
-            shape: (c, y, x)
+    def read_acquisition(
+        self,
+        acquisition: Optional[Acquisition] = None,
+        strict: bool = True,
+        channels: Optional[List[int]] = None,
+        region: Optional[Tuple[int, int, int, int]] = None,
+        create_temp_file: Optional[PathLike] = None,
+        ) -> np.ndarray:
+        """Reads IMC acquisition data as a numpy array with optional subsetting.
+
+        :param acquisition: The acquisition to read.
+        :param strict: If True, raises errors for inconsistencies; otherwise, warns and recovers.
+        :param channels: List of channel indices to load (zero-based).
+        :param region: Tuple (x_min, y_min, x_max, y_max) to subset the image region.
+        :param create_temp_file: Directory to store the temporary file (if memory-mapping is used).
+        :return: The acquisition data as a 32-bit float array, shape (c, y, x).
         """
         if acquisition is None:
             raise ValueError("acquisition")
         if self._fh is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
+        if channels is not None and not all(isinstance(c, int) for c in channels):
+            raise ValueError("channels must be a list of integers")
+        if region is not None and not all(isinstance(c, int) for c in region):
+            raise ValueError("region must be a tuple of integers")
+        if region is not None:
+            if region[0] >= region[2] or region[1] >= region[3]:
+                raise ValueError("region must be (x_min, y_min, x_max, y_max)")
+        if create_temp_file:
+            if not isinstance(create_temp_file, (str, Path)):
+                raise ValueError("create_temp_file must be a string or Path object.")
+            create_temp_file = Path(create_temp_file)
+            if not create_temp_file.exists() or not access(str(create_temp_file), W_OK):
+                raise PermissionError(f"The path {create_temp_file} is not writable.")
+
+        # Extract metadata
         try:
             data_start_offset = int(acquisition.metadata["DataStartOffset"])
             data_end_offset = int(acquisition.metadata["DataEndOffset"])
             value_bytes = int(acquisition.metadata["ValueBytes"])
+            width = int(acquisition.metadata["MaxX"])
+            height = int(acquisition.metadata["MaxY"])
         except (KeyError, ValueError) as e:
-            raise IOError(
-                f"MCD file '{self.path.name}' corrupted: "
-                "cannot locate acquisition image data"
-            ) from e
-        if data_start_offset >= data_end_offset:
-            raise IOError(
-                f"MCD file '{self.path.name}' corrupted: "
-                "invalid acquisition image data offsets"
-            )
-        if value_bytes <= 0:
-            raise IOError("MCD file corrupted: invalid byte size")
+            raise IOError(f"MCD file '{self.path.name}' corrupted: missing metadata") from e
+
+        # Check for corruption
+        if data_start_offset >= data_end_offset or value_bytes <= 0:
+            raise IOError("MCD file corrupted: invalid data offsets or byte size")
+
         num_channels = acquisition.num_channels
-        data_size = data_end_offset - data_start_offset
         bytes_per_pixel = (num_channels + 3) * value_bytes
-        if data_size % bytes_per_pixel != 0:
-            data_size += 1
+        data_size = data_end_offset - data_start_offset
+
         if data_size % bytes_per_pixel != 0:
             if strict:
-                raise IOError(
-                    f"MCD file '{self.path.name}' corrupted: "
-                    "invalid acquisition image data size"
-                )
-            warn(
-                f"MCD file '{self.path.name}' corrupted: "
-                "invalid acquisition image data size"
-            )
+                raise IOError(f"MCD file '{self.path.name}' corrupted: invalid data size")
+            warn(f"MCD file '{self.path.name}' corrupted: adjusting data size")
+            data_size += 1  # Adjust for possible corruption
+
         num_pixels = data_size // bytes_per_pixel
+
+        # Memory-map the file to avoid loading everything into memory
         self._fh.seek(0)
+          
         data = np.memmap(
             self._fh,
             dtype=np.float32,
@@ -144,36 +164,49 @@ class MCDFile(IMCFile):
             offset=data_start_offset,
             shape=(num_pixels, num_channels + 3),
         )
-        xs = data[:, 0].astype(int)
-        ys = data[:, 1].astype(int)
-        try:
-            width = int(acquisition.metadata["MaxX"])
-            height = int(acquisition.metadata["MaxY"])
-            if width <= np.amax(xs) or height <= np.amax(ys):
-                raise ValueError(
-                    "data shape is incompatible with acquisition image dimensions"
-                )
-        except (KeyError, ValueError):
-            warn(
-                f"MCD file '{self.path.name}' corrupted: "
-                "cannot read acquisition image dimensions; recovering from data shape"
-            )
-            width = np.amax(xs) + 1
-            height = np.amax(ys) + 1
-        if width * height != data.shape[0]:
-            if strict:
-                raise IOError(
-                    f"MCD file '{self.path.name}' corrupted: "
-                    "inconsistent acquisition image data size"
-                )
-            warn(
-                f"MCD file '{self.path.name}' corrupted: "
-                "inconsistent acquisition image data size"
-            )
-        img = np.memmap(
-            'temp_mmap.dat', dtype=np.float32, mode='w+', shape=(num_channels, height, width)
-        )
-        img[:, ys, xs] = np.transpose(data[:, 3:])
+
+        # Extract spatial coordinates
+        xs = data[:, 0].copy().astype(int)
+        ys = data[:, 1].copy().astype(int)
+
+        # Ensure valid image dimensions
+        if width <= np.amax(xs) or height <= np.amax(ys):
+            raise ValueError("Data shape is incompatible with acquisition dimensions")
+
+        # Apply region filtering if specified
+        if region is not None:
+            x_min, y_min, x_max, y_max = region
+            mask = (xs >= x_min) & (xs < x_max) & (ys >= y_min) & (ys < y_max)
+
+            xs = xs[mask] - x_min  # Normalize X-coordinates
+            ys = ys[mask] - y_min  # Normalize Y-coordinates
+            data = data[mask]  # Subset data to relevant region
+
+            width = x_max - x_min
+            height = y_max - y_min
+
+        # Determine number of selected channels
+        if channels is not None:
+            num_selected_channels = len(channels)
+        else:
+            num_selected_channels = num_channels  # Load all channels
+
+        if create_temp_file:
+            # Ensure the path exists
+            create_temp_file.mkdir(parents=True, exist_ok=True)
+            
+            # Create a persistent temp file in the specified directory
+            temp_file = tempfile.NamedTemporaryFile(delete=False, dir=str(create_temp_file))  # Persistent
+            img = np.memmap(temp_file.name, dtype=np.float32, mode="w+", shape=(num_selected_channels, height, width))
+            warn(f"Temporary file created: {temp_file.name}")
+        else:
+            # Allocate memory for the output image
+            img = np.zeros((num_selected_channels, height, width), dtype=np.float32)
+
+        # Efficiently load only the selected channels
+        for i, c in enumerate(channels if channels is not None else range(num_channels)):
+            img[i, ys, xs] = data[:, c + 3]  # Load one channel at a time, avoiding full copy
+
         return img
 
     def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
