@@ -130,8 +130,12 @@ class TestMCDFile:
             imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50)) # type: ignore
 
         # Invalid `region` values
-        with pytest.raises(ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(10, 10, 5, 50))
+        with pytest.raises(
+            ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"
+        ):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=(10, 10, 5, 50)
+            )
 
         # Invalid `create_temp_file` type
         with pytest.raises(ValueError, match="create_temp_file must be a string or Path object."): 
