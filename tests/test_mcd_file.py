@@ -123,19 +123,31 @@ class TestMCDFile:
 
         # Invalid `channels` (not all integers)
         with pytest.raises(ValueError, match="channels must be a list of integers"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, channels=[0, "invalid"])
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, channels=[0, "invalid"]
+            )
 
         # Invalid `region` (not all integers)
         with pytest.raises(ValueError, match="region must be a tuple of integers"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, "50", 50))
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=(0, 0, "50", 50)
+            )
 
         # Invalid `region` values
-        with pytest.raises(ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(10, 10, 5, 50))
+        with pytest.raises(
+            ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"
+        ):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=(10, 10, 5, 50)
+            )
 
         # Invalid `create_temp_file` type
-        with pytest.raises(ValueError, match="create_temp_file must be a string or Path object."):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, create_temp_file=123)
+        with pytest.raises(
+            ValueError, match="create_temp_file must be a string or Path object."
+        ):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, create_temp_file=123
+            )
 
         # Missing metadata keys
         acquisition.metadata.pop("DataStartOffset", None)
@@ -146,7 +158,9 @@ class TestMCDFile:
         acquisition.metadata["DataStartOffset"] = "100"
         acquisition.metadata["DataEndOffset"] = "50"  # Invalid offset order
 
-        with pytest.raises(IOError, match="MCD file corrupted: invalid data offsets or byte size"):
+        with pytest.raises(
+            IOError, match="MCD file corrupted: invalid data offsets or byte size"
+        ):
             imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
 
         # Restore metadata for empty acquisition test
