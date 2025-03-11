@@ -92,7 +92,6 @@ class MCDFile(IMCFile):
             self._fh.close()
             self._fh = None
 
-
     def read_acquisition(
         self,
         acquisition: Optional[Acquisition] = None,
@@ -100,14 +99,17 @@ class MCDFile(IMCFile):
         channels: Optional[List[int]] = None,
         region: Optional[Tuple[int, int, int, int]] = None,
         create_temp_file: Optional[PathLike] = None,
-        ) -> np.ndarray:
-        """Reads IMC acquisition data as a numpy array with optional memory-mapping and/or subsetting.
+    ) -> np.ndarray:
+        """Reads IMC acquisition data as a numpy array with optional
+          memory-mapping and/or subsetting.
 
         :param acquisition: The acquisition to read.
-        :param strict: If True, raises errors for inconsistencies; otherwise, warns and recovers.
+        :param strict: If True, raises errors for inconsistencies;
+          otherwise, warns and recovers.
         :param channels: List of channel indices to load (zero-based).
         :param region: Tuple (x_min, y_min, x_max, y_max) to subset the image region.
-        :param create_temp_file: Directory to store the temporary file (if memory-mapping is used).
+        :param create_temp_file: Directory to store a temporary file
+          (if provided, memory-mapping is used).
         :return: The acquisition data as a 32-bit float array, shape (c, y, x).
         """
         if acquisition is None:
@@ -134,21 +136,25 @@ class MCDFile(IMCFile):
             width = int(acquisition.metadata["MaxX"])
             height = int(acquisition.metadata["MaxY"])
         except (KeyError, ValueError) as e:
-            raise IOError(f"MCD file '{self.path.name}' corrupted: missing metadata") from e
+            raise IOError(
+                f"MCD file '{self.path.name}' corrupted: missing metadata"
+            ) from e
         if data_start_offset > data_end_offset or value_bytes <= 0:
             raise IOError("MCD file corrupted: invalid data offsets or byte size")
-        if data_start_offset == data_end_offset: 
+        if data_start_offset == data_end_offset:
             warn(f"MCD file '{self.path.name}' contains empty acquisition image data")
         num_channels = acquisition.num_channels
         bytes_per_pixel = (num_channels + 3) * value_bytes
         data_size = data_end_offset - data_start_offset
         if data_size % bytes_per_pixel != 0:
             if strict:
-                raise IOError(f"MCD file '{self.path.name}' corrupted: invalid data size")
+                raise IOError(
+                    f"MCD file '{self.path.name}' corrupted: invalid data size"
+                )
             warn(f"MCD file '{self.path.name}' corrupted: adjusting data size")
-            data_size += 1 
+            data_size += 1
         num_pixels = data_size // bytes_per_pixel
-        self._fh.seek(0)      
+        self._fh.seek(0)
         data = np.memmap(
             self._fh,
             dtype=np.float32,
@@ -163,24 +169,33 @@ class MCDFile(IMCFile):
         if region is not None:
             x_min, y_min, x_max, y_max = region
             mask = (xs >= x_min) & (xs < x_max) & (ys >= y_min) & (ys < y_max)
-            xs = xs[mask] - x_min 
-            ys = ys[mask] - y_min 
+            xs = xs[mask] - x_min
+            ys = ys[mask] - y_min
             data = data[mask]
             width = x_max - x_min
             height = y_max - y_min
         if channels is not None:
             num_selected_channels = len(channels)
         else:
-            num_selected_channels = num_channels 
+            num_selected_channels = num_channels
         if create_temp_file:
             create_temp_file.mkdir(parents=True, exist_ok=True)
-            temp_file = tempfile.NamedTemporaryFile(delete=False, dir=str(create_temp_file))
-            img = np.memmap(temp_file.name, dtype=np.float32, mode="w+", shape=(num_selected_channels, height, width))
+            temp_file = tempfile.NamedTemporaryFile(
+                delete=False, dir=str(create_temp_file)
+            )
+            img = np.memmap(
+                temp_file.name,
+                dtype=np.float32,
+                mode="w+",
+                shape=(num_selected_channels, height, width),
+            )
             warn(f"Temporary file created: {temp_file.name}")
         else:
             img = np.zeros((num_selected_channels, height, width), dtype=np.float32)
-        for i, c in enumerate(channels if channels is not None else range(num_channels)):
-            img[i, ys, xs] = data[:, c + 3]  
+        for i, c in enumerate(
+            channels if channels is not None else range(num_channels)
+        ):
+            img[i, ys, xs] = data[:, c + 3]
         return img
 
     def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
