@@ -136,11 +136,11 @@ class TestMCDFile:
             )
 
         # Test with invalid channel names
-        #invalid_channels: Tuple[int, str, float] = [1, '2', 3.0]
-        #with pytest.raises(ValueError, match="channels must be a list of integers"):
-            #imc_test_data_mcd_file.read_acquisition(
-                #acquisition=acquisition, channels=invalid_channels
-            #)
+        # invalid_channels: Tuple[int, str, float] = [1, '2', 3.0]
+        # with pytest.raises(ValueError, match="channels must be a list of integers"):
+        # imc_test_data_mcd_file.read_acquisition(
+        # acquisition=acquisition, channels=invalid_channels
+        # )
 
         # Test for ValueError when no acquisition is provided
         with pytest.raises(ValueError, match="acquisition must be specified"):
