@@ -147,10 +147,12 @@ class TestMCDFile:
 
         # Test for ValueError when region bounds are out of order
         invalid_region_2: Tuple[int, int, int, int] = (50, 50, 10, 10)  # Invalid region
-        with pytest.raises(ValueError, 
-            match="region must be \\(x_min, y_min, x_max, y_max\\)"):
-            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, 
-            region=invalid_region_2)
+        with pytest.raises(
+            ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"
+        ):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=invalid_region_2
+            )
 
         # Test for handling empty acquisition data with a warning
         acquisition.metadata["DataStartOffset"] = "100"

@@ -104,11 +104,11 @@ class MCDFile(IMCFile):
         memory-mapping and/or subsetting.
 
         :param acquisition: The acquisition to read.
-        :param strict: If True, raises errors for inconsistencies; otherwise, 
+        :param strict: If True, raises errors for inconsistencies; otherwise,
         warns and recovers.
         :param channels: List of channel indices to load (zero-based).
         :param region: Tuple (x_min, y_min, x_max, y_max) to subset the image region.
-        :param create_temp_file: Directory to store a temporary file (if provided, 
+        :param create_temp_file: Directory to store a temporary file (if provided,
         memory-mapping is used).
         :return: The acquisition data as a 32-bit float array, shape (c, y, x).
         """
@@ -172,7 +172,7 @@ class MCDFile(IMCFile):
         if channels is not None:
             if not all(0 <= c < num_channels for c in channels):
                 raise ValueError(
-                    f"Invalid channel indices: {channels}." 
+                    f"Invalid channel indices: {channels}."
                     f"Must be between 0 and {num_channels - 1}."
                 )
 
@@ -215,7 +215,7 @@ class MCDFile(IMCFile):
         if xs.size == 0 or ys.size == 0:
             return np.zeros((num_selected_channels, height, width), dtype=np.float32)
 
-        # Now we either use a temporary file or in-memory NumPy array 
+        # Now we either use a temporary file or in-memory NumPy array
         # for storing the image data
         if create_temp_file:
             create_temp_file.mkdir(parents=True, exist_ok=True)
@@ -241,7 +241,6 @@ class MCDFile(IMCFile):
             img[i, ys, xs] = data[:, c + 3]
 
         return img
-
 
     def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
         """Reads and decodes a slide image as numpy array using the ``imageio``
