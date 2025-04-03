@@ -116,8 +116,6 @@ class MCDFile(IMCFile):
             raise ValueError("acquisition must be specified")
         if self._fh is None:
             raise IOError(f"MCD file '{self.path.name}' has not been opened")
-        #if channels is not None and not all(isinstance(c, int) for c in channels):
-            #raise ValueError("channels must be a list of integers")
         if region is not None and not all(isinstance(c, int) for c in region):
             raise ValueError("region must be a tuple of integers")
         if region is not None:
