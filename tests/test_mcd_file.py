@@ -111,7 +111,7 @@ class TestMCDFile:
         # 1. Test the standard read without channels or region
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
-        
+
         img_full: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
         assert acquisition != None
         assert img_full.dtype == np.float32

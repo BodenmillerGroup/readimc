@@ -121,7 +121,7 @@ class MCDFile(IMCFile):
         if region is not None:
             if region[0] >= region[2] or region[1] >= region[3]:
                 raise ValueError("region must be (x_min, y_min, x_max, y_max)")
-        
+
         # Handle the create_temp_file directory argument.
         if create_temp_file:
             if not isinstance(create_temp_file, (str, Path)):
@@ -129,7 +129,7 @@ class MCDFile(IMCFile):
             create_temp_file = Path(create_temp_file)
             if not create_temp_file.exists() or not access(str(create_temp_file), W_OK):
                 raise PermissionError(f"The path {create_temp_file} is not writable.")
-        
+
         # Read necessary metadata from acquisition
         try:
             data_start_offset = int(acquisition.metadata["DataStartOffset"])
@@ -141,7 +141,7 @@ class MCDFile(IMCFile):
             raise IOError(
                 f"MCD file '{self.path.name}' corrupted: missing metadata"
             ) from e
-        
+
         # Get the file size to check offset validity
         file_size = path.getsize(self.path)
         if data_start_offset > data_end_offset or value_bytes <= 0:
@@ -149,26 +149,32 @@ class MCDFile(IMCFile):
         if data_start_offset == data_end_offset:
             warn(f"MCD file '{self.path.name}' contains empty acquisition image data")
         if data_end_offset > file_size:
-            raise IOError(f"MCD file corrupted: data_end_offset ({data_end_offset}) exceeds file size ({file_size}).")
-        
+            raise IOError(
+                f"MCD file corrupted: data_end_offset ({data_end_offset}) exceeds file size ({file_size})."
+            )
+
         # Compute bytes per pixel and validate data size
         num_channels = acquisition.num_channels
         bytes_per_pixel = (num_channels + 3) * value_bytes
         data_size = data_end_offset - data_start_offset
         if data_size % bytes_per_pixel != 0:
             if strict:
-                raise IOError(f"MCD file '{self.path.name}' corrupted: invalid data size")
+                raise IOError(
+                    f"MCD file '{self.path.name}' corrupted: invalid data size"
+                )
             warn(f"MCD file '{self.path.name}' corrupted: adjusting data size")
             data_size += 1
-        
+
         # Validate channel indices
         if channels is not None:
             if not all(0 <= c < num_channels for c in channels):
-                raise ValueError(f"Invalid channel indices: {channels}. Must be between 0 and {num_channels - 1}.")
-        
+                raise ValueError(
+                    f"Invalid channel indices: {channels}. Must be between 0 and {num_channels - 1}."
+                )
+
         # Calculate number of pixels based on the data size
         num_pixels = data_size // bytes_per_pixel
-        
+
         # Memory-mapping the data from the file
         self._fh.seek(0)
         data = np.memmap(
@@ -178,7 +184,7 @@ class MCDFile(IMCFile):
             offset=data_start_offset,
             shape=(num_pixels, num_channels + 3),
         )
-        
+
         # Extract X and Y coordinates for each pixel
         xs = data[:, 0].copy().astype(int)
         ys = data[:, 1].copy().astype(int)
@@ -204,12 +210,14 @@ class MCDFile(IMCFile):
         # Handle empty data case
         if xs.size == 0 or ys.size == 0:
             return np.zeros((num_selected_channels, height, width), dtype=np.float32)
-        
+
         # Now we either use a temporary file or in-memory NumPy array for storing the image data
         if create_temp_file:
             create_temp_file.mkdir(parents=True, exist_ok=True)
-            temp_file = tempfile.NamedTemporaryFile(delete=False, dir=str(create_temp_file))
-            
+            temp_file = tempfile.NamedTemporaryFile(
+                delete=False, dir=str(create_temp_file)
+            )
+
             # Memory-map the temporary file
             img = np.memmap(
                 temp_file.name,
@@ -222,12 +230,13 @@ class MCDFile(IMCFile):
             img = np.zeros((num_selected_channels, height, width), dtype=np.float32)
 
         # Fill the image array with the data from the memory-mapped file
-        for i, c in enumerate(channels if channels is not None else range(num_channels)):
+        for i, c in enumerate(
+            channels if channels is not None else range(num_channels)
+        ):
             img[i, ys, xs] = data[:, c + 3]
 
         return img
 
-    
     '''def read_acquisition(
         self,
         acquisition: Optional[Acquisition] = None,
@@ -345,6 +354,7 @@ class MCDFile(IMCFile):
             img[i, ys, xs] = data[:, c + 3]
         return img
 '''
+
     def read_slide(self, slide: Slide) -> Optional[np.ndarray]:
         """Reads and decodes a slide image as numpy array using the ``imageio``
         package.
