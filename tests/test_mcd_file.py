@@ -138,7 +138,7 @@ class TestMCDFile:
         # Test with invalid channel names
         with pytest.raises(ValueError, match="channels must be a list of integers"):
             imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, channels=[1, '2', 3.0]
+                acquisition=acquisition, channels=[1, "2", 3.0]
             )
 
         # Test for ValueError when no acquisition is provided
