@@ -98,7 +98,7 @@ class MCDFile(IMCFile):
         strict: bool = True,
         channels: Optional[List[int]] = None,
         region: Optional[Tuple[int, int, int, int]] = None,
-        create_temp_file: Optional[PathLike] = None,
+        create_temp_file: Optional[Path] = None,
     ) -> np.ndarray:
         """Reads IMC acquisition data as a numpy array with optional
         memory-mapping and/or subsetting.
