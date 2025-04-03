@@ -3,6 +3,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+import shutil
+import tempfile
 from typing import List, Tuple, Union
 
 from readimc import MCDFile
@@ -106,9 +108,10 @@ class TestMCDFile:
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
         
-        img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
-        assert img.dtype == np.float32
-        assert img.shape == (5, 60, 60)
+        img_full: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+        assert acquisition != None
+        assert img_full.dtype == np.float32
+        assert img_full.shape == (5, 60, 60)
 
         # 2. Test with specified channels
         channels: List[int] = [0, 2]
@@ -127,65 +130,64 @@ class TestMCDFile:
         assert img_region.shape == (5, 40, 40)
 
         # 4. Test with invalid region
-        try:
-            invalid_region: Tuple[int, int, int, int] = (0, 0, 1000, 1000)
-            imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, region=invalid_region
-            )
-        except ValueError as e:
-            assert "Data shape is incompatible with acquisition dimensions" in str(e)
+        invalid_region_1: Tuple[int, int, int, int] = (0, 0, 1000, 1000)
+        with pytest.raises(ValueError, match="Region is larger than the image"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=invalid_region_1)
 
         # 5. Test for ValueError when no acquisition is provided
-        try:
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=None)
-        except ValueError as e:
-            assert "acquisition must be specified" in str(e)
+        with pytest.raises(ValueError, match="acquisition must be specified"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=None)
 
         # 6. Test for ValueError when invalid channel indices are provided
-        try:
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, channels=['invalid_channel']  # Invalid channel list
-            )
-        except ValueError as e:
-            assert "channels must be a list of integers" in str(e)
+        with pytest.raises(ValueError, match="Invalid channel indices"):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, channels=[999]  # Out-of-bounds index
+        )
 
         # 7. Test for ValueError when an invalid region tuple is provided
-        try:
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, region=('invalid', 'values', 'here')
-            )
-        except ValueError as e:
-            assert "region must be a tuple of integers" in str(e)
+        with pytest.raises(ValueError, match="region must be a tuple of integers"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=(0, 0, 10, "invalid"))  # Type mismatch
 
         # 8. Test for ValueError when region bounds are out of order
-        invalid_region: Tuple[int, int, int, int] = (50, 50, 10, 10)  # Invalid region
-        try:
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(
-                acquisition=acquisition, region=invalid_region
-            )
-        except ValueError as e:
-            assert "region must be (x_min, y_min, x_max, y_max)" in str(e)
+        invalid_region_2: Tuple[int, int, int, int] = (50, 50, 10, 10)  # Invalid region
+        with pytest.raises(ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, region=invalid_region_2)
 
         # 10. Test for handling empty acquisition data with a warning
         acquisition.metadata["DataStartOffset"] = "100"
         acquisition.metadata["DataEndOffset"] = "100"
         with pytest.warns(UserWarning, match="contains empty acquisition image data"):
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
-            assert img.shape == (5, 60, 60)
+            img_empty: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+            assert img_empty.shape == (5, 60, 60)
 
         # 12. Test for reading with `strict=False`, allowing recovery from issues
         acquisition.metadata["DataStartOffset"] = "100"
         acquisition.metadata["DataEndOffset"] = "105"  # Corrupted but will try to recover
-        img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, strict=False)
-        assert img.shape == (5, 60, 60)
+        img_recover: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition, strict=False)
+        assert img_recover.shape == (5, 60, 60)
 
         # 13. Test for IOError when invalid data offsets are provided
         acquisition.metadata["DataStartOffset"] = "200"
         acquisition.metadata["DataEndOffset"] = "100"  # Invalid offsets
+        with pytest.raises(IOError, match="invalid data offsets or byte size"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+
+    '''def test_memory_mapping_with_temp_file(self, imc_test_data_mcd_file: MCDFile):
+        slide = imc_test_data_mcd_file.slides[0]
+        acquisition = next(a for a in slide.acquisitions if a.id == 1)
+        # Ensure a writable temp directory
+        temp_dir = Path(tempfile.mkdtemp())  # Create a temporary writable directory
         try:
-            img: np.ndarray = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
-        except IOError as e:
-            assert "invalid data offsets or byte size" in str(e)
+            img_memmap: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, create_temp_file=temp_dir
+            )
+
+            # Assertions
+            assert img_memmap.dtype == np.float32
+            assert img_memmap.shape == (5, 60, 60)
+            assert not img_memmap.flags["WRITEABLE"]  # Memory-mapped arrays are read-only
+        finally:
+            shutil.rmtree(temp_dir)  # Cleanup the temp directory after the test'''
 
     def test_read_acquisition_empty_data(self, imc_test_data_mcd_file: MCDFile):
         slide = imc_test_data_mcd_file.slides[0]
