@@ -1,5 +1,6 @@
 from hashlib import md5
 from pathlib import Path
+from typing import List, Tuple
 
 import numpy as np
 import pytest
@@ -100,12 +101,92 @@ class TestMCDFile:
             (31080.701956188677, 13389.195237582955),
         )
 
-    def test_read_acquisition(self, imc_test_data_mcd_file: MCDFile):
+    def test_read_acquisition(self, imc_test_data_mcd_file: MCDFile) -> None:
+        # Test the standard read without channels or region
         slide = imc_test_data_mcd_file.slides[0]
         acquisition = next(a for a in slide.acquisitions if a.id == 1)
-        img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
-        assert img.dtype == np.float32
-        assert img.shape == (5, 60, 60)
+
+        img_full: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition
+        )
+        assert img_full.dtype == np.float32
+        assert img_full.shape == (5, 60, 60)
+
+        # Test with specified channels
+        channels: List[int] = [0, 2]
+        img_channels: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, channels=channels
+        )
+        assert img_channels.dtype == np.float32
+        assert img_channels.shape == (2, 60, 60)
+
+        # Test with specified region
+        region: Tuple[int, int, int, int] = (10, 10, 50, 50)
+        img_region: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, region=region
+        )
+        assert img_region.dtype == np.float32
+        assert img_region.shape == (5, 40, 40)
+
+        # Test with invalid region
+        invalid_region_1: Tuple[int, int, int, int] = (0, 0, 1000, 1000)
+        with pytest.raises(ValueError, match="Region is larger than the image"):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=invalid_region_1
+            )
+
+        # Test for ValueError when no acquisition is provided
+        with pytest.raises(ValueError, match="acquisition must be specified"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=None)
+
+        # Test for ValueError when invalid channel indices are provided
+        with pytest.raises(ValueError, match="Invalid channel indices"):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, channels=[999]  # Out-of-bounds index
+            )
+
+        # Test for ValueError when region bounds are out of order
+        invalid_region_2: Tuple[int, int, int, int] = (50, 50, 10, 10)  # Invalid region
+        with pytest.raises(
+            ValueError, match="region must be \\(x_min, y_min, x_max, y_max\\)"
+        ):
+            imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition, region=invalid_region_2
+            )
+
+        # Test for handling empty acquisition data with a warning
+        acquisition.metadata["DataStartOffset"] = "100"
+        acquisition.metadata["DataEndOffset"] = "100"
+        with pytest.warns(UserWarning, match="contains empty acquisition image data"):
+            img_empty: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+                acquisition=acquisition
+            )
+            assert img_empty.shape == (5, 60, 60)
+
+        # Test for reading with `strict=False`, allowing recovery from issues
+        acquisition.metadata["DataStartOffset"] = "100"
+        acquisition.metadata["DataEndOffset"] = (
+            "105"  # Corrupted but will try to recover
+        )
+        img_recover: np.ndarray = imc_test_data_mcd_file.read_acquisition(
+            acquisition=acquisition, strict=False
+        )
+        assert img_recover.shape == (5, 60, 60)
+
+        # Test for IOError when invalid data offsets are provided
+        acquisition.metadata["DataStartOffset"] = "200"
+        acquisition.metadata["DataEndOffset"] = "100"  # Invalid offsets
+        with pytest.raises(IOError, match="invalid data offsets or byte size"):
+            imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+
+    def test_read_acquisition_empty_data(self, imc_test_data_mcd_file: MCDFile):
+        slide = imc_test_data_mcd_file.slides[0]
+        acquisition = next(a for a in slide.acquisitions if a.id == 1)
+        acquisition.metadata["DataStartOffset"] = "100"
+        acquisition.metadata["DataEndOffset"] = "100"
+        with pytest.warns(UserWarning, match="contains empty acquisition image data"):
+            img = imc_test_data_mcd_file.read_acquisition(acquisition=acquisition)
+            assert img.shape == (5, 60, 60)
 
     def test_read_slide(self, imc_test_data_mcd_file: MCDFile):
         slide = imc_test_data_mcd_file.slides[0]
