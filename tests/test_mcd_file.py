@@ -192,6 +192,7 @@ class TestMCDFile:
         slide = imc_test_data_mcd_file.slides[0]
         img = imc_test_data_mcd_file.read_slide(slide)
         assert img is not None
+        assert isinstance(img, np.ndarray)
         assert img.dtype == np.uint8
         assert img.shape == (669, 2002, 4)
 
@@ -199,6 +200,7 @@ class TestMCDFile:
         slide = imc_test_data_mcd_file.slides[0]
         panorama = next(p for p in slide.panoramas if p.id == 1)
         img = imc_test_data_mcd_file.read_panorama(panorama)
+        assert isinstance(img, np.ndarray)
         assert img.dtype == np.uint8
         assert img.shape == (162, 193, 4)
 
