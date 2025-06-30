@@ -9,21 +9,13 @@ readimc
 
 
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 1
-
-   /autoapi/readimc/data/index
-
-
 Submodules
 ----------
 
 .. toctree::
    :maxdepth: 1
 
+   /autoapi/readimc/data/index
    /autoapi/readimc/imc_file/index
    /autoapi/readimc/mcd_file/index
    /autoapi/readimc/mcd_parser/index
@@ -63,6 +55,7 @@ Package Contents
    .. py:property:: path
       :type: pathlib.Path
 
+
       Path to the IMC file
 
 
@@ -92,6 +85,7 @@ Package Contents
    .. py:property:: schema_xml
       :type: str
 
+
       Full metadata in proprietary XML format
 
 
@@ -99,12 +93,14 @@ Package Contents
    .. py:property:: metadata
       :type: str
 
+
       Legacy accessor for `schema_xml`
 
 
 
    .. py:property:: slides
       :type: Sequence[readimc.data.Slide]
+
 
       Metadata on slides contained in this IMC .mcd file
 
@@ -138,14 +134,19 @@ Package Contents
 
 
 
-   .. py:method:: read_acquisition(acquisition = None, strict = True)
+   .. py:method:: read_acquisition(acquisition = None, strict = True, channels = None, region = None, create_temp_file = None)
 
-      Reads IMC acquisition data as numpy array.
+      Reads IMC acquisition data as a numpy array with optional
+      memory-mapping and/or subsetting.
 
-      :param acquisition: the acquisition to read
-      :param strict: set this parameter to False to try to recover corrupted data
-      :return: the acquisition data as 32-bit floating point array,
-          shape: (c, y, x)
+      :param acquisition: The acquisition to read.
+      :param strict: If True, raises errors for inconsistencies; otherwise,
+      warns and recovers.
+      :param channels: List of channel indices to load (zero-based).
+      :param region: Tuple (x_min, y_min, x_max, y_max) to subset the image region.
+      :param create_temp_file: Directory to store a temporary file (if provided,
+      memory-mapping is used).
+      :return: The acquisition data as a 32-bit float array, shape (c, y, x).
 
 
 
@@ -203,6 +204,7 @@ Package Contents
    .. py:property:: path
       :type: pathlib.Path
 
+
       Path to the IMC file
 
 
@@ -214,11 +216,9 @@ Package Contents
    :param schema_xml: IMC .mcd file metadata in proprietary XML format
 
 
-   .. py:attribute:: m
-
-
    .. py:property:: schema_xml
       :type: str
+
 
       Full IMC .mcd file metadata in proprietary XML format
 
@@ -227,12 +227,14 @@ Package Contents
    .. py:property:: schema_xml_elem
       :type: xml.etree.ElementTree.Element
 
+
       Full IMC .mcd file metadata as Python ElementTree element
 
 
 
    .. py:property:: schema_xml_xmlns
       :type: Optional[str]
+
 
       Value of the metadata `xmlns` XML namespace attribute
 
@@ -241,6 +243,7 @@ Package Contents
    .. py:property:: metadata
       :type: str
 
+
       Legacy accessor for `schema_xml`
 
 
@@ -248,12 +251,14 @@ Package Contents
    .. py:property:: metadata_elem
       :type: xml.etree.ElementTree.Element
 
+
       Legacy accessor for `schema_xml_elem`
 
 
 
    .. py:property:: metadata_xmlns
       :type: Optional[str]
+
 
       Legacy accessor for `schema_xml_xmlns`
 
@@ -286,12 +291,14 @@ Package Contents
    .. py:property:: num_channels
       :type: int
 
+
       Number of channels
 
 
 
    .. py:property:: channel_metals
       :type: Sequence[str]
+
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
@@ -300,12 +307,14 @@ Package Contents
    .. py:property:: channel_masses
       :type: Sequence[int]
 
+
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
 
    .. py:property:: channel_labels
       :type: Sequence[str]
+
 
       Channel labels (user-provided)
 
@@ -354,12 +363,14 @@ Package Contents
    .. py:property:: path
       :type: pathlib.Path
 
+
       Path to the IMC file
 
 
 
    .. py:property:: channel_names
       :type: Sequence[str]
+
 
       Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
       ``["Ag107", "Ir191"]``)

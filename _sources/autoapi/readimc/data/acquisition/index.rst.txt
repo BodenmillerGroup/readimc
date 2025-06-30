@@ -29,6 +29,7 @@ Module Contents
 
       :abstractmethod:
 
+
       Number of channels
 
 
@@ -37,6 +38,7 @@ Module Contents
       :type: Sequence[str]
 
       :abstractmethod:
+
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
@@ -47,6 +49,7 @@ Module Contents
 
       :abstractmethod:
 
+
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
@@ -56,12 +59,14 @@ Module Contents
 
       :abstractmethod:
 
+
       Channel labels (user-provided)
 
 
 
    .. py:property:: channel_names
       :type: Sequence[str]
+
 
       Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
       ``["Ag107", "Ir191"]``)
@@ -116,12 +121,14 @@ Module Contents
    .. py:property:: description
       :type: Optional[str]
 
+
       User-provided acquisition description
 
 
 
    .. py:property:: width_px
       :type: Optional[int]
+
 
       Acquisition width, in pixels
 
@@ -130,12 +137,14 @@ Module Contents
    .. py:property:: height_px
       :type: Optional[int]
 
+
       Acquisition height, in pixels
 
 
 
    .. py:property:: pixel_size_x_um
       :type: Optional[float]
+
 
       Width of a single pixel, in micrometers
 
@@ -144,12 +153,14 @@ Module Contents
    .. py:property:: pixel_size_y_um
       :type: Optional[float]
 
+
       Height of a single pixel, in micrometers
 
 
 
    .. py:property:: width_um
       :type: Optional[float]
+
 
       Acquisition width, in micrometers
 
@@ -158,12 +169,14 @@ Module Contents
    .. py:property:: height_um
       :type: Optional[float]
 
+
       Acquisition height, in micrometers
 
 
 
    .. py:property:: num_channels
       :type: int
+
 
       Number of channels
 
@@ -172,12 +185,14 @@ Module Contents
    .. py:property:: channel_metals
       :type: Sequence[str]
 
+
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
 
 
    .. py:property:: channel_masses
       :type: Sequence[int]
+
 
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
@@ -186,12 +201,14 @@ Module Contents
    .. py:property:: channel_labels
       :type: Sequence[str]
 
+
       Channel labels (user-provided)
 
 
 
    .. py:property:: roi_coords_um
       :type: Optional[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]]
+
 
       ROI stage coordinates, in micrometers
 
@@ -201,6 +218,7 @@ Module Contents
 
    .. py:property:: channel_names
       :type: Sequence[str]
+
 
       Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
       ``["Ag107", "Ir191"]``)

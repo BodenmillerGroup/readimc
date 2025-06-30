@@ -28,6 +28,7 @@ Module Contents
    .. py:property:: schema_xml
       :type: str
 
+
       Full metadata in proprietary XML format
 
 
@@ -35,12 +36,14 @@ Module Contents
    .. py:property:: metadata
       :type: str
 
+
       Legacy accessor for `schema_xml`
 
 
 
    .. py:property:: slides
       :type: Sequence[readimc.data.Slide]
+
 
       Metadata on slides contained in this IMC .mcd file
 
@@ -74,14 +77,19 @@ Module Contents
 
 
 
-   .. py:method:: read_acquisition(acquisition = None, strict = True)
+   .. py:method:: read_acquisition(acquisition = None, strict = True, channels = None, region = None, create_temp_file = None)
 
-      Reads IMC acquisition data as numpy array.
+      Reads IMC acquisition data as a numpy array with optional
+      memory-mapping and/or subsetting.
 
-      :param acquisition: the acquisition to read
-      :param strict: set this parameter to False to try to recover corrupted data
-      :return: the acquisition data as 32-bit floating point array,
-          shape: (c, y, x)
+      :param acquisition: The acquisition to read.
+      :param strict: If True, raises errors for inconsistencies; otherwise,
+      warns and recovers.
+      :param channels: List of channel indices to load (zero-based).
+      :param region: Tuple (x_min, y_min, x_max, y_max) to subset the image region.
+      :param create_temp_file: Directory to store a temporary file (if provided,
+      memory-mapping is used).
+      :return: The acquisition data as a 32-bit float array, shape (c, y, x).
 
 
 
@@ -138,6 +146,7 @@ Module Contents
 
    .. py:property:: path
       :type: pathlib.Path
+
 
       Path to the IMC file
 

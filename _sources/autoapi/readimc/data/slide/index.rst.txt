@@ -36,6 +36,8 @@ Module Contents
 
    .. py:attribute:: panoramas
       :type:  List[readimc.data.panorama.Panorama]
+      :value: []
+
 
       List of panoramas associated with this slide
 
@@ -43,6 +45,8 @@ Module Contents
 
    .. py:attribute:: acquisitions
       :type:  List[readimc.data.acquisition.Acquisition]
+      :value: []
+
 
       List of acquisitions associated with this slide
 
@@ -51,6 +55,7 @@ Module Contents
    .. py:property:: description
       :type: Optional[str]
 
+
       User-provided slide description
 
 
@@ -58,12 +63,14 @@ Module Contents
    .. py:property:: width_um
       :type: Optional[float]
 
+
       Slide width, in micrometers
 
 
 
    .. py:property:: height_um
       :type: Optional[float]
+
 
       Slide height, in micrometers
 

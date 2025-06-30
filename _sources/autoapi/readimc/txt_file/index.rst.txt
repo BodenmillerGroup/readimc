@@ -28,12 +28,14 @@ Module Contents
    .. py:property:: num_channels
       :type: int
 
+
       Number of channels
 
 
 
    .. py:property:: channel_metals
       :type: Sequence[str]
+
 
       Symbols of metal isotopes (e.g. ``["Ag", "Ir"]``)
 
@@ -42,12 +44,14 @@ Module Contents
    .. py:property:: channel_masses
       :type: Sequence[int]
 
+
       Atomic masses of metal isotopes (e.g. ``[107, 191]``)
 
 
 
    .. py:property:: channel_labels
       :type: Sequence[str]
+
 
       Channel labels (user-provided)
 
@@ -96,12 +100,14 @@ Module Contents
    .. py:property:: path
       :type: pathlib.Path
 
+
       Path to the IMC file
 
 
 
    .. py:property:: channel_names
       :type: Sequence[str]
+
 
       Unique channel names in the format ``f"{metal}{mass}"`` (e.g.
       ``["Ag107", "Ir191"]``)

@@ -26,6 +26,7 @@ Module Contents
    .. py:property:: path
       :type: pathlib.Path
 
+
       Path to the IMC file
 
 
