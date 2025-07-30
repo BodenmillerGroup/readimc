@@ -12,4 +12,3 @@ select = ["E", "F", "I"]
 [tool.setuptools_scm]
 write_to = "readimc/_version.py"
 local_scheme = "no-local-version"
-
