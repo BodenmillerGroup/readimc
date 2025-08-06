@@ -227,19 +227,23 @@ acquisition. If available, these before/after-ablation images can be read as fol
 </section>
 <section id="reading-large-acquisitions">
 <h3>Reading large acquisitions<a class="headerlink" href="#reading-large-acquisitions" title="Link to this heading"></a></h3>
-<p>IMC files can contain large acquisition files nowadays. Therefore, acquisition can be
-read by:</p>
+<p>IMC files can contain very large acquisition files.
+Loading these fully into RAM can exceed some systems capabilities.
+As a workaround, acquisitions can be read by:</p>
 <ol class="arabic simple">
 <li><p>creating a temp file and using memory-mapping:</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">(</span><span class="n">acquisition</span><span class="p">,</span> <span class="n">create_temp_file</span><span class="o">=</span><span class="n">YOURPATH</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">(</span><span class="n">acquisition</span><span class="p">,</span> <span class="n">create_temp_file</span><span class="o">=</span><span class="n">YOUR_PATH</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>WARNING: the temp file needs to be manually removed from YOURPATH.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WARNING: The temp file needs to be manually removed from YOUR_PATH.</p>
+</div>
 <ol class="arabic simple" start="2">
-<li><p>slicing the image to some specific region and/or channels:</p></li>
+<li><p>slicing the image to some specific channels and/or region:</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>

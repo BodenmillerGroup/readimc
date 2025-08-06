@@ -137,18 +137,23 @@ with MCDFile("/path/to/file.mcd") as f:
 
 ### Reading large acquisitions
 
-IMC files can contain large acquisition files nowadays. Therefore, acquisition can be
-read by:
+IMC files can contain very large acquisition files.
+Loading these fully into RAM can exceed some systems capabilities.
+As a workaround, acquisitions can be read by:
+
 1) creating a temp file and using memory-mapping:
 
 ```python
 with MCDFile("/path/to/file.mcd") as f:
     acquisition = f.slides[0].acquisitions[0]  # first acquisition of first slide
-    img = f.read_acquisition(acquisition, create_temp_file=YOURPATH)
+    img = f.read_acquisition(acquisition, create_temp_file=YOUR_PATH)
 ```
-WARNING: the temp file needs to be manually removed from YOURPATH.
 
-2) slicing the image to some specific region and/or channels:
+```{note}
+WARNING: The temp file needs to be manually removed from YOUR_PATH.
+```
+
+2) slicing the image to some specific channels and/or region:
 
 ```python
 with MCDFile("/path/to/file.mcd") as f:
