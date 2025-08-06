@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.2] - 2025-08-06
+
+Added functionality and tests to subset to specific channels by indexing [#36] (https://github.com/BodenmillerGroup/readimc/issues/36)
+
+Added functionality and tests to subset to specific image region [#36] (https://github.com/BodenmillerGroup/readimc/issues/36)
+
+Added functionality to load data into memory-mapped array, that is stored under a path provided by the user (so it can manually be deleted afterwards) [#36] (https://github.com/BodenmillerGroup/readimc/issues/36)
+
+Changed data_start_offset & data_end_offset conditions such that empty acquisitions are allowed (but warning printed) [#37] (https://github.com/BodenmillerGroup/readimc/issues/37)
+
 ## [0.8.0] - 2024-09-06
 
 Added the option to return raw data for read_slide, read_panorama, read_before_ablation_image, read_after_ablation_image functions.
