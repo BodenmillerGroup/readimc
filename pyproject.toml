@@ -2,6 +2,13 @@
 requires = ["setuptools>=64", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "readimc"
+description = "Python package for reading IMC files"
+readme = "README.md"
+requires-python = ">=3.8"
+dynamic = ["version"]
+
 [tool.pytest.ini_options]
 addopts = ["--cov=readimc", "--cov-report=xml:coverage.xml"]
 testpaths = ["tests"]
@@ -12,3 +19,5 @@ select = ["E", "F", "I"]
 [tool.setuptools_scm]
 write_to = "readimc/_version.py"
 local_scheme = "no-local-version"
+
+
