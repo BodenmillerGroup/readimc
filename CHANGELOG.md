@@ -13,7 +13,7 @@ Added functionality and tests to subset to specific image region [#36](https://g
 
 Added functionality to load data into memory-mapped array, that is stored under a path provided by the user (so it can manually be deleted afterwards) [#36](https://github.com/BodenmillerGroup/readimc/issues/36)
 
-Changed data_start_offset & data_end_offset conditions such that empty acquisitions are allowed (but warning printed) [#37] (https://github.com/BodenmillerGroup/readimc/issues/37)
+Changed data_start_offset & data_end_offset conditions such that empty acquisitions are allowed (but warning printed) [#37](https://github.com/BodenmillerGroup/readimc/issues/37)
 
 ## [0.8.0] - 2024-09-06
 
