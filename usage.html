@@ -57,6 +57,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#reading-panorama-images">Reading panorama images</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Reading IMC acquisitions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reading-before-after-ablation-images">Reading before/after-ablation images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-large-acquisitions">Reading large acquisitions</a></li>
 </ul>
 </li>
 </ul>
@@ -221,6 +222,28 @@ acquisition. If available, these before/after-ablation images can be read as fol
     <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
     <span class="n">before_ablation_img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_before_ablation_image</span><span class="p">(</span><span class="n">acquisition</span><span class="p">)</span>  <span class="c1"># array or None</span>
     <span class="n">after_ablation_img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_after_ablation_image</span><span class="p">(</span><span class="n">acquisition</span><span class="p">)</span>  <span class="c1"># array or None</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-large-acquisitions">
+<h3>Reading large acquisitions<a class="headerlink" href="#reading-large-acquisitions" title="Link to this heading"></a></h3>
+<p>IMC files can contain large acquisition files nowadays. Therefore, acquisition can be
+read by:</p>
+<ol class="arabic simple">
+<li><p>creating a temp file and using memory-mapping:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">(</span><span class="n">acquisition</span><span class="p">,</span> <span class="n">create_temp_file</span><span class="o">=</span><span class="n">YOURPATH</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>WARNING: the temp file needs to be manually removed from YOURPATH.</p>
+<ol class="arabic simple" start="2">
+<li><p>slicing the image to some specific region and/or channels:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MCDFile</span><span class="p">(</span><span class="s2">&quot;/path/to/file.mcd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">acquisition</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">acquisitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first acquisition of first slide</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read_acquisition</span><span class="p">(</span><span class="n">acquisition</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">region</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>

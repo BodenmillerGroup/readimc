@@ -134,3 +134,24 @@ with MCDFile("/path/to/file.mcd") as f:
     before_ablation_img = f.read_before_ablation_image(acquisition)  # array or None
     after_ablation_img = f.read_after_ablation_image(acquisition)  # array or None
 ```
+
+### Reading large acquisitions
+
+IMC files can contain large acquisition files nowadays. Therefore, acquisition can be 
+read by:
+1) creating a temp file and using memory-mapping:
+
+```python
+with MCDFile("/path/to/file.mcd") as f:
+    acquisition = f.slides[0].acquisitions[0]  # first acquisition of first slide
+    img = f.read_acquisition(acquisition, create_temp_file=YOURPATH)
+```
+WARNING: the temp file needs to be manually removed from YOURPATH.
+
+2) slicing the image to some specific region and/or channels:
+
+```python
+with MCDFile("/path/to/file.mcd") as f:
+    acquisition = f.slides[0].acquisitions[0]  # first acquisition of first slide
+    img = f.read_acquisition(acquisition, channel=[0,1,4], region=(200,200,600,600))
+```
