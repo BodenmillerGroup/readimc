@@ -137,7 +137,7 @@ with MCDFile("/path/to/file.mcd") as f:
 
 ### Reading large acquisitions
 
-IMC files can contain large acquisition files nowadays. Therefore, acquisition can be 
+IMC files can contain large acquisition files nowadays. Therefore, acquisition can be
 read by:
 1) creating a temp file and using memory-mapping:
 
