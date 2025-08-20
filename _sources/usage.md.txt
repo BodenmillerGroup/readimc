@@ -158,5 +158,5 @@ WARNING: The temp file needs to be manually removed from YOUR_PATH.
 ```python
 with MCDFile("/path/to/file.mcd") as f:
     acquisition = f.slides[0].acquisitions[0]  # first acquisition of first slide
-    img = f.read_acquisition(acquisition, channel=[0,1,4], region=(200,200,600,600))
+    img = f.read_acquisition(acquisition, channels=[0,1,4], region=(200,200,600,600))
 ```
